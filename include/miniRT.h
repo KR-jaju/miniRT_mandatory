@@ -1,7 +1,7 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-# include "libmath.h"
+# include "geometry.h"
 
 typedef struct s_face {
 	int			idx_vertex[3];
