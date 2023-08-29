@@ -20,6 +20,11 @@ LIBMLX_PATH		=	./lib/libmlx
 LDFLAGS			+=	-L./${LIBMLX_PATH}
 LDLIBS			+=	-lmlx
 
+# libmlx
+LIBMLX_PATH		=	./lib/libmath
+LDFLAGS			+=	-L./${LIBMATH_PATH}
+LDLIBS			+=	-lmath
+
 # ****************************** SOURCE FILES ******************************** #
 
 SRCS 			=	$(wildcard src/*.c)

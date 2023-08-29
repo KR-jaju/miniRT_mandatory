@@ -1,5 +1,5 @@
-#ifndef GEOMETRY_H
-#define GEOMETRY_H
+#ifndef LIBMATH_H
+#define LIBMATH_H
 
 # include <math.h>
 # define EPSILON 1e-8

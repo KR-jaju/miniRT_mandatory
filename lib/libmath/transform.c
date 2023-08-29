@@ -1,4 +1,4 @@
-#include "geometry.h"
+#include "libmath.h"
 
 t_vec3	mat4_mul_vec3(t_mat4 m, t_vec3 v)
 {
