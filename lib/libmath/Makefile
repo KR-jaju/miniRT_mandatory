@@ -2,11 +2,11 @@ NAME			=	libmath.a
 
 # **************************** COMPILER SETTINGS ***************************** #
 
-CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -MMD -MP
-CPPFLAGS		=	-I../include
-LDFLAGS			=
-LDLIBS			=	
+CC				= 	cc
+CFLAGS			= 	-Wall -Wextra -Werror
+RM				= 	rm -f
+AR				= 	ar
+ARFLAGS			= 	-scr
 
 # ****************************** SOURCE FILES ******************************** #
 
@@ -20,7 +20,7 @@ all:
 	make $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
+	$(AR) $(ARFLAGS) $@ $^
 
 clean:
 	rm -f $(OBJS) $(DEPS)
