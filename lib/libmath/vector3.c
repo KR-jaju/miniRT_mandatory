@@ -2,7 +2,7 @@
 
 t_vec3	vec3(float x, float y, float z)
 {
-	return (vec3{x, y, z});
+	return ((t_vec3){x, y, z});
 }
 
 t_vec3	vec3_add(t_vec3 v1, t_vec3 v2)

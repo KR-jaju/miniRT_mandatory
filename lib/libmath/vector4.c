@@ -2,7 +2,7 @@
 
 t_vec4	vec4(float x, float y, float z, float w)
 {
-	return (vec4{x, y, z, w});
+	return ((t_vec4){x, y, z, w});
 }
 
 t_vec4	vec4_add(t_vec4 v1, t_vec4 v2)

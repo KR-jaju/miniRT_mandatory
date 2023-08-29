@@ -21,9 +21,9 @@ t_vec4	mat4_mul_vec4(t_mat4 m, t_vec4 v)
 	return (res);
 }
 
-void	compose_scale_mat4(t_mat4 *m, double x, double y, double z)
+void	compose_scale_mat4(t_mat4 *m, float x, float y, float z)
 {
-	const t_matrix	m_scale = (t_matrix){
+	const t_mat4	m_scale = (t_mat4){
 		(t_vec4){x, 0, 0, 0},
 		(t_vec4){0, y, 0, 0},
 		(t_vec4){0, 0, z, 0},
@@ -33,22 +33,22 @@ void	compose_scale_mat4(t_mat4 *m, double x, double y, double z)
 	*m = mat4_mul(*m, m_scale);
 }
 
-void	compose_rotate_mat4(t_mat4 *m, double x, double y, double z)
+void	compose_rotate_mat4(t_mat4 *m, float x, float y, float z)
 {
-	const double	radian = M_PI / 180;
-	const t_matrix	m_rotate_x = (t_matrix){
+	const float	radian = M_PI / 180;
+	const t_mat4	m_rotate_x = (t_mat4){
 		(t_vec4){1, 0, 0, 0},
 		(t_vec4){0, cos(x * radian), sin(x * radian), 0},
 		(t_vec4){0, -sin(x * radian), cos(x * radian), 0},
 		(t_vec4){0, 0, 0, 1}
 	};
-	const t_matrix	m_rotate_y = (t_matrix){
+	const t_mat4	m_rotate_y = (t_mat4){
 		(t_vec4){cos(y * radian), 0, -sin(y * radian), 0},
 		(t_vec4){0, 1, 0, 0},
 		(t_vec4){sin(y * radian), 0, cos(y * radian), 0},
 		(t_vec4){0, 0, 0, 1}
 	};
-	const t_matrix	m_rotate_z = (t_matrix){
+	const t_mat4	m_rotate_z = (t_mat4){
 		(t_vec4){cos(z * radian), sin(z * radian), 0, 0},
 		(t_vec4){-sin(z * radian), cos(z * radian), 0, 0},
 		(t_vec4){0, 0, 1, 0},
@@ -60,9 +60,9 @@ void	compose_rotate_mat4(t_mat4 *m, double x, double y, double z)
 	*m = mat4_mul(*m, m_rotate_z);
 }
 
-void	compose_move_mat4(t_mat4 *m, double x, double y, double z)
+void	compose_move_mat4(t_mat4 *m, float x, float y, float z)
 {
-	const t_matrix	m_move = (t_matrix){
+	const t_mat4	m_move = (t_mat4){
 		(t_vec4){1, 0, 0, 0},
 		(t_vec4){0, 1, 0, 0},
 		(t_vec4){0, 0, 1, 0},
