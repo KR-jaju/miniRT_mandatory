@@ -4,7 +4,6 @@ NAME			=	libmath.a
 
 CC				= 	cc
 CFLAGS			= 	-Wall -Wextra -Werror
-RM				= 	rm -f
 AR				= 	ar
 ARFLAGS			= 	-scr
 

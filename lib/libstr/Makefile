@@ -1,34 +1,32 @@
+NAME			=	libstr.a
 
+# **************************** COMPILER SETTINGS ***************************** #
 
-.DEFAULT_GOAL	= all
+CC				= 	cc
+CFLAGS			= 	-Wall -Wextra -Werror
+AR				= 	ar
+ARFLAGS			= 	-scr
 
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
-RM			= rm -f
-AR			= ar
-ARFLAGS		= -scr
+# ****************************** SOURCE FILES ******************************** #
 
-# ********************************** LIBSTR ********************************** #
-
-LIBSTR		= libstr.a
-SRCS		=\
-				str.c
-
-OBJS		= $(SRCS:.c=.o)
-$(LIBSTR): $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
+SRCS			=\
+					str.c
+OBJS			=	$(SRCS:.c=.o)
+DEPS			= 	$(SRCS:.c=.d)
 
 # ******************************** MAKE RULES ******************************* #
 
-all :
-	make $(LIBSTR)
+all:
+	make $(NAME)
 
-clean :
-	$(RM) $(RMFLAG) $(OBJS)
+$(NAME): $(OBJS)
+	$(AR) $(ARFLAGS) $@ $^
 
-fclean :
-	$(RM) $(RMFLAG) $(OBJS)
-	$(RM) $(RMFLAG) $(LIBSTR)
+clean:
+	rm -f $(OBJS) $(DEPS)
+
+fclean:
+	rm -f $(NAME) $(OBJS) $(DEPS)
 
 re : 
 	make fclean
