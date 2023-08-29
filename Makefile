@@ -15,6 +15,11 @@ LIBFT_PATH		=	./lib/libft
 LDFLAGS			+=	-L./${LIBFT_PATH}
 LDLIBS			+=	-lft
 
+# libstr
+LIBSTR_PATH		=	./lib/libstr
+LDFLAGS			+=	-L./${LIBSTR_PATH}
+LDLIBS			+=	-lstr
+
 # libmlx
 LIBMLX_PATH		=	./lib/libmlx
 LDFLAGS			+=	-L./${LIBMLX_PATH}
@@ -29,6 +34,7 @@ OBJS			=	$(SRCS:.c=.o)
 
 all:
 	make -C $(LIBFT_PATH) --silent
+	make -C $(LIBSTR_PATH) --silent
 	make -C $(LIBMLX_PATH) --silent
 	make $(NAME)
 
@@ -37,11 +43,13 @@ $(NAME): $(OBJS)
 
 clean:
 	make -C $(LIBFT_PATH) clean --silent
+	make -C $(LIBSTR_PATH) clean --silent
 	make -C $(LIBMLX_PATH) clean --silent
 	rm -f $(OBJS)
 
 fclean:
 	make -C $(LIBFT_PATH) fclean --silent
+	make -C $(LIBSTR_PATH) fclean --silent
 	make -C $(LIBMLX_PATH) clean --silent
 	rm -f $(NAME) $(OBJS)
 
