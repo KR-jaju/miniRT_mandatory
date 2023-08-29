@@ -12,6 +12,7 @@ LDLIBS			=
 
 SRCS 			=	$(wildcard *.c)
 OBJS			=	$(SRCS:.c=.o)
+DEPS			= 	$(SRCS:.c=.d)
 
 # ********************************** RULES ********************************** #
 
@@ -22,10 +23,10 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(DEPS)
 
 fclean:
-	rm -f $(NAME) $(OBJS)
+	rm -f $(NAME) $(OBJS) $(DEPS)
 
 re: 
 	make fclean

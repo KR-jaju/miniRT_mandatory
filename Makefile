@@ -29,6 +29,7 @@ LDLIBS			+=	-lmath
 
 SRCS 			=	$(wildcard src/*.c)
 OBJS			=	$(SRCS:.c=.o)
+DEPS			=	$(SRCS:.c=.d)
 
 # ********************************** RULES ********************************** #
 
@@ -43,12 +44,12 @@ $(NAME): $(OBJS)
 clean:
 	make -C $(LIBFT_PATH) clean --silent
 	make -C $(LIBMLX_PATH) clean --silent
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(DEPS)
 
 fclean:
 	make -C $(LIBFT_PATH) fclean --silent
 	make -C $(LIBMLX_PATH) clean --silent
-	rm -f $(NAME) $(OBJS)
+	rm -f $(NAME) $(OBJS) $(DEPS)
 
 re: 
 	make fclean
