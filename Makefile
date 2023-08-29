@@ -4,7 +4,7 @@ NAME			=	miniRT
 
 CC				=	cc
 CFLAGS			=	-Wall -Wextra -Werror -MMD -MP
-CPPFLAGS		=	-I./include
+CPPFLAGS		=	-I./include -I./lib/include
 LDFLAGS			=
 LDLIBS			=	
 
@@ -13,7 +13,7 @@ LDLIBS			=
 # libft
 LIBFT_PATH		=	./lib/libft
 LDFLAGS			+=	-L./${LIBFT_PATH}
-LDLIBS			+=	-lft
+LDLIBS			+=	-lft -lftprintf -lgnl
 
 # libstr
 LIBSTR_PATH		=	./lib/libstr
