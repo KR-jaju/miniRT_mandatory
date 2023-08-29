@@ -1,7 +1,7 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-# include "geometry.h"
+# include "../lib/include/libmath.h"
 
 typedef struct s_polygon {
 	int			idx_vertex[3];

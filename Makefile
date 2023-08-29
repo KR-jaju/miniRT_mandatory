@@ -25,8 +25,8 @@ LIBMLX_PATH		=	./lib/libmlx
 LDFLAGS			+=	-L./${LIBMLX_PATH}
 LDLIBS			+=	-lmlx
 
-# libmlx
-LIBMLX_PATH		=	./lib/libmath
+# libmath
+LIBMATH_PATH	=	./lib/libmath
 LDFLAGS			+=	-L./${LIBMATH_PATH}
 LDLIBS			+=	-lmath
 
@@ -41,22 +41,28 @@ DEPS			=	$(SRCS:.c=.d)
 all:
 	make -C $(LIBFT_PATH) --silent
 	make -C $(LIBSTR_PATH) --silent
-	make -C $(LIBMLX_PATH) --silent
+# make -C $(LIBMLX_PATH) --silent
+	make -C $(LIBMATH_PATH) --silent
 	make $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(LDLIBS) $^ -o $@
 
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
 clean:
 	make -C $(LIBFT_PATH) clean --silent
 	make -C $(LIBSTR_PATH) clean --silent
-	make -C $(LIBMLX_PATH) clean --silent
+# make -C $(LIBMLX_PATH) clean --silent
+	make -C $(LIBMATH_PATH) clean --silent
 	rm -f $(OBJS) $(DEPS)
 
 fclean:
 	make -C $(LIBFT_PATH) fclean --silent
 	make -C $(LIBSTR_PATH) fclean --silent
-	make -C $(LIBMLX_PATH) clean --silent
+# make -C $(LIBMLX_PATH) clean --silent
+	make -C $(LIBMATH_PATH) fclean --silent
 	rm -f $(NAME) $(OBJS) $(DEPS)
 
 re: 
