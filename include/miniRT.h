@@ -5,6 +5,7 @@
 
 typedef struct s_face {
 	int			idx_vertex[3];
+	t_vector3	normal;
 }	t_face;
 
 typedef struct s_mesh {
