@@ -1,48 +1,19 @@
 #ifndef MINIRT_H
 #define MINIRT_H
 
-# include "../lib/include/libmath.h"
+# include <stdint.h>
+# include "mlx_api.h"
+# include "scene.h"																							
 
-typedef struct s_polygon {
-	int			idx_vertex[3];
-	t_vec3		normal;
-}	t_polygon;
+typedef	struct s_program_data
+{
+	t_mlx	*mlx;
+	t_scene	*scene;
+	t_image	*img;
+} t_program_data;
 
-typedef struct s_mesh {
-	t_vec3		*vertices;
-	t_polygon	*polygons;
-	int			n_vertices;
-	int			n_polygons;
-}	t_mesh;
-
-typedef struct s_object {
-	t_mesh		*mesh;
-	t_vec3		position;
-	t_vec3		rotation;
-	float		scale;
-	t_vec3		color;
-}	t_object;
-
-typedef struct s_camera {
-	t_vec3		position;
-	t_vec3		rotation;
-	t_vec3		right;
-	t_vec3		up;
-	t_vec3		forward;
-	float		fov;
-}	t_camera;
-
-typedef struct s_light {
-	t_vec3		position;
-	t_vec3		color;
-}	t_light;
-
-typedef struct s_scene {
-	t_object	*objects;
-	t_mesh		*meshs;
-	t_camera	camera;
-	t_light		light;
-	t_vec3		ambient_light;
-}	t_scene;
+int	render_to_window(t_program_data *data);
+int shutdown_program(void *resource);
+int	parse_scene(t_scene *scene);
 
 #endif
