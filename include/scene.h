@@ -4,14 +4,12 @@
 # include "libmath.h"
 
 typedef struct s_polygon {
-	int			idx_vertex[3];
+	t_vec3		vertex[3];
 	t_vec3		normal;
 }	t_polygon;
 
 typedef struct s_mesh {
-	t_vec3		*vertices;
 	t_polygon	*polygons;
-	int			n_vertices;
 	int			n_polygons;
 }	t_mesh;
 
