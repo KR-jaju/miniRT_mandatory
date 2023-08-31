@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jaju <jaju@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 13:40:42 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/03/09 04:05:23 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:21:55 by jaju             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@
 # include <unistd.h>
 
 /* ------------------ STRUCT DECLARATIONS ---------------- */
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}	t_list;
 
 /* ----------------- FUNCTION PROTOTYPES ----------------- */
 /* ------------ PART 1------------ */
