@@ -1,4 +1,3 @@
-
 #ifndef BUFFER_H
 # define BUFFER_H
 
@@ -16,6 +15,5 @@ typedef struct s_buffer
 void	buffer_init(t_buffer *this, size_t type_size, size_t capacity);
 void	buffer_push(t_buffer *this, void *data);
 void	*buffer_collect(t_buffer *this, size_t *len);
-
 
 #endif

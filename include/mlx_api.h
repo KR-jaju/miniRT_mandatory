@@ -10,10 +10,11 @@
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 
-typedef struct s_mlx {
+typedef struct s_mlx
+{
 	void	*conn;
 	void	*win;
-} t_mlx;
+}t_mlx;
 
 typedef struct s_image
 {
@@ -25,13 +26,14 @@ typedef struct s_image
 	int			bits_per_pixel;
 	int			bytes_per_line;
 	int			endian;
-} t_image;
+}t_image;
 
-typedef struct s_pixel {
+typedef struct s_pixel
+{
 	int		x;
 	int		y;
 	t_vec3	color;
-} t_pixel;
+}t_pixel;
 
 void	init_image(t_image *img, void *mlx_conn);
 void	init_mlx(t_mlx *mlx);
