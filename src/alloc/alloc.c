@@ -1,9 +1,9 @@
 
-#include <allocate.h>
+#include "alloc.h"
 #include <stdint.h>
 #include <stdlib.h>
 
-void	*allocate(size_t size)
+void	*alloc(size_t size)
 {
 	uint8_t*const	ptr = malloc(size);
 	size_t			i;
