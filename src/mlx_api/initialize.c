@@ -8,9 +8,11 @@ void	init_image(t_image *img, void *mlx_conn)
 								&img->bytes_per_line, &img->endian);
 	img->width = WINDOW_WIDTH;
 	img->height = WINDOW_HEIGHT;
+	img->n_pixels = img->width * img->height;
 	img->data_size = img->bytes_per_line * img->height;
 	ft_memset(img->data, 0, \
 				WINDOW_WIDTH * WINDOW_HEIGHT * img->bits_per_pixel / 8);
+	img->progress = 0;
 }
 
 // 차후 지역 static 변수에 가둬두는 방식 고려

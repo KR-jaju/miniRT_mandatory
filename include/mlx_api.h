@@ -2,6 +2,7 @@
 #define MLX_API_H
 
 # include "libmath.h"
+# include "stddef.h"
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_DESTROY		17
@@ -18,14 +19,16 @@ typedef struct s_mlx
 
 typedef struct s_image
 {
-	void		*addr;
-	char		*data;
-	int			data_size;
-	int			width;
-	int			height;
-	int			bits_per_pixel;
-	int			bytes_per_line;
-	int			endian;
+	void	*addr;
+	char	*data;
+	size_t	data_size;
+	int		width;
+	int		height;
+	int		n_pixels;
+	int		bits_per_pixel;
+	int		bytes_per_line;
+	int		endian;
+	int		progress;
 }t_image;
 
 typedef struct s_pixel
