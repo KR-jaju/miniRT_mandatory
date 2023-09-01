@@ -7,15 +7,15 @@
 #include "libft.h"
 
 static
-bool	list_resize(t_list *this, size_t new_size)
+bool	list_resize(t_list *this, size_t new_capacity)
 {
 	uint8_t*const	new = malloc(new_capacity * this->type_size);
 
 	if (new == (void *)0)
 		return (false);
-	if (new_size < this->count)
-		this->count = new_size;
-	this->capacity = new_size;
+	if (new_capacity < this->count)
+		this->count = new_capacity;
+	this->capacity = new_capacity;
 	ft_memmove(new, this->data, this->count * this->type_size);
 	free(this->data);
 	this->data = new;
@@ -48,6 +48,8 @@ bool	list_push(t_list *this, void *data)
 
 bool	list_set(t_list *this, uint32_t idx, void *data)
 {
+	if (this->data == (void *)0)
+		return (false);
 	if (idx < 0 || this->capacity <= idx)
 		return (false);
 	ft_memmove(&this->data[idx * this->type_size], data, this->type_size);
@@ -56,6 +58,8 @@ bool	list_set(t_list *this, uint32_t idx, void *data)
 
 bool	list_get(t_list *this, uint32_t idx, void *out)
 {
+	if (this->data == (void *)0)
+		return (false);
 	if (idx < 0 || this->capacity <= idx)
 		return (false);
 	ft_memmove(out, &this->data[idx * this->type_size], this->type_size);
