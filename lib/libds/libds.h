@@ -60,10 +60,10 @@ bool	queue_is_full(t_queue *this);
 void	queue_enqueue(t_queue *this, void *elem);
 void	*queue_dequeue(t_queue *this);
 
-void	list_init(t_list *this, size_t type_size, size_t capacity);
-void	list_push(t_list *this, void *data);
-void	list_set(t_list *this, uint32_t idx, void *data);
-void	list_get(t_list *this, uint32_t idx, void *out);
+bool	list_init(t_list *this, size_t type_size, size_t capacity);
+bool	list_push(t_list *this, void *data);
+bool	list_set(t_list *this, uint32_t idx, void *data);
+bool	list_get(t_list *this, uint32_t idx, void *out);
 void	*list_collect(t_list *this, uint32_t *len);
 
 void	map_init(t_map *this, size_t type_size, size_t capacity);
