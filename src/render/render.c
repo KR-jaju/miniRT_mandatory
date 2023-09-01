@@ -27,4 +27,5 @@ int	render_to_window(t_program_data *data)
 	put_pixel_to_image(img, p);
 	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
 	img->progress++;
+	return (0);
 }
