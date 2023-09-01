@@ -20,6 +20,11 @@ LIBSTR_PATH		=	./lib/libstr
 LDFLAGS			+=	-L./${LIBSTR_PATH}
 LDLIBS			+=	-lstr
 
+# libds
+LIBDS_PATH		=	./lib/libds
+LDFLAGS			+=	-L./${LIBDS_PATH}
+LDLIBS			+=	-lds
+
 # libmlx
 LIBMLX_PATH		=	./lib/libmlx
 LDFLAGS			+=	-L./${LIBMLX_PATH}
@@ -41,6 +46,7 @@ DEPS			=	$(SRCS:.c=.d)
 all:
 	make -C $(LIBFT_PATH) --silent
 	make -C $(LIBSTR_PATH) --silent
+	make -C $(LIBDS_PATH) --silent
 # make -C $(LIBMLX_PATH) --silent
 	make -C $(LIBMATH_PATH) --silent
 	make $(NAME)
@@ -54,6 +60,7 @@ $(NAME): $(OBJS)
 clean:
 	make -C $(LIBFT_PATH) clean --silent
 	make -C $(LIBSTR_PATH) clean --silent
+	make -C $(LIBDS_PATH) clean --silent
 # make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) clean --silent
 	rm -f $(OBJS) $(DEPS)
@@ -61,6 +68,7 @@ clean:
 fclean:
 	make -C $(LIBFT_PATH) fclean --silent
 	make -C $(LIBSTR_PATH) fclean --silent
+	make -C $(LIBDS_PATH) fclean --silent
 # make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) fclean --silent
 	rm -f $(NAME) $(OBJS) $(DEPS)
