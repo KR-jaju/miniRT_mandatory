@@ -9,7 +9,7 @@
 static
 bool	list_resize(t_list *this, size_t new_size)
 {
-	uint8_t*const	new = malloc(new_size * this->count);
+	uint8_t*const	new = malloc(new_capacity * this->type_size);
 
 	if (new == (void *)0)
 		return (false);

@@ -6,11 +6,11 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/07 22:36:42 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/03/09 04:02:12 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/09/01 18:35:22 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 || *s2)
 	{

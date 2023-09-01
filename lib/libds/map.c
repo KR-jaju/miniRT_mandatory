@@ -4,7 +4,8 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include "libds.h"
-#include "libft.h"
+
+// TODO: 컴파일 오류 발생하여 수정 필요
 
 static
 uint32_t	index_of_key(t_map *this, const char *key)
