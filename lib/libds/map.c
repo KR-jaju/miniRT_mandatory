@@ -8,7 +8,7 @@
 // TODO: 컴파일 오류 발생하여 수정 필요
 
 static
-uint32_t	index_of_key(t_map *this, const char *key)
+int32_t	index_of_key(t_map *this, const char *key)
 {
 	char	*tmp;
 	size_t	i;
@@ -34,7 +34,7 @@ int	map_init(t_map *this, size_t type_size, size_t capacity)
 
 int	map_put(t_map *this, const char *key, void *data)
 {
-	uint32_t	entry_idx;
+	int32_t	entry_idx;
 
 	entry_idx = index_of_key(this, key);
 	if (entry_idx != -1)
@@ -48,7 +48,7 @@ int	map_put(t_map *this, const char *key, void *data)
 
 int	map_get(t_map *this, const char *key, void *out)
 {
-	uint32_t	entry_idx;
+	int32_t	entry_idx;
 
 	entry_idx = index_of_key(this, key);
 	if (entry_idx == -1)
