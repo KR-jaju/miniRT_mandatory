@@ -5,8 +5,6 @@
 #include <stddef.h>
 #include "libds.h"
 
-// TODO: 컴파일 오류 발생하여 수정 필요
-
 static
 int32_t	index_of_key(t_map *this, const char *key)
 {
@@ -23,12 +21,12 @@ int32_t	index_of_key(t_map *this, const char *key)
 	return (-1);
 }
 
-//두번째 list_init이 실패했을 때 첫번째 리스트 free필요함 (나중에 할게요)
 int	map_init(t_map *this, size_t type_size, size_t capacity)
 {
-	if (list_init(&this->key, sizeof(char *), capacity) == -1
-		|| list_init(&this->value, type_size, capacity) == -1)
+	if (list_init(&this->key, sizeof(char *), capacity) == -1)
 		return (-1);
+	if (list_init(&this->value, type_size, capacity) == -1)
+		return (list_free(&this->key), -1);
 	return (0);
 }
 
@@ -56,4 +54,10 @@ int	map_get(t_map *this, const char *key, void *out)
 	if (list_get(&this->value, entry_idx, out) == -1)
 		return (-1);
 	return (0);
+}
+
+void	map_free(t_map *this)
+{
+	list_free(&this->key);
+	list_free(&this->value);
 }

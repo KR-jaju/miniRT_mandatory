@@ -65,10 +65,12 @@ int		list_push(t_list *this, void *data);
 int		list_set(t_list *this, uint32_t idx, void *data);
 int		list_get(t_list *this, uint32_t idx, void *out);
 void	*list_collect(t_list *this, uint32_t *len);
+void	list_free(t_list *this);
 
 // map
 int		map_init(t_map *this, size_t type_size, size_t capacity);
 int		map_put(t_map *this, const char *key, void *data);
 int		map_get(t_map *this, const char *key, void *out);
+void	map_free(t_map *this);
 
 #endif

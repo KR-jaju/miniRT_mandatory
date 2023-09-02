@@ -77,3 +77,11 @@ void	*list_collect(t_list *this, uint32_t *len)
 	ft_memmove(new, this->data, this->count * this->type_size);
 	return (new);
 }
+
+void	list_free(t_list *this)
+{
+	free(this->data);
+	this->capacity = 0;
+	this->count = 0;
+	this->type_size = 0;
+}
