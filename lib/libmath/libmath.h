@@ -40,6 +40,7 @@ typedef struct s_mat4 {
 t_vec3		vec3(float x, float y, float z);
 t_vec3		vec3_add(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_sub(t_vec3 v1, t_vec3 v2);
+t_vec3		vec3_mul(t_vec3 v1, float a);
 float		vec3_dot(t_vec3 v1, t_vec3 v2);
 t_vec3		vec3_cross(t_vec3 v1, t_vec3 v2);
 float		vec3_length(t_vec3 v);

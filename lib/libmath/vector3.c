@@ -15,6 +15,11 @@ t_vec3	vec3_sub(t_vec3 v1, t_vec3 v2)
 	return (vec3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z));
 }
 
+t_vec3	vec3_mul(t_vec3 v1, float a)
+{
+	return (vec3(v1.x * a, v1.y * a, v1.z * a));
+}
+
 float	vec3_dot(t_vec3 v1, t_vec3 v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
