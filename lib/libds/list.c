@@ -7,7 +7,7 @@
 #include "libft.h"
 
 static
-bool	list_resize(t_list *this, size_t new_capacity)
+int	list_resize(t_list *this, size_t new_capacity)
 {
 	uint8_t*const	new = malloc(new_capacity * this->type_size);
 
@@ -22,48 +22,48 @@ bool	list_resize(t_list *this, size_t new_capacity)
 	return (true);
 }
 
-bool	list_init(t_list *this, size_t type_size, size_t capacity)
+int	list_init(t_list *this, size_t type_size, size_t capacity)
 {
 	this->data = malloc(type_size * capacity);
 	if (this->data == (void *)0)
-		return (0);
+		return (-1);
 	this->type_size = type_size;
 	this->capacity = capacity;
 	this->count = 0;
-	return (1);
+	return (0);
 }
 
-bool	list_push(t_list *this, void *data)
+int	list_push(t_list *this, void *data)
 {
 	if (this->data == (void *)0)
-		return (false);
+		return (-1);
 	if (this->count == this->capacity)
-		if (!list_resize(this, this->capacity * 2))
-			return (false);
+		if (list_resize(this, this->capacity * 2) == -1)
+			return (-1);
 	ft_memmove(&this->data[this->count * this->type_size], data,
 		this->type_size);
 	this->count++;
-	return (true);
+	return (0);
 }
 
-bool	list_set(t_list *this, uint32_t idx, void *data)
+int	list_set(t_list *this, uint32_t idx, void *data)
 {
 	if (this->data == (void *)0)
-		return (false);
+		return (-1);
 	if (idx < 0 || this->capacity <= idx)
-		return (false);
+		return (-1);
 	ft_memmove(&this->data[idx * this->type_size], data, this->type_size);
-	return (true);
+	return (0);
 }
 
-bool	list_get(t_list *this, uint32_t idx, void *out)
+int	list_get(t_list *this, uint32_t idx, void *out)
 {
 	if (this->data == (void *)0)
-		return (false);
+		return (-1);
 	if (idx < 0 || this->capacity <= idx)
-		return (false);
+		return (-1);
 	ft_memmove(out, &this->data[idx * this->type_size], this->type_size);
-	return (true);
+	return (0);
 }
 
 void	*list_collect(t_list *this, uint32_t *len)

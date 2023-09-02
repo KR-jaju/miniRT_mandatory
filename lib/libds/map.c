@@ -23,36 +23,37 @@ uint32_t	index_of_key(t_map *this, const char *key)
 	return (-1);
 }
 
-bool	map_init(t_map *this, size_t type_size, size_t capacity)
+//두번째 list_init이 실패했을 때 첫번째 리스트 free필요함 (나중에 할게요)
+int	map_init(t_map *this, size_t type_size, size_t capacity)
 {
-	if (!list_init(&this->key, sizeof(char *), capacity))
-		return (false);
-	if (!list_init(&this->value, type_size, capacity))
-		return (false);
-	return (true);
+	if (list_init(&this->key, sizeof(char *), capacity) == -1
+		|| list_init(&this->value, type_size, capacity) == -1)
+		return (-1);
+	return (0);
 }
 
-bool	map_put(t_map *this, const char *key, void *data)
+int	map_put(t_map *this, const char *key, void *data)
 {
 	uint32_t	entry_idx;
 
 	entry_idx = index_of_key(this, key);
 	if (entry_idx != -1)
-		if (!list_set(&this->value, entry_idx, data))
-			return (true);
-	if (!list_push(&this->key, &(char *){ft_strdup(key)})
-		|| !list_push(&this->value, data))
-		return (false);
-	return (true);
+		if (list_set(&this->value, entry_idx, data) == -1)
+			return (-1);
+	if (list_push(&this->key, &(char *){ft_strdup(key)}) == -1
+		|| list_push(&this->value, data) == -1)
+		return (-1);
+	return (0);
 }
 
-bool	map_get(t_map *this, const char *key, void *out)
+int	map_get(t_map *this, const char *key, void *out)
 {
 	uint32_t	entry_idx;
 
 	entry_idx = index_of_key(this, key);
-	if (entry_idx == 1)
-		return (false);
-	list_get(&this->value, entry_idx, out);
-	return (true);
+	if (entry_idx == -1)
+		return (-1);
+	if (list_get(&this->value, entry_idx, out) == -1)
+		return (-1);
+	return (0);
 }
