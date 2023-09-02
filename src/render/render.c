@@ -1,3 +1,4 @@
+#include "mlx.h"
 #include "miniRT.h"
 #include "render.h"
 #include "mlx_api.h"
@@ -10,11 +11,14 @@
 
 int	render_to_window(t_program_data *data)
 {
-	const t_mlx		*mlx = data->mlx;
-	const t_scene	*scene = data->scene;
-	const t_image	*img = data->img;
-	t_pixel			p;
+	t_mlx	*mlx;
+	t_scene	*scene;
+	t_image	*img;
+	t_pixel	p;
 
+	mlx = data->mlx;
+	scene = data->scene;
+	img = data->img;
 	if (img->progress == img->n_pixels)
 		return (0);
 	p.y = (img->progress + 1) / img->width;
@@ -22,4 +26,6 @@ int	render_to_window(t_program_data *data)
 	p.color = calculate_pixel_color(p.x, p.y, scene);
 	put_pixel_to_image(img, p);
 	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
+	img->progress++;
+	return (0);
 }
