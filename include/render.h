@@ -1,6 +1,7 @@
 #ifndef RENDER_H
 #define RENDER_H
 
+# include <stdbool.h>
 # include "libmath.h"
 # include "scene.h"
 
@@ -17,5 +18,9 @@ typedef struct s_hit_record
 }t_hit_record;
 
 t_vec3	calculate_pixel_color(int x, int y, t_scene *scene);
+t_vec3	get_camera_ray(t_camera *camera);
+bool	intersection_check(t_object *object, t_ray cam_ray, \
+							t_hit_record *hit_record);
+t_vec3	calculate_intersection_color(t_object *object, t_scene *scene);
 
 #endif
