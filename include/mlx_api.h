@@ -1,6 +1,7 @@
 #ifndef MLX_API_H
 #define MLX_API_H
 
+# include "mlx.h"
 # include "libmath.h"
 # include "stddef.h"
 
