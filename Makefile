@@ -42,7 +42,9 @@ LDLIBS			+=	-lmath
 
 # ****************************** SOURCE FILES ******************************** #
 
-SRCS 			=	$(wildcard src/*.c)
+SRCS 			=	\
+					$(wildcard src/*.c) \
+					$(wildcard src/*/*.c)
 OBJS			=	$(SRCS:.c=.o)
 DEPS			=	$(SRCS:.c=.d)
 
