@@ -1,5 +1,7 @@
-#include "miniRT.h"
+#include "libft.h"
 #include "strdef.h"
+#include "miniRT.h"
+#include "mlx_api.h"
 
 void	init_image(t_image *img, void *mlx_conn)
 {
