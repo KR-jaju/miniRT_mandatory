@@ -9,7 +9,7 @@ t_mat4	unit_mat4(void)
 		(t_vec4){0, 0, 0, 1}});
 }
 
-t_mat4	mat4_mul(t_mat4 m1, t_mat4 m2)
+t_mat4	mat4_mulmm(t_mat4 m1, t_mat4 m2)
 {
 	t_mat4	res;
 
