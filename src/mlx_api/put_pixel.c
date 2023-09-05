@@ -2,8 +2,11 @@
 #include "libmath.h"
 #include "miniRT.h"
 
-static uint32_t	vec3_to_rgb(t_vec3 v);
-// 파싱 모듈에 이미 있으면 갖다쓰기
+// vec3 컴포넌트 값이 1을 넘는 경우 발생시 clamp 연산 추가
+static uint32_t	vec3_to_rgb(t_vec3 v)
+{
+	return ((int)v.x << 16 | (int)v.y << 8 | (int)v.z);
+}
 
 void	put_pixel_to_image(t_pixel p, t_image *img)
 {
