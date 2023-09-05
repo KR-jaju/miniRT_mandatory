@@ -41,6 +41,6 @@ typedef struct s_pixel
 void	init_image(t_image *img, void *mlx_conn);
 void	init_mlx(t_mlx *mlx);
 int		keypress_hook(int keycode, void *param);
-void	put_pixel_to_image(t_image *img, t_pixel p);
+void	put_pixel_to_image(t_pixel p, t_image *img);
 
 #endif

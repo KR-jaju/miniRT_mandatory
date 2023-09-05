@@ -2,10 +2,10 @@
 #include "libmath.h"
 #include "miniRT.h"
 
-static uint32_t vec3_to_rgb(t_vec3 v);
+static uint32_t	vec3_to_rgb(t_vec3 v);
 // 파싱 모듈에 이미 있으면 갖다쓰기
 
-void	put_pixel_to_image(t_image *img, t_pixel p)
+void	put_pixel_to_image(t_pixel p, t_image *img)
 {
 	char	*dst;
 	int		offset;
