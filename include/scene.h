@@ -40,7 +40,8 @@ typedef struct s_light
 	t_vec3		color;
 }t_light;
 
-typedef struct s_scene{
+typedef struct s_scene
+{
 	t_object	*objects;
 	t_mesh		*meshs;
 	t_camera	camera;
