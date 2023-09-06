@@ -4,6 +4,7 @@
 # include <stdbool.h>
 # include "libmath.h"
 # include "scene.h"
+# include "mlx_api.h"
 
 typedef struct s_ray
 {
@@ -23,4 +24,4 @@ bool	intersection_check(t_object *object, t_ray cam_ray, \
 							t_hit_record *hit_record);
 t_vec3	calculate_intersection_color(t_object *object, t_scene *scene);
 
-#endif
+#endif 

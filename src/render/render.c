@@ -6,7 +6,6 @@
 
 t_mat4	projection_matrix(void);
 t_mat4	view_matrix(void);
-t_mat4	model_matrix(void);
 
 // TODO: 차후 최적화를 위해 함수 호출 최소화
 /*
