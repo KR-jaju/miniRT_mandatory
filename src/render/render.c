@@ -28,7 +28,7 @@ t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	world_pos = mat4_mulmv(\
 			(mat4_inverse(mat4_mulmm(projection_matrix(), view_matrix()))), \
 			vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1));
-	world_pos = vec4_mul(world_pos, (1 / world_pos.z));
+	world_pos = vec4_mul(world_pos, (1 / world_pos.w));
 
 	return (vec3_normalize(vec3(world_pos.x - cam->position.x, \
 								world_pos.y - cam->position.y, \
