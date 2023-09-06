@@ -22,7 +22,7 @@ t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	t_vec4	world_pos;
 
 	ndc_pos.x = ((x + 0.5) / img->width) * 2 - 1;
-	ndc_pos.y = ((y + 0.5) / img->height) * 2 - 1;
+	ndc_pos.y = 1 - ((y + 0.5) / img->height) * 2;
 	ndc_pos.z = 0; // -1~1 사이면 아무 값이나 상관없음
 
 	world_pos = mat4_mulmv(\
