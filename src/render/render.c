@@ -6,15 +6,18 @@
 
 t_mat4	projection_matrix(void);
 t_mat4	view_matrix(void);
+t_mat4	model_matrix(void);
 
 // TODO: 차후 최적화를 위해 함수 호출 최소화
 /*
 카메라 방향벡터: 픽셀 좌표-카메라 좌표
+이후 모든 계산은 월드 공간 기준으로 이루어질 것이므로 카메라 방향벡터 또한 월드좌표계 기준으로 구한다.
 
 world space상에서의 픽셀 좌표 구하기
-1. NDC 좌표로 변환
-2. 투영 행렬(P)의 역행렬 적용하기
-2. 카메라 행렬(V)의 역행렬 적용하기
+1. NDC 좌표로 변환 (=[-1,1] 범위로 매핑)
+2. 투영 행렬(P) 및 카메라 행렬(V)의 역행렬 적용하기
+3. w 성분을 1로 만들어주기 위해 전체 성분 w값으로 나누기
+	(선형변환의 성질에 의해 이 나눗셈 연산을 이때 해도 상관없음)
 */
 t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
