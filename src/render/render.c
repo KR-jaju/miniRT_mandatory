@@ -32,9 +32,9 @@ t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 			vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1));
 	world_pos = vec4_mul(world_pos, (1 / world_pos.w));
 
-	return (vec3_normalize(vec3(world_pos.x - cam->position.x, \
-								world_pos.y - cam->position.y, \
-								world_pos.z - cam->position.z)));
+	return (vec3_normalize(vec3(world_pos.x - cam->eye.x, \
+								world_pos.y - cam->eye.y, \
+								world_pos.z - cam->eye.z)));
 }
 
 /*
@@ -53,7 +53,7 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	t_hit_record	hit;
 	t_hit_record	closest_hit;
 
-	cam_ray.origin = scene->camera.position;
+	cam_ray.origin = scene->camera.eye;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img); // 카메라 레이 계산
 	object = &scene->objects[0];
 	closest_hit.t = INFINITY;
