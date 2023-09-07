@@ -26,11 +26,9 @@ typedef struct s_object
 
 typedef struct s_camera
 {
-	t_vec3		position;
-	t_vec3		rotation;
-	t_vec3		right;
+	t_vec3		eye;
+	t_vec3		look_at;
 	t_vec3		up;
-	t_vec3		forward;
 	float		fov;
 }t_camera;
 
