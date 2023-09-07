@@ -49,7 +49,7 @@ int		stack_init(t_stack *this, size_t type_size, int capacity);
 bool	stack_is_empty(t_stack *this);
 bool	stack_is_full(t_stack *this);
 int		stack_push(t_stack *this, void *elem);
-void	*stack_pop(t_stack *this);
+int		stack_pop(t_stack *this, void *out);
 void	*stack_peek(t_stack *this);
 
 // queue

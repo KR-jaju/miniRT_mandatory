@@ -9,7 +9,7 @@ static int	stack_resize(t_stack *this, int new_capacity)
 	if (new_capacity < this->count)
 		this->count = new_capacity;
 	this->capacity = new_capacity;
-	ft_memcpy(new, this->data, this->count * this->type_size);
+	ft_memmove(new, this->data, this->count * this->type_size);
 	free(this->data);
 	this->data = new;
 	return (0);
@@ -49,19 +49,16 @@ int	stack_push(t_stack *this, void *elem)
 	return (0);
 }
 
-void	*stack_pop(t_stack *this)
+int	stack_pop(t_stack *this, void *out)
 {
 	uint8_t	*elem;
 
 	if (this->count == 0)
-		return (NULL);
-	elem = malloc(this->type_size);
-	if (!elem)
-		return (NULL);
-	ft_memcpy(elem, &this->data[this->top], this->type_size);
+		return (-1);
+	ft_memcpy(out, &this->data[this->top], this->type_size);
 	this->count--;
 	this->top = this->type_size * (this->count - 1);
-	return ((void *)elem);
+	return (0);
 }
 
 void	*stack_peek(t_stack *this)
