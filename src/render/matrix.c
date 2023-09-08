@@ -26,19 +26,37 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 월드 공간 -> 뷰 공간 매핑
 
 뷰 공간은 카메라의 세 개의 방향벡터가 이루는 공간이므로,
-이미 알고있는 카메라 방향벡터를 그대로 열벡터로 삼으면 된다.
+이미 알고있는 카메라 방향벡터를 그대로 행벡터로 삼으면 된다.
 세 개의 축이 직교하는 유클리드 공간끼리의 매핑이므로 간단하게 기저벡터의 전환으로 생각할 수 있다.
 (right - x축, up - y축, forward - z축)
-*/
-t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 pos)
-{
-	t_mat4	m;
 
-	m.v1 = (t_vec4){right.x, right.y, right.z, 0};
-	m.v2 = (t_vec4){up.x, up.y, up.z, 0};
-	m.v3 = (t_vec4){forward.x, forward.y, forward.z, 0};
-	m.v4 = (t_vec4){pos.x, pos.y, pos.z, 1};
-	return (m);
+우리는 카메라 파라미터를 eye, look-at, up로 두고 있으므로
+이 파라미터들을 이용해 view space의 basis 벡터(right, up, forward)를 구하면 된다.
+
+뷰 공간으로 매핑하기 위해서는 먼저 중심을 카메라 기준으로 옮기고(이동변환), 그 다음 회전변환을 하면 된다.
+뷰 행렬 = (회전 변환 행렬) * (이동 변환 행렬)
+*/
+t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up)
+{
+	t_vec3	basis_right;
+	t_vec3	basis_up;
+	t_vec3	basis_forward;
+	t_mat4	m_rotation;
+	t_mat4	m_translation;
+
+	basis_forward = vec3_normalize(vec3_sub(eye, look_at));
+	basis_right = vec3_normalize(vec3_cross(up, basis_forward));
+	basis_up = vec3_normalize(vec3_cross(basis_forward, basis_right));
+
+	m_rotation.v1 = (t_vec4){basis_right.x, basis_up.x, basis_forward.x, 0};
+	m_rotation.v2 = (t_vec4){basis_right.y, basis_up.y, basis_forward.y, 0};
+	m_rotation.v3 = (t_vec4){basis_right.z, basis_up.z, basis_forward.z, 0};
+	m_rotation.v4 = (t_vec4){0, 0, 0, 0};
+
+	m_translation = unit_mat4();
+	translate_matrix(vec3_mul(eye, -1), &m_translation);
+
+	return (mat4_mulmm(m_rotation, m_translation));
 }
 
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
