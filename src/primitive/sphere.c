@@ -10,8 +10,8 @@ t_vec3	point_at(float yaw, float pitch)
 {
 	const float	sin_yaw = sin(yaw * PI / 180);
 	const float	cos_yaw = sin(yaw * PI / 180);
-	const float	sin_pitch = sin(yaw * PI / 180);
-	const float	cos_pitch = sin(yaw * PI / 180);
+	const float	sin_pitch = sin(pitch * PI / 180);
+	const float	cos_pitch = sin(pitch * PI / 180);
 
 	return (vec3(
 			sin_yaw * sin_pitch,
@@ -40,8 +40,8 @@ void	sphere_init(t_mesh *mesh, uint32_t stacks, uint32_t sectors)
 	t_list		triangles;
 	const float	d_sector = 2 * PI / sectors;
 	const float	d_stack = 2 * PI / stacks;
-	int			i;
-	int			j;
+	uint32_t	i;
+	uint32_t	j;
 
 	list_init(&triangles, sizeof(t_polygon), 16);
 	i = 0;

@@ -4,6 +4,6 @@
 # include <stdint.h>
 # include "scene.h"
 
-void	sphere_init(t_mesh *mesh, uint32_t level);
+void	sphere_init(t_mesh *mesh, uint32_t stacks, uint32_t sectors);
 
 #endif
