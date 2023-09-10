@@ -12,7 +12,7 @@ typedef struct s_polygon
 typedef struct s_mesh
 {
 	t_polygon	*polygons;
-	int			n_polygons;
+	uint32_t	n_polygons;
 }t_mesh;
 
 typedef struct s_object

@@ -28,13 +28,13 @@ void	add_wall(t_list *triangles, t_vec3 *vertices)
 			vec3_add(vertices[0], vertices[1]),
 			vec3_add(vertices[2], vertices[3]));
 	normal = vec3_mul(normal, 1 / vec3_length(normal));
-	list_push(&triangles, &(t_polygon){
+	list_push(triangles, &(t_polygon){
 		.vertex[0] = vertices[0],
 		.vertex[1] = vertices[2],
 		.vertex[2] = vertices[1],
 		.normal = normal
 	});
-	list_push(&triangles, &(t_polygon){
+	list_push(triangles, &(t_polygon){
 		.vertex[0] = vertices[1],
 		.vertex[1] = vertices[2],
 		.vertex[2] = vertices[3],
@@ -45,13 +45,13 @@ void	add_wall(t_list *triangles, t_vec3 *vertices)
 static
 void	add_base(t_list *triangles, t_vec3 *vertices)
 {
-	list_push(&triangles, &(t_polygon){
+	list_push(triangles, &(t_polygon){
 		.vertex[0] = (t_vec3){0.0f, -1.0f, 0.0f},
 		.vertex[1] = vertices[3],
 		.vertex[2] = vertices[2],
 		.normal = (t_vec3){0.0f, -1.0f, 0.0f}
 	});
-	list_push(&triangles, &(t_polygon){
+	list_push(triangles, &(t_polygon){
 		.vertex[0] = vertices[0],
 		.vertex[1] = vertices[1],
 		.vertex[2] = (t_vec3){0.0f, 1.0f, 0.0f},
@@ -60,7 +60,7 @@ void	add_base(t_list *triangles, t_vec3 *vertices)
 }
 
 static
-void	add_polygons(t_light *triangles, t_vec3 *vertices)
+void	add_polygons(t_list *triangles, t_vec3 *vertices)
 {
 	add_base(triangles, vertices);
 	add_wall(triangles, vertices);
@@ -70,7 +70,7 @@ void	cylinder_init(t_mesh *mesh, uint32_t sectors)
 {
 	t_list		triangles;
 	const float	d_sector = 2 * PI / sectors;
-	int			i;
+	uint32_t	i;
 
 	i = 0;
 	while (i < sectors)
