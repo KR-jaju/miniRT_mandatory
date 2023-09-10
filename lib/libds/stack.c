@@ -51,8 +51,6 @@ int	stack_push(t_stack *this, void *elem)
 
 int	stack_pop(t_stack *this, void *out)
 {
-	uint8_t	*elem;
-
 	if (this->count == 0)
 		return (-1);
 	ft_memcpy(out, &this->data[this->top], this->type_size);
