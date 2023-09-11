@@ -59,4 +59,11 @@ t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up)
 	return (mat4_mulmm(m_rotation, m_translation));
 }
 
+/*
+뷰 공간 -> 클립 공간 (NDC공간 아님, 정규화x)
+
+투영 행렬을 구하기 위해 near, far가 필요한 것은 맞는데,
+우리는 z버퍼를 사용하지 않으므로 아무값이나 설정해도 무방.
+(기본값 0.3, 1000으로 설정할 예정)
+*/
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
