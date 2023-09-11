@@ -46,7 +46,7 @@ t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 		다른 오브젝트가 가리지 않고 있는 경우 반영o
 3.2. 못 찾은 경우 - 배경 색 반환
 */
-t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
+t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 {
 	t_ray			cam_ray;
 	t_object		*object;
@@ -67,7 +67,7 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	if (closest_hit.t == INFINITY)
 		return (scene->ambient_light);
 	else
-		return (calculate_intersection_color(&closest_hit, scene));
+		return (shade_intersection(&closest_hit, scene));
 }
 
 /*
@@ -89,7 +89,7 @@ int	render_to_window(t_program_data *data)
 		return (0);
 	p.y = (img->progress + 1) / img->width;
 	p.x = img->progress - (p.y * img->height);
-	p.color = calculate_pixel_color(p.x, p.y, scene, img);
+	p.color = compute_pixel_color(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
 	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
 	img->progress++;
