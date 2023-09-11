@@ -53,13 +53,13 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	t_hit_record	hit;
 	t_hit_record	closest_hit;
 
+	closest_hit.t = INFINITY;
 	cam_ray.origin = scene->camera.eye;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img); // 카메라 레이 계산
 	object = &scene->objects[0];
-	closest_hit.t = INFINITY;
 	while (object)
 	{
-		if (intersection_check(object, cam_ray, &hit) \
+		if (intersection_check_object(object, cam_ray, &hit) \
 			&& hit.t < closest_hit.t)
 			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
 		object++;
@@ -67,7 +67,7 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	if (closest_hit.t == INFINITY)
 		return (scene->ambient_light);
 	else
-		return (calculate_intersection_color(closest_hit.object, scene));
+		return (calculate_intersection_color(&closest_hit, scene));
 }
 
 /*
