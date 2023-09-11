@@ -67,7 +67,7 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	if (closest_hit.t == INFINITY)
 		return (scene->ambient_light);
 	else
-		return (calculate_intersection_color(closest_hit.object, scene));
+		return (calculate_intersection_color(&closest_hit, scene));
 }
 
 /*
