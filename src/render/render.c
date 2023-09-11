@@ -55,11 +55,11 @@ t_vec3	calculate_pixel_color(int x, int y, t_scene *scene, t_image *img)
 
 	closest_hit.t = INFINITY;
 	cam_ray.origin = scene->camera.eye;
-	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img); // 카메라 레이 계산
+	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
 	object = &scene->objects[0];
 	while (object)
 	{
-		if (intersection_check_object(object, cam_ray, &hit) \
+		if (ray_object_intersection(&cam_ray, object, &hit) == true \
 			&& hit.t < closest_hit.t)
 			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
 		object++;
