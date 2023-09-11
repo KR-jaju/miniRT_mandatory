@@ -6,10 +6,12 @@
 # include "scene.h"
 # include "mlx_api.h"
 
+// TODO: 레이의 구성요소에 컬러를 둘지 차후 결정
 typedef struct s_ray
 {
 	t_vec3	origin;
 	t_vec3	dir;
+	t_vec3	color;
 }t_ray;
 
 typedef struct s_hit_record
