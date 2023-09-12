@@ -20,7 +20,7 @@ typedef struct s_object
 	t_mesh		*mesh;
 	t_vec3		position;
 	t_vec3		rotation;
-	float		scale;
+	t_vec3		scale;
 	t_vec3		color;
 }t_object;
 
