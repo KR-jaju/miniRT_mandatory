@@ -18,6 +18,9 @@ ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는
 loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
 */
 
+//TODO: 렌더링 시작 전 월드 변환 일괄 적용하여 버퍼에 저장하기
+void	world_transform(t_scene *scene);
+
 static bool	has_extension(const char *path, const char *ext)
 {
     const size_t path_len = ft_strlen(path);
@@ -46,6 +49,7 @@ int	main(int argc, char *argv[])
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_to_window, \
 				&(t_program_data){&mlx, &scene, &img});
+	world_transform(&scene);
 	mlx_loop(mlx.conn);
 	return (0);
 }

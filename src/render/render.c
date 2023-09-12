@@ -69,6 +69,7 @@ t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 		return (shade_intersection(&closest_hit, scene));
 }
 
+//TODO: 진척도에 따라 메세지 출력
 /*
 1. 현재 처리해야하는 픽셀 컬러 계산
 2. 계산된 픽셀 이미지에 반영
