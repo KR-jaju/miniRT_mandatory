@@ -5,7 +5,8 @@
 */
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos)
 {
-	return (vec3_sub(hit_pos, light_pos));
+	return (vec3_normalize(\
+			vec3_sub(hit_pos, light_pos)));
 }
 
 /*
@@ -15,7 +16,8 @@ t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos)
 */
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n)
 {
-	return (vec3_add(i, vec3_mul(vec3_mul(n, vec3_dot(i, n)), 2)));
+	return (vec3_normalize(\
+			vec3_add(i, vec3_mul(vec3_mul(n, vec3_dot(i, n)), 2))));
 }
 
 /*
@@ -23,5 +25,6 @@ t_vec3	reflection_direction(t_vec3 i, t_vec3 n)
 */
 t_vec3	view_direction(t_vec3 camera_pos, t_vec3 hit_pos)
 {
-	return (vec3_sub(camera_pos, hit_pos));
+	return (vec3_normalize(\
+			vec3_sub(camera_pos, hit_pos)));
 }
