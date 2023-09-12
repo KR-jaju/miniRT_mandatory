@@ -25,6 +25,7 @@ typedef struct s_image
 	size_t	data_size;
 	int		width;
 	int		height;
+	float	aspect_ratio;
 	int		n_pixels;
 	int		bits_per_pixel;
 	int		bytes_per_line;
