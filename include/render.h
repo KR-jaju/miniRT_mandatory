@@ -7,18 +7,18 @@
 # include "mlx_api.h"
 
 // default material
+# define REFLECTIVITY	0.3
 # define K_DIFFUSE		0.3
 # define K_SPECULAR		0.3
 # define SHININESS		0.3
-# define REFLECTIVITY	0.3
 
 typedef struct s_material
 {
 	t_vec3	color;
+	float	reflectivity;
 	float	k_diffuse;
 	float	k_specular;
 	float	shininess;
-	float	reflectivity;
 }t_material;
 
 typedef struct s_ray
@@ -37,7 +37,7 @@ typedef struct s_hit_record
 
 // render main logic
 t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img);
-t_vec3	shade_intersection(t_hit_record *hit, t_scene *scene);
+t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene);
 bool	ray_object_intersection(t_ray *ray, t_object *object, \
 								t_hit_record *record);
 

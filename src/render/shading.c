@@ -18,8 +18,9 @@ diffuse = 난반사 세기 * 컬러
 	- 난반사 세기: 입사벡터와 노멀벡터의 내적
 	- 컬러: 광원의 색 * 디퓨즈 계수
 */
-t_vec3	diffuse_reflection_value(t_material *material, t_vec3 ray_color, \
-								t_vec3 incident, t_vec3 normal)
+static t_vec3	diffuse_reflection_value(const t_material *material, \
+										t_vec3 ray_color, \
+										t_vec3 incident, t_vec3 normal)
 {
 	float		brightness;
 	t_vec3		color;
@@ -37,14 +38,13 @@ specular = 하이라이트 세기 * 컬러
 	- 하이라이트 세기: 반사벡터와 시선벡터의 내적 (그리고 광택에 반비례)
 	- 컬러: 광원의 색 * 스페큘러 계수
 */
-t_vec3	specular_reflection_value(t_material *material, t_vec3 ray_color, \
-								t_vec3 reflection, t_vec3 view)
+static t_vec3	specular_reflection_value(const t_material *material, \
+										t_vec3 ray_color, \
+										t_vec3 reflection, t_vec3 view)
 {
 	float		brightness;
 	t_vec3		color;
 
-	// reflection = vec3_normalize(reflection);
-	// view = vec3_normalize(view);
 	brightness = fmaxf(vec3_dot(reflection, view), 0);
 	brightness = powf(brightness, material->shininess);
 	color = vec3_mul(ray_color, material->k_specular);
@@ -61,7 +61,7 @@ ambient: 배경색상 (지역조명 모델이므로 매우 간단)
 diffuse: 빛의 입사벡터, 정점 노멀벡터
 specular: 빛의 반사벡터, 시선벡터
 */
-t_vec3	shade_intersection(t_hit_record *hit, t_scene *scene)
+t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 {
 	const t_material	material = default_material(hit->object->color);
 	const t_vec3		incident = incident_direction(\
