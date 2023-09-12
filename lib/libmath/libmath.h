@@ -2,7 +2,8 @@
 #define LIBMATH_H
 
 # include <math.h>
-# define EPSILON 1e-8
+# include <stdbool.h>
+# define EPSILON 1e-6
 
 /* -------------------------- STRUCT DECLARATIONS --------------------------- */
 
@@ -35,6 +36,8 @@ typedef struct s_mat4 {
 }	t_mat4;
 
 /* -------------------------- FUNCTION PROTOTYPES --------------------------- */
+
+bool		is_near_zero(float n);
 
 // vector3
 t_vec3		vec3(float x, float y, float z);
