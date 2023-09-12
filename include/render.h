@@ -12,6 +12,10 @@
 # define K_SPECULAR		0.3
 # define SHININESS		0.3
 
+// default camera parameter
+# define NEAR	0.3
+# define FAR	1000
+
 typedef struct s_material
 {
 	t_vec3	color;
@@ -45,5 +49,10 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos);
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n);
 t_vec3	view_direction(t_vec3 camera_pos, t_vec3 hit_pos);
+
+// matrix
+t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
+t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up);
+t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
 #endif 

@@ -4,9 +4,6 @@
 #include "render.h"
 #include "mlx_api.h"
 
-t_mat4	projection_matrix(void);
-t_mat4	view_matrix(void);
-
 // TODO: 차후 최적화를 위해 함수 호출 최소화
 /*
 카메라 방향벡터: 픽셀 좌표-카메라 좌표
@@ -28,7 +25,9 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	ndc_pos.z = 0; // -1~1 사이면 아무 값이나 상관없음
 
 	world_pos = mat4_mulmv(\
-			(mat4_inverse(mat4_mulmm(projection_matrix(), view_matrix()))), \
+			(mat4_inverse(mat4_mulmm(\
+				projection_matrix(cam->fov, img->aspect_ratio, NEAR, FAR), \
+				view_matrix(cam->eye, cam->look_at, cam->up)))), \
 			vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1));
 	world_pos = vec4_mul(world_pos, (1 / world_pos.w));
 
