@@ -6,6 +6,12 @@
 # include "scene.h"
 # include "mlx_api.h"
 
+// default material
+# define K_DIFFUSE		0.3
+# define K_SPECULAR		0.3
+# define SHININESS		0.3
+# define REFLECTIVITY	0.3
+
 typedef struct s_material
 {
 	t_vec3	color;
@@ -39,7 +45,5 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos);
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n);
 t_vec3	view_direction(t_vec3 camera_pos, t_vec3 hit_pos);
-
-
 
 #endif 

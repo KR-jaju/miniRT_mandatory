@@ -1,6 +1,18 @@
 #include "render.h"
 
-// TODO: 폴리곤 메쉬이므로, 필요시 프래그먼트별 계산법 도입할 것 (저해상도 메쉬의 조명 정확도 올리기)
+static t_material	default_material(t_vec3 color)
+{
+	static t_material	material = {\
+									(t_vec3){0, 0, 0}, \
+									K_DIFFUSE, \
+									K_SPECULAR, \
+									SHININESS, \
+									REFLECTIVITY};
+
+	material.color = color;
+	return (material);
+}
+
 /*
 diffuse = 난반사 세기 * 컬러
 	- 난반사 세기: 입사벡터와 노멀벡터의 내적
@@ -49,23 +61,21 @@ ambient: 배경색상 (지역조명 모델이므로 매우 간단)
 diffuse: 빛의 입사벡터, 정점 노멀벡터
 specular: 빛의 반사벡터, 시선벡터
 */
-// TODO: material 위치 고민
 t_vec3	shade_intersection(t_hit_record *hit, t_scene *scene)
 {
-	t_vec3		ambient;
-	t_vec3		diffuse;
-	t_vec3		specular;
-	t_material	material;
-	t_vec3		incident;
+	const t_material	material = default_material(hit->object->color);
+	const t_vec3		incident = incident_direction(\
+									hit->point, scene->light.position);
+	t_vec3				ambient;
+	t_vec3				diffuse;
+	t_vec3				specular;
 
-	incident = incident_direction(hit->point, scene->light.position);
 	ambient = vec3_hadamard(scene->ambient_light, material.color);
 	diffuse = diffuse_reflection_value(&material, scene->light.color, \
 										incident, hit->polygon->normal);
 	specular = specular_reflection_value(&material, scene->light.color, \
-										reflection_direction(incident, \
-													hit->polygon->normal),
-													view_direction(scene->camera.eye, hit->point));
+						reflection_direction(incident, hit->polygon->normal), \
+						view_direction(scene->camera.eye, hit->point));
 	return (vec3_add(ambient, \
 			vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \
 					vec3_mul(specular, material.reflectivity))));
