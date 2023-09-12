@@ -3,8 +3,8 @@
 // TODO: 폴리곤 메쉬이므로, 필요시 프래그먼트별 계산법 도입할 것 (저해상도 메쉬의 조명 정확도 올리기)
 /*
 diffuse = 난반사 세기 * 컬러
-	난반사 세기: 입사벡터와 노멀벡터의 내적
-	컬러: 광원의 색 * 디퓨즈 계수
+	- 난반사 세기: 입사벡터와 노멀벡터의 내적
+	- 컬러: 광원의 색 * 디퓨즈 계수
 */
 t_vec3	diffuse_reflection_value(t_material *material, t_vec3 ray_color, \
 								t_vec3 incident, t_vec3 normal)
@@ -22,8 +22,8 @@ t_vec3	diffuse_reflection_value(t_material *material, t_vec3 ray_color, \
 
 /*
 specular = 하이라이트 세기 * 컬러
-	하이라이트 세기: 반사벡터와 시선벡터의 내적 (그리고 광택에 반비례)
-	컬러: 광원의 색 * 스페큘러 계수
+	- 하이라이트 세기: 반사벡터와 시선벡터의 내적 (그리고 광택에 반비례)
+	- 컬러: 광원의 색 * 스페큘러 계수
 */
 t_vec3	specular_reflection_value(t_material *material, t_vec3 ray_color, \
 								t_vec3 reflection, t_vec3 view)
@@ -31,19 +31,13 @@ t_vec3	specular_reflection_value(t_material *material, t_vec3 ray_color, \
 	float		brightness;
 	t_vec3		color;
 
-	reflection = vec3_normalize(reflection);
-	view = vec3_normalize(view);
-
+	// reflection = vec3_normalize(reflection);
+	// view = vec3_normalize(view);
 	brightness = fmaxf(vec3_dot(reflection, view), 0);
 	brightness = powf(brightness, material->shininess);
 	color = vec3_mul(ray_color, material->k_specular);
 	return (vec3_mul(color, brightness));
 }
-
-// TODO: 방향벡터 구하는 함수 작성
-t_vec3	incident_direction(void);
-t_vec3	reflection_direction(void);
-t_vec3	view_direction(void);
 
 /*
 교차점 색상 계산:
@@ -55,20 +49,23 @@ ambient: 배경색상 (지역조명 모델이므로 매우 간단)
 diffuse: 빛의 입사벡터, 정점 노멀벡터
 specular: 빛의 반사벡터, 시선벡터
 */
+// TODO: material 위치 고민
 t_vec3	shade_intersection(t_hit_record *hit, t_scene *scene)
 {
 	t_vec3		ambient;
 	t_vec3		diffuse;
 	t_vec3		specular;
 	t_material	material;
+	t_vec3		incident;
 
+	incident = incident_direction(hit->point, scene->light.position);
 	ambient = vec3_hadamard(scene->ambient_light, material.color);
 	diffuse = diffuse_reflection_value(&material, scene->light.color, \
-										incident_direction(), \
-										hit->polygon->normal);
+										incident, hit->polygon->normal);
 	specular = specular_reflection_value(&material, scene->light.color, \
-										reflection_direction(), \
-										view_direction());
+										reflection_direction(incident, \
+													hit->polygon->normal),
+													view_direction(scene->camera.eye, hit->point));
 	return (vec3_add(ambient, \
 			vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \
 					vec3_mul(specular, material.reflectivity))));

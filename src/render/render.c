@@ -18,7 +18,7 @@ world space상에서의 픽셀 좌표 구하기
 3. w 성분을 1로 만들어주기 위해 전체 성분 w값으로 나누기
 	(선형변환의 성질에 의해 이 나눗셈 연산을 이때 해도 상관없음)
 */
-t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
+static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3	ndc_pos;
 	t_vec4	world_pos;
