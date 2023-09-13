@@ -25,9 +25,6 @@ static t_vec3	diffuse_reflection_value(const t_material *material, \
 	float		brightness;
 	t_vec3		color;
 
-	incident = vec3_normalize(incident);
-	normal = vec3_normalize(normal);
-
 	brightness = fmaxf(vec3_dot(incident, normal), 0);
 	color = vec3_mul(ray_color, material->k_diffuse);
 	return (vec3_mul(color, brightness));
