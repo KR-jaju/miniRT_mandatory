@@ -56,7 +56,12 @@ t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos);
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n);
 t_vec3	view_direction(t_vec3 camera_pos, t_vec3 hit_pos);
 
-// matrix
+// TRS matrix
+t_mat4	translate_matrix(t_vec3 t);
+t_mat4	rotate_matrix(t_vec3 r);
+t_mat4	scale_matrix(t_vec3 s);
+
+// MVP matrix
 t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
 t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up);
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
