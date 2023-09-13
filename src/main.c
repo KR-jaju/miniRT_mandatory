@@ -23,12 +23,12 @@ void	world_transform(t_scene *scene);
 
 static bool	has_extension(const char *path, const char *ext)
 {
-    const size_t path_len = ft_strlen(path);
-    const size_t ext_len = ft_strlen(ext);
+	const size_t	path_len = ft_strlen(path);
+	const size_t	ext_len = ft_strlen(ext);
 
-    if (path_len <= ext_len)
-        return (false);
-    return (ft_strcmp(path + path_len - ext_len, ext) == 0);
+	if (path_len <= ext_len)
+		return (false);
+	return (ft_strcmp(path + path_len - ext_len, ext) == 0);
 }
 
 int	main(int argc, char *argv[])
@@ -45,11 +45,11 @@ int	main(int argc, char *argv[])
 	parse_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
+	world_transform(&scene);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_to_window, \
 				&(t_program_data){&mlx, &scene, &img});
-	world_transform(&scene);
 	mlx_loop(mlx.conn);
 	return (0);
 }
