@@ -57,6 +57,7 @@ t_vec4		vec4_normalize(t_vec4 v);
 // matrix
 t_mat4		identity_mat4(void);
 t_mat4		mat4_mulmm(t_mat4 a, t_mat4 b);
+t_mat4		mat4_transpose(t_mat4 m);
 t_mat4		mat4_inverse(t_mat4 m);
 
 // transform

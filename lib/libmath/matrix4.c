@@ -33,3 +33,23 @@ t_mat4	mat4_mulmm(t_mat4 a, t_mat4 b)
 	}
 	return (m);
 }
+
+t_mat4		mat4_transpose(t_mat4 orig)
+{
+	t_mat4	m;
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			m.e[j][i] = orig.e[i][j];
+			j++;
+		}
+		i++;
+	}
+	return (m);
+}
