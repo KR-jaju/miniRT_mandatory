@@ -49,13 +49,12 @@ bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 	p = vec3_add(ray->origin, vec3_mul(ray->dir, t));
 	if (is_point_in_triangle(p, polygon->vertex) == false)
 		return (false);
-	record->polygon = polygon;
 	record->point = p;
+	record->normal = polygon->normal;
 	record->t = t;
 	return (true);
 }
 
-//TODO: closest_hit 없어도 안 헷갈릴 것 같으면 record 대체하고 불필요한 연산 줄이기
 /*
 레이-오브젝트 교차 검사:
 오브젝트의 모든 폴리곤을 돌며 가장 가까운 hit을 찾는다.

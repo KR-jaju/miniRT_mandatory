@@ -39,9 +39,9 @@ typedef struct s_ray
 
 typedef struct s_hit_record
 {
-	t_object	*object;
-	t_polygon	*polygon;
 	t_vec3		point;
+	t_vec3		normal;
+	t_vec3		color;
 	float		t; // 카메라 레이 디렉션 스칼라
 }t_hit_record;
 
