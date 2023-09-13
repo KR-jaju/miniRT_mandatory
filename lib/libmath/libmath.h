@@ -3,6 +3,7 @@
 
 # include <math.h>
 # include <stdbool.h>
+
 # define EPSILON 1e-6
 
 /* -------------------------- STRUCT DECLARATIONS --------------------------- */
@@ -22,21 +23,15 @@ typedef struct s_vec4
 	float	w;
 }	t_vec4;
 
-typedef struct s_mat3 {
-	t_vec3	v1;
-	t_vec3	v2;
-	t_vec3	v3;
-}	t_mat3;
-
-typedef struct s_mat4 {
-	t_vec4	v1;
-	t_vec4	v2;
-	t_vec4	v3;
-	t_vec4	v4;
+// column-major
+typedef union s_mat4 {
+	float	e[4][4];
+	t_vec4	col[4];
 }	t_mat4;
 
 /* -------------------------- FUNCTION PROTOTYPES --------------------------- */
 
+// zero
 bool		is_near_zero(float n);
 
 // vector3
@@ -61,7 +56,7 @@ t_vec4		vec4_normalize(t_vec4 v);
 
 // matrix
 t_mat4		identity_mat4(void);
-t_mat4		mat4_mulmm(t_mat4 m1, t_mat4 m2);
+t_mat4		mat4_mulmm(t_mat4 a, t_mat4 b);
 t_mat4		mat4_inverse(t_mat4 m);
 
 // transform
