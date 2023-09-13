@@ -63,7 +63,7 @@ specular: 빛의 반사벡터, 시선벡터
 */
 t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 {
-	const t_material	material = default_material(hit->object->color);
+	const t_material	material = default_material(hit->color);
 	const t_vec3		incident = incident_direction(\
 									hit->point, scene->light.position);
 	t_vec3				ambient;
@@ -72,9 +72,9 @@ t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 
 	ambient = vec3_hadamard(scene->ambient_light, material.color);
 	diffuse = diffuse_reflection_value(&material, scene->light.color, \
-										incident, hit->polygon->normal);
+										incident, hit->normal);
 	specular = specular_reflection_value(&material, scene->light.color, \
-						reflection_direction(incident, hit->polygon->normal), \
+						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.eye, hit->point));
 	return (vec3_add(ambient, \
 			vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \

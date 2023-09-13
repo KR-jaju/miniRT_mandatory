@@ -16,6 +16,12 @@
 # define NEAR	0.3
 # define FAR	1000
 
+typedef struct s_polygon
+{
+	t_vec3		vertex[3];
+	t_vec3		normal;
+}t_polygon;
+
 typedef struct s_material
 {
 	t_vec3	color;
