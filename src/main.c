@@ -18,8 +18,32 @@ ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는
 loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
 */
 
-//TODO: 렌더링 시작 전 월드 변환 일괄 적용하여 버퍼에 저장하기
-void	world_transform(t_scene *scene);
+t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
+
+static void	world_transform(t_scene *scene)
+{
+	t_object	*object;
+	t_mesh		*mesh;
+	t_mat4		model;
+	int			i;
+
+	object = &scene->objects[0];
+	while (object)
+	{
+		model = model_matrix(object->position, object->rotation, object->scale);
+		mesh = object->mesh;
+		i = 0;
+		while (i < mesh->n_vertices)
+		{
+			object->vertices[i] = dehomogenize(\
+							mat4_mulmv(model, homogenize(mesh->vertices[i])));
+			object->normals[i] = dehomogenize(\
+							mat4_mulmv(model, homogenize(mesh->normals[i])));
+			i++;
+		}
+		object++;
+	}
+}
 
 static bool	has_extension(const char *path, const char *ext)
 {
