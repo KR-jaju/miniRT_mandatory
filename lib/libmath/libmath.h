@@ -60,7 +60,7 @@ float		vec4_length(t_vec4 v);
 t_vec4		vec4_normalize(t_vec4 v);
 
 // matrix
-t_mat4		unit_mat4(void);
+t_mat4		identity_mat4(void);
 t_mat4		mat4_mulmm(t_mat4 m1, t_mat4 m2);
 t_mat4		mat4_inverse(t_mat4 m);
 

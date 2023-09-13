@@ -34,7 +34,7 @@ t_mat4	rotate_matrix(t_vec3 r)
 	};
 
 	return (mat4_mulmm(m_rotate_x, \
-			mat4_mulmm(m_rotate_y, (mat4_mulmm(m_rotate_z, unit_mat4())))));
+			mat4_mulmm(m_rotate_y, (mat4_mulmm(m_rotate_z, identity_mat4())))));
 }
 
 t_mat4	scale_matrix(t_vec3 s)

@@ -1,6 +1,6 @@
 #include "libmath.h"
 
-t_mat4	unit_mat4(void)
+t_mat4	identity_mat4(void)
 {
 	return ((t_mat4){
 		(t_vec4){1, 0, 0, 0},
