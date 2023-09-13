@@ -95,8 +95,7 @@ t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up)
 	m_rotation.v3 = (t_vec4){basis_right.z, basis_up.z, basis_forward.z, 0};
 	m_rotation.v4 = (t_vec4){0, 0, 0, 0};
 
-	m_translation = unit_mat4();
-	translate_matrix(vec3_mul(eye, -1), &m_translation);
+	m_translation = translate_matrix(vec3_mul(eye, -1));
 
 	return (mat4_mulmm(m_rotation, m_translation));
 }
