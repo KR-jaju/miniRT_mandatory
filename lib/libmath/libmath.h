@@ -70,4 +70,8 @@ void		compose_scale_mat4(t_mat4 *m, float x, float y, float z);
 void		compose_rotate_mat4(t_mat4 *m, float x, float y, float z);
 void		compose_move_mat4(t_mat4 *m, float x, float y, float z);
 
+// homogeneous
+t_vec4		homogenize(t_vec3 v);
+t_vec3		dehomogenize(t_vec4 v);
+
 #endif
