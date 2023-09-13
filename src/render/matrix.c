@@ -1,34 +1,34 @@
 #include "render.h"
 
-t_mat4	translate_matrix(float x, float y, float z)
+t_mat4	translate_matrix(t_vec3 t)
 {
 	return ((t_mat4){
 		(t_vec4){1, 0, 0, 0},
 		(t_vec4){0, 1, 0, 0},
 		(t_vec4){0, 0, 1, 0},
-		(t_vec4){x, y, z, 1}
+		(t_vec4){t.x, t.y, t.z, 1}
 	});
 }
 
 // 왼손 좌표계이므로 z, y, x 순서로 적용 (yaw-pitch-roll)
-t_mat4	rotate_matrix(float x, float y, float z)
+t_mat4	rotate_matrix(t_vec3 r)
 {
 	const float		radian = M_PI / 180;
 	const t_mat4	m_rotate_x = (t_mat4){
 		(t_vec4){1, 0, 0, 0},
-		(t_vec4){0, cos(x * radian), sin(x * radian), 0},
-		(t_vec4){0, -sin(x * radian), cos(x * radian), 0},
+		(t_vec4){0, cos(r.x * radian), sin(r.x * radian), 0},
+		(t_vec4){0, -sin(r.x * radian), cos(r.x * radian), 0},
 		(t_vec4){0, 0, 0, 1}
 	};
 	const t_mat4	m_rotate_y = (t_mat4){
-		(t_vec4){cos(y * radian), 0, -sin(y * radian), 0},
+		(t_vec4){cos(r.y * radian), 0, -sin(r.y * radian), 0},
 		(t_vec4){0, 1, 0, 0},
-		(t_vec4){sin(y * radian), 0, cos(y * radian), 0},
+		(t_vec4){sin(r.y * radian), 0, cos(r.y * radian), 0},
 		(t_vec4){0, 0, 0, 1}
 	};
 	const t_mat4	m_rotate_z = (t_mat4){
-		(t_vec4){cos(z * radian), sin(z * radian), 0, 0},
-		(t_vec4){-sin(z * radian), cos(z * radian), 0, 0},
+		(t_vec4){cos(r.z * radian), sin(r.z * radian), 0, 0},
+		(t_vec4){-sin(r.z * radian), cos(r.z * radian), 0, 0},
 		(t_vec4){0, 0, 1, 0},
 		(t_vec4){0, 0, 0, 1}
 	};
@@ -37,12 +37,12 @@ t_mat4	rotate_matrix(float x, float y, float z)
 			mat4_mulmm(m_rotate_y, (mat4_mulmm(m_rotate_z, unit_mat4())))));
 }
 
-t_mat4	scale_matrix(float x, float y, float z)
+t_mat4	scale_matrix(t_vec3 s)
 {
 	return ((t_mat4){
-		(t_vec4){x, 0, 0, 0},
-		(t_vec4){0, y, 0, 0},
-		(t_vec4){0, 0, z, 0},
+		(t_vec4){s.x, 0, 0, 0},
+		(t_vec4){0, s.y, 0, 0},
+		(t_vec4){0, 0, s.z, 0},
 		(t_vec4){0, 0, 0, 1}
 	});
 }
@@ -58,9 +58,9 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 	t_mat4	r;
 	t_mat4	s;
 
-	t = translate_matrix(pos.x, pos.y, pos.z);
-	r = rotate_matrix(rot.x, rot.y, rot.z);
-	s = scale_matrix(scale.x, scale.y, scale.z);
+	t = translate_matrix(pos);
+	r = rotate_matrix(rot);
+	s = scale_matrix(scale);
 	return (mat4_mulmm(t, mat4_mulmm(r, s)));
 }
 
