@@ -1,9 +1,51 @@
 #include "render.h"
 
-// TODO: 차후 포인터와 복사 연산 둘 중 통일 필요
-void	translate_matrix(t_vec3 pos, t_mat4 *m);
-void	rotate_matrix(t_vec3 rot, t_mat4 *m);
-void	scale_matrix(t_vec3 scale, t_mat4 *m);
+t_mat4	translate_matrix(float x, float y, float z)
+{
+	return ((t_mat4){
+		(t_vec4){1, 0, 0, 0},
+		(t_vec4){0, 1, 0, 0},
+		(t_vec4){0, 0, 1, 0},
+		(t_vec4){x, y, z, 1}
+	});
+}
+
+// 왼손 좌표계이므로 z, y, x 순서로 적용 (yaw-pitch-roll)
+t_mat4	rotate_matrix(float x, float y, float z)
+{
+	const float		radian = M_PI / 180;
+	const t_mat4	m_rotate_x = (t_mat4){
+		(t_vec4){1, 0, 0, 0},
+		(t_vec4){0, cos(x * radian), sin(x * radian), 0},
+		(t_vec4){0, -sin(x * radian), cos(x * radian), 0},
+		(t_vec4){0, 0, 0, 1}
+	};
+	const t_mat4	m_rotate_y = (t_mat4){
+		(t_vec4){cos(y * radian), 0, -sin(y * radian), 0},
+		(t_vec4){0, 1, 0, 0},
+		(t_vec4){sin(y * radian), 0, cos(y * radian), 0},
+		(t_vec4){0, 0, 0, 1}
+	};
+	const t_mat4	m_rotate_z = (t_mat4){
+		(t_vec4){cos(z * radian), sin(z * radian), 0, 0},
+		(t_vec4){-sin(z * radian), cos(z * radian), 0, 0},
+		(t_vec4){0, 0, 1, 0},
+		(t_vec4){0, 0, 0, 1}
+	};
+
+	return (mat4_mulmm(m_rotate_x, \
+			mat4_mulmm(m_rotate_y, (mat4_mulmm(m_rotate_z, unit_mat4())))));
+}
+
+t_mat4	scale_matrix(float x, float y, float z)
+{
+	return ((t_mat4){
+		(t_vec4){x, 0, 0, 0},
+		(t_vec4){0, y, 0, 0},
+		(t_vec4){0, 0, z, 0},
+		(t_vec4){0, 0, 0, 1}
+	});
+}
 
 /*
 로컬 공간 -> 월드 공간 매핑
@@ -16,9 +58,9 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 	t_mat4	r;
 	t_mat4	s;
 
-	translate_matrix(pos, &t);
-	rotate_matrix(rot, &r);
-	scale_matrix(scale, &s);
+	t = translate_matrix(pos.x, pos.y, pos.z);
+	r = rotate_matrix(rot.x, rot.y, rot.z);
+	s = scale_matrix(scale.x, scale.y, scale.z);
 	return (mat4_mulmm(t, mat4_mulmm(r, s)));
 }
 
