@@ -3,13 +3,15 @@
 
 t_mat4	identity_mat4(void)
 {
-	static const t_mat4 m = {
+	static const float values[] = {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		0, 0, 0, 1
 	};
+	t_mat4				m;
 
+	ft_memcpy(&m, values, sizeof(m));
 	return (m);
 }
 
