@@ -2,12 +2,23 @@
 #include "libft.h"
 #include "render.h"
 
-static bool	is_point_in_triangle(t_vec3 p, t_vec3 *triangle)
+/*
+삼각형의 세 점 a, b, c는 한 평면 안에 놓여있기 때문에,
+cross_abap, cross_bcbp, cross_cacp는 단 두 가지의 방향만 갖게 됨
+(해당 평면을 기준으로 법선벡터 2종류)
+따라서 세 외적벡터의 방향이 같은지 확인할 때 두 번만 확인해도 무방
+*/
+static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 {
-	// TODO: 삼각형 내부에 교차지점이 있는지 확인 (CPP02 마지막 문제와 같이 외적 사용)
-	(void)p;
-	(void)triangle;
-	return (true);
+	const t_vec3	cross_abap = vec3_cross(vec3_sub(tp[1], tp[0]), \
+											vec3_sub(p, tp[0]));
+	const t_vec3	cross_bcbp = vec3_cross(vec3_sub(tp[1], tp[2]), \
+											vec3_sub(p, tp[1]));
+	const t_vec3	cross_cacp = vec3_cross(vec3_sub(tp[2], tp[1]), \
+											vec3_sub(p, tp[2]));
+
+	return (vec3_dot(cross_abap, cross_bcbp) >= 0 \
+			&& vec3_dot(cross_abap, cross_cacp) >= 0);
 }
 
 static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
