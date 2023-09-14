@@ -8,6 +8,10 @@ CPPFLAGS		=	-I./include
 LDFLAGS			=
 LDLIBS			=	
 
+ifdef DEV
+    CFLAGS += -g
+endif
+
 # ********************************* LIBRAY *********************************** #
 
 # libft
@@ -54,7 +58,7 @@ all:
 	make -C $(LIBFT_PATH) --silent
 	make -C $(LIBSTR_PATH) --silent
 	make -C $(LIBDS_PATH) --silent
-# make -C $(LIBMLX_PATH) --silent
+	make -C $(LIBMLX_PATH) --silent
 	make -C $(LIBMATH_PATH) --silent
 	make $(NAME)
 
@@ -68,7 +72,7 @@ clean:
 	make -C $(LIBFT_PATH) clean --silent
 	make -C $(LIBSTR_PATH) clean --silent
 	make -C $(LIBDS_PATH) clean --silent
-# make -C $(LIBMLX_PATH) clean --silent
+	make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) clean --silent
 	rm -f $(OBJS) $(DEPS)
 
@@ -76,7 +80,7 @@ fclean:
 	make -C $(LIBFT_PATH) fclean --silent
 	make -C $(LIBSTR_PATH) fclean --silent
 	make -C $(LIBDS_PATH) fclean --silent
-# make -C $(LIBMLX_PATH) clean --silent
+	make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) fclean --silent
 	rm -f $(NAME) $(OBJS) $(DEPS)
 
