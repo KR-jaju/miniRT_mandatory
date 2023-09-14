@@ -60,7 +60,8 @@ t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up)
 */
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 {
-	const float	d = 1 / tan(fov * 0.5);
+	const float	fov_radian = M_PI / 180 * fov;
+	const float	d = 1 / tan(fov_radian * 0.5);
 	const float	values[16] = {
 		d / aspect_ratio, 0, 0, 0,
 		0, d, 0, 0,
@@ -72,4 +73,3 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 	ft_memcpy(&m, values, sizeof(m));
 	return (m);
 }
-// fov는 이미 라디안 단위라고 생각

@@ -30,7 +30,7 @@ typedef struct s_camera
 	t_vec3		eye;
 	t_vec3		look_at;
 	t_vec3		up;
-	float		fov; // radian 단위
+	float		fov; // 육십분법
 }t_camera;
 
 typedef struct s_light
