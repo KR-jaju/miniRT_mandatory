@@ -32,7 +32,7 @@ LDLIBS			+=	-lds
 LIBMLX_PATH		=	./lib/libmlx
 CPPFLAGS		+=	-I./${LIBMLX_PATH}
 LDFLAGS			+=	-L./${LIBMLX_PATH}
-LDLIBS			+=	-lmlx
+LDLIBS			+=	-lmlx -framework OpenGL -framework AppKit
 
 # libmath
 LIBMATH_PATH	=	./lib/libmath
