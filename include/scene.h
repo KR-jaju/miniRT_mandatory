@@ -7,7 +7,7 @@ typedef struct s_mesh
 {
 	t_vec3		*vertices;
 	t_vec3		*normals;
-	int			*indices;
+	int			*indices; // 시계 반대 방향(ccw)으로 저장
 	int			n_vertices;
 	int			n_indices;
 	int			n_polygons;
