@@ -25,6 +25,7 @@ typedef struct s_image
 	size_t	data_size;
 	int		width;
 	int		height;
+	float	aspect_ratio;
 	int		n_pixels;
 	int		bits_per_pixel;
 	int		bytes_per_line;
@@ -42,6 +43,6 @@ typedef struct s_pixel
 void	init_image(t_image *img, void *mlx_conn);
 void	init_mlx(t_mlx *mlx);
 int		keypress_hook(int keycode, void *param);
-void	put_pixel_to_image(t_image *img, t_pixel p);
+void	put_pixel_to_image(t_pixel p, t_image *img);
 
 #endif

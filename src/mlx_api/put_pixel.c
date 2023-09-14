@@ -8,7 +8,7 @@ static uint32_t	vec3_to_rgb(t_vec3 v)
 	return ((int)v.x << 16 | (int)v.y << 8 | (int)v.z);
 }
 
-void	put_pixel_to_image(t_image *img, t_pixel p)
+void	put_pixel_to_image(t_pixel p, t_image *img)
 {
 	char	*dst;
 	int		offset;

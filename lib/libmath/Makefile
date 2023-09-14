@@ -4,8 +4,16 @@ NAME			=	libmath.a
 
 CC				= 	cc
 CFLAGS			= 	-Wall -Wextra -Werror
+CPPFLAGS		= 	-I../libft
 AR				= 	ar
 ARFLAGS			= 	-scr
+
+# ********************************* LIBRAY *********************************** #
+
+# libft
+LIBFT_PATH		=	../libft
+LDFLAGS			+=	-L./${LIBFT_PATH}
+LDLIBS			+=	-lft -lftprintf -lgnl
 
 # ****************************** SOURCE FILES ******************************** #
 
@@ -16,6 +24,7 @@ DEPS			= 	$(SRCS:.c=.d)
 # ********************************** RULES ********************************** #
 
 all:
+	make -C $(LIBFT_PATH) --silent
 	make $(NAME)
 
 $(NAME): $(OBJS)

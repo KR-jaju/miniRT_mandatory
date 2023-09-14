@@ -18,14 +18,41 @@ ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는
 loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
 */
 
+t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
+
+static void	world_transform(t_scene *scene)
+{
+	t_object	*object;
+	t_mesh		*mesh;
+	t_mat4		model;
+	int			i;
+
+	object = &scene->objects[0];
+	while (object)
+	{
+		model = model_matrix(object->position, object->rotation, object->scale);
+		mesh = object->mesh;
+		i = 0;
+		while (i < mesh->n_vertices)
+		{
+			object->vertices[i] = dehomogenize(\
+							mat4_mulmv(model, homogenize(mesh->vertices[i])));
+			object->normals[i] = dehomogenize(\
+							mat4_mulmv(model, homogenize(mesh->normals[i])));
+			i++;
+		}
+		object++;
+	}
+}
+
 static bool	has_extension(const char *path, const char *ext)
 {
-    const size_t path_len = ft_strlen(path);
-    const size_t ext_len = ft_strlen(ext);
+	const size_t	path_len = ft_strlen(path);
+	const size_t	ext_len = ft_strlen(ext);
 
-    if (path_len <= ext_len)
-        return (false);
-    return (ft_strcmp(path + path_len - ext_len, ext) == 0);
+	if (path_len <= ext_len)
+		return (false);
+	return (ft_strcmp(path + path_len - ext_len, ext) == 0);
 }
 
 int	main(int argc, char *argv[])
@@ -42,6 +69,7 @@ int	main(int argc, char *argv[])
 	parse_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
+	world_transform(&scene);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_to_window, \
