@@ -32,7 +32,7 @@ typedef union s_mat4 {
 /* -------------------------- FUNCTION PROTOTYPES --------------------------- */
 
 // zero
-bool		is_near_zero(float n);
+bool		is_zero(float n);
 
 // vector3
 t_vec3		vec3(float x, float y, float z);
