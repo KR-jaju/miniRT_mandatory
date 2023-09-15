@@ -88,11 +88,11 @@ int	render_to_window(t_program_data *data)
 	img = data->img;
 	if (img->progress == img->n_pixels)
 		return (0);
-	p.y = (img->progress + 1) / img->width;
-	p.x = img->progress - (p.y * img->height);
+	p.y = img->progress / img->width;
+	p.x = img->progress - (p.y * img->width);
 	p.color = compute_pixel_color(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
-	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
+	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, p.x, p.y);
 	img->progress++;
 	printf("progress: %d / %d\n", img->progress, img->n_pixels);
 	return (0);
