@@ -33,7 +33,7 @@ static void	world_transform(t_scene *scene)
 		object = &scene->objects[i];
 		model = model_matrix(object->position, object->rotation, object->scale);
 		j = 0;
-		while (i < object->mesh->n_vertices)
+		while (j < object->mesh->n_vertices)
 		{
 			object->vertices[i] = dehomogenize(\
 					mat4_mulmv(model, homogenize(object->mesh->vertices[i])));
