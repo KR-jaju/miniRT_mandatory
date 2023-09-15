@@ -35,10 +35,10 @@ static void	world_transform(t_scene *scene)
 		j = 0;
 		while (j < object->mesh->n_vertices)
 		{
-			object->vertices[i] = dehomogenize(\
-					mat4_mulmv(model, homogenize(object->mesh->vertices[i])));
-			object->normals[i] = dehomogenize(\
-					mat4_mulmv(model, homogenize(object->mesh->normals[i])));
+			object->vertices[j] = dehomogenize_pos(\
+				mat4_mulmv(model, homogenize_pos(object->mesh->vertices[j])));
+			object->normals[j] = dehomogenize_dir(\
+				mat4_mulmv(model, homogenize_dir(object->mesh->normals[j])));
 			j++;
 		}
 		i++;
