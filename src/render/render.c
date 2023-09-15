@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "libft.h"
 #include "mlx.h"
 #include "miniRT.h"
@@ -93,5 +94,6 @@ int	render_to_window(t_program_data *data)
 	put_pixel_to_image(p, img);
 	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
 	img->progress++;
+	printf("progress: %d / %d\n", img->progress, img->n_pixels);
 	return (0);
 }
