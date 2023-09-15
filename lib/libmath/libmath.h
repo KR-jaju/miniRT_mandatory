@@ -70,4 +70,7 @@ t_vec4		homogenize_dir(t_vec3 v);
 t_vec3		dehomogenize_pos(t_vec4 v);
 t_vec3		dehomogenize_dir(t_vec4 v);
 
+// clamp
+float	clamp(float a, float min, float max);
+
 #endif
