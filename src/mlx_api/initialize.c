@@ -5,7 +5,7 @@
 
 void	init_image(t_image *img, void *mlx_conn)
 {
-	img->addr = mlx_new_image(mlx_conn, img->width, img->height);
+	img->addr = mlx_new_image(mlx_conn, WINDOW_WIDTH, WINDOW_HEIGHT);
 	img->data = mlx_get_data_addr(img->addr, &img->bits_per_pixel, \
 								&img->bytes_per_line, &img->endian);
 	img->width = WINDOW_WIDTH;
@@ -13,8 +13,7 @@ void	init_image(t_image *img, void *mlx_conn)
 	img->aspect_ratio = img->width / img->height;
 	img->n_pixels = img->width * img->height;
 	img->data_size = img->bytes_per_line * img->height;
-	ft_memset(img->data, 0, \
-				WINDOW_WIDTH * WINDOW_HEIGHT * img->bits_per_pixel / 8);
+	ft_memset(img->data, 0, img->data_size);
 	img->progress = 0;
 }
 
