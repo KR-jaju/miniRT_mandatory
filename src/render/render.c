@@ -95,8 +95,10 @@ int	render_to_window(t_program_data *data)
 	p.color = compute_pixel_color(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
 	if (img->progress % 5000 == 0)
+	{
 		mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
+		printf("progress: %d / %d\n", img->progress, img->n_pixels);
+	}
 	img->progress++;
-	//printf("progress: %d / %d\n", img->progress, img->n_pixels);
 	return (0);
 }
