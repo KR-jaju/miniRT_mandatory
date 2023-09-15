@@ -46,11 +46,13 @@ object 구조체는 이 기본 메쉬를 포인터로 들고있음
 */
 typedef struct s_scene
 {
-	t_object	*objects;
 	t_mesh		*meshs;
+	t_object	*objects;
 	t_camera	camera;
 	t_light		light;
 	t_vec3		ambient_light;
+	int			n_meshs;
+	int			n_objects;
 }t_scene;
 
 #endif

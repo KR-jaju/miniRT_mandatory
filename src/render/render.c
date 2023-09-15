@@ -49,20 +49,20 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 {
 	t_ray			cam_ray;
-	t_object		*object;
 	t_hit_record	hit;
 	t_hit_record	closest_hit;
+	int				i;
 
 	closest_hit.t = INFINITY;
 	cam_ray.origin = scene->camera.eye;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
-	object = &scene->objects[0];
-	while (object)
+	i = 0;
+	while (i < scene->n_objects)
 	{
-		if (ray_object_intersection(&cam_ray, object, &hit) == true \
+		if (ray_object_intersection(&cam_ray, &scene->objects[i], &hit) == true \
 			&& hit.t < closest_hit.t)
 			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
-		object++;
+		i++;
 	}
 	if (closest_hit.t == INFINITY)
 		return (scene->ambient_light);

@@ -23,25 +23,25 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
 static void	world_transform(t_scene *scene)
 {
 	t_object	*object;
-	t_mesh		*mesh;
 	t_mat4		model;
 	int			i;
+	int			j;
 
-	object = &scene->objects[0];
-	while (object)
+	i = 0;
+	while (i < scene->n_objects)
 	{
+		object = &scene->objects[i];
 		model = model_matrix(object->position, object->rotation, object->scale);
-		mesh = object->mesh;
-		i = 0;
-		while (i < mesh->n_vertices)
+		j = 0;
+		while (i < object->mesh->n_vertices)
 		{
 			object->vertices[i] = dehomogenize(\
-							mat4_mulmv(model, homogenize(mesh->vertices[i])));
+					mat4_mulmv(model, homogenize(object->mesh->vertices[i])));
 			object->normals[i] = dehomogenize(\
-							mat4_mulmv(model, homogenize(mesh->normals[i])));
-			i++;
+					mat4_mulmv(model, homogenize(object->mesh->normals[i])));
+			j++;
 		}
-		object++;
+		i++;
 	}
 }
 
