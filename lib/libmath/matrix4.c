@@ -63,3 +63,26 @@ t_mat4		mat4_transpose(t_mat4 orig)
 	}
 	return (m);
 }
+
+// float	mat4_cofactor(t_mat4 mat, int row, int col)
+// {
+// 	int	i;
+// 	int	j;
+
+// 	i = 0;
+// 	j = 0;
+// 	while (i < 4)
+// 	{
+// 		j = 0;
+// 		while (j < 4)
+// 		{
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
+
+// t_mat4	mat4_inverse(t_mat4 mat)
+// {
+
+// }

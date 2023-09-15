@@ -3,7 +3,7 @@
 
 t_mesh	mesh_plane(void)
 {
-	t_mesh plane;
+	t_mesh	plane;
 
 	plane.vertices = malloc(sizeof(t_vec3) * 4);
 	plane.normals = malloc(sizeof(t_vec3) * 4);
@@ -14,10 +14,10 @@ t_mesh	mesh_plane(void)
 	plane.vertices[2] = (t_vec3){5, 0, -5};
 	plane.vertices[3] = (t_vec3){5, 0, 5};
 
-	plane.normals[0] = (t_vec3){0, 0, 1};
-	plane.normals[1] = (t_vec3){0, 0, 1};
-	plane.normals[2] = (t_vec3){0, 0, 1};
-	plane.normals[3] = (t_vec3){0, 0, 1};
+	plane.normals[0] = (t_vec3){0, 1, 0};
+	plane.normals[1] = (t_vec3){0, 1, 0};
+	plane.normals[2] = (t_vec3){0, 1, 0};
+	plane.normals[3] = (t_vec3){0, 1, 0};
 
 // polygon 1
 	plane.indices[0] = 0;
@@ -63,8 +63,8 @@ int	dummy_scene(t_scene *scene)
 	scene->meshs[0] = mesh_plane();
 	scene->objects[0] = dummy_object(&scene->meshs[0], (t_vec3){1, 0, 0});
 
-	scene->camera.eye = (t_vec3){0, 5, 0};
-	scene->camera.look_at = (t_vec3){5, 0, 0};
+	scene->camera.eye = (t_vec3){0, 0.5f, 0};
+	scene->camera.look_at = (t_vec3){0, 3, 1};
 	scene->camera.up = (t_vec3){0, 1, 0};
 	scene->camera.fov = 100;
 

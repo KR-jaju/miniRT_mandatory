@@ -19,22 +19,24 @@ world space상에서의 픽셀 좌표 구하기
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3	ndc_pos;
-	t_vec4	world_pos;
+	// t_vec4	world_pos;
 
+	(void) cam;
 	ndc_pos.x = ((x + 0.5) / img->width) * 2 - 1;
 	ndc_pos.y = 1 - ((y + 0.5) / img->height) * 2;
 	ndc_pos.z = 0; // -1~1 사이면 아무 값이나 상관없음
 
-	world_pos = mat4_mulmv(\
-			(mat4_transpose(mat4_mulmm(\
-				projection_matrix(cam->fov, img->aspect_ratio, NEAR, FAR), \
-				view_matrix(cam->eye, cam->look_at, cam->up)))), \
-			vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1));
-	world_pos = vec4_mul(world_pos, (1 / world_pos.w));
+	// world_pos = mat4_mulmv(\
+	// 		(mat4_transpose(mat4_mulmm(\
+	// 			projection_matrix(cam->fov, img->aspect_ratio, NEAR, FAR), \
+	// 			view_matrix(cam->eye, cam->look_at, cam->up)))), \
+	// 		vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1)); // TRANSPOSE X -> INVERSE
+	// world_pos = vec4_mul(world_pos, (1 / world_pos.w));
 
-	return (vec3_normalize(vec3(world_pos.x - cam->eye.x, \
-								world_pos.y - cam->eye.y, \
-								world_pos.z - cam->eye.z)));
+	// return (vec3_normalize(vec3(world_pos.x - cam->eye.x, \
+	// 							world_pos.y - cam->eye.y, \
+	// 							world_pos.z - cam->eye.z)));
+	return (vec3_normalize(vec3(ndc_pos.x, ndc_pos.y, 1)));
 }
 
 /*
@@ -87,13 +89,16 @@ int	render_to_window(t_program_data *data)
 	scene = data->scene;
 	img = data->img;
 	if (img->progress == img->n_pixels)
+	{
+		mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
 		return (0);
+	}
 	p.y = img->progress / img->width;
 	p.x = img->progress - (p.y * img->width);
 	p.color = compute_pixel_color(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
-	mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, p.x, p.y);
+		//p.x, p.y);
 	img->progress++;
-	printf("progress: %d / %d\n", img->progress, img->n_pixels);
+	//printf("progress: %d / %d\n", img->progress, img->n_pixels);
 	return (0);
 }

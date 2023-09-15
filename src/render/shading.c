@@ -73,9 +73,10 @@ t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 	specular = specular_reflection_value(&material, scene->light.color, \
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.eye, hit->point));
-	return (vec3_add(ambient, \
-			vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \
-					vec3_mul(specular, material.reflectivity))));
+	return (vec3(1.0, 0.0, 0.0));
+		// vec3_add(ambient, \
+		// 	vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \
+		// 			vec3_mul(specular, material.reflectivity))));
 }
 /*
 사용자 정의 상수값

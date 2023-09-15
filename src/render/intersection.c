@@ -51,15 +51,16 @@ bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 	float		t;
 	t_vec3		p;
 
-	if ((0 < dot_nl && dot_nl < EPSILON) || dot_nl < 0)
-		return (false);
+	//if ((0 < dot_nl && dot_nl < EPSILON) || dot_nl < 0)
+	//	return (false);
 	t = vec3_dot(\
 	vec3_sub(polygon->vertex[0], ray->origin), polygon->normal) / dot_nl;
-	if (t < 0)
-		return (false);
+	//if (t < 0)
+	//	return (false);
 	p = vec3_add(ray->origin, vec3_mul(ray->dir, t));
-	if (is_point_in_triangle(p, polygon->vertex) == false)
-		return (false);
+	is_point_in_triangle(p, polygon->vertex);
+	//if (is_point_in_triangle(p, polygon->vertex) == false)
+	//	return (false);
 	record->point = p;
 	record->normal = polygon->normal;
 	record->t = t;
