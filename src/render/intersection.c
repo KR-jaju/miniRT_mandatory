@@ -23,13 +23,17 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 
 static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
 {
-	polygon->vertex[0] = object->vertices[nth * 3];
-	polygon->vertex[1] = object->vertices[nth * 3 + 1];
-	polygon->vertex[2] = object->vertices[nth * 3 + 2];
+	const t_vec3	*vertices = object->vertices;
+	const t_vec3	*normals = object->normals;
+	const int		*indices = object->mesh->indices;
+
+	polygon->vertex[0] = vertices[indices[nth * 3]];
+	polygon->vertex[1] = vertices[indices[nth * 3 + 1]];
+	polygon->vertex[2] = vertices[indices[nth * 3 + 2]];
 	polygon->normal = vec3_mul(\
-						(vec3_add(object->normals[nth * 3], \
-							object->normals[nth * 3 + 1]), \
-							object->normals[nth * 3 + 2]), \
+						(vec3_add(normals[indices[nth * 3]], \
+							normals[indices[nth * 3 + 1]]), \
+							normals[indices[nth * 3 + 2]]), \
 						1 / 3);
 }
 
