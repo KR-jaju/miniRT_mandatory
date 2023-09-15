@@ -1,6 +1,7 @@
 
 #include "libft.h"
 #include "render.h"
+#include "debug.h"
 
 /*
 삼각형의 세 점 a, b, c는 한 평면 안에 놓여있기 때문에,
@@ -56,16 +57,16 @@ bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 	float		t;
 	t_vec3		p;
 
-	//if ((0 < dot_nl && dot_nl < EPSILON) || dot_nl < 0)
-	//	return (false);
-	t = vec3_dot(\
-	vec3_sub(polygon->vertex[0], ray->origin), polygon->normal) / dot_nl;
-	//if (t < 0)
-	//	return (false);
+	if (is_zero(dot_nl) || dot_nl > 0)
+		return (false);
+	t = vec3_dot(vec3_sub(polygon->vertex[0], ray->origin), polygon->normal) \
+																/ dot_nl;
+	if (t < 0)
+		return (false);
 	p = vec3_add(ray->origin, vec3_mul(ray->dir, t));
-	is_point_in_triangle(p, polygon->vertex);
-	//if (is_point_in_triangle(p, polygon->vertex) == false)
-	//	return (false);
+	// TODO: 삼각형 내부 점 판별 로직 오류 고치기
+	// if (is_point_in_triangle(p, polygon->vertex) == false)
+		// return (false);
 	record->point = p;
 	record->normal = polygon->normal;
 	record->t = t;
