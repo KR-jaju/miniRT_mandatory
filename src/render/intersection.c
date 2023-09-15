@@ -13,9 +13,9 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 {
 	const t_vec3	cross_abap = vec3_cross(vec3_sub(tp[1], tp[0]), \
 											vec3_sub(p, tp[0]));
-	const t_vec3	cross_bcbp = vec3_cross(vec3_sub(tp[1], tp[2]), \
+	const t_vec3	cross_bcbp = vec3_cross(vec3_sub(tp[2], tp[1]), \
 											vec3_sub(p, tp[1]));
-	const t_vec3	cross_cacp = vec3_cross(vec3_sub(tp[2], tp[1]), \
+	const t_vec3	cross_cacp = vec3_cross(vec3_sub(tp[0], tp[2]), \
 											vec3_sub(p, tp[2]));
 
 	return (vec3_dot(cross_abap, cross_bcbp) >= 0 \
@@ -64,9 +64,8 @@ bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 	if (t < 0)
 		return (false);
 	p = vec3_add(ray->origin, vec3_mul(ray->dir, t));
-	// TODO: 삼각형 내부 점 판별 로직 오류 고치기
-	// if (is_point_in_triangle(p, polygon->vertex) == false)
-		// return (false);
+	if (is_point_in_triangle(p, polygon->vertex) == false)
+		return (false);
 	record->point = p;
 	record->normal = polygon->normal;
 	record->t = t;
