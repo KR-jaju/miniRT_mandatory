@@ -91,7 +91,10 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 		fill_polygon_info(i, object, &polygon);
 		if (ray_polygon_intersection(ray, &polygon, &hit) == true \
 			&& hit.t < closest_hit.t)
-			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
+			{
+				ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
+				closest_hit.color = object->color;
+			}
 		i++;
 	}
 	if (closest_hit.t == INFINITY)
