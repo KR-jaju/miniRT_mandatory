@@ -21,20 +21,21 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 			&& vec3_dot(cross_abap, cross_cacp) >= 0);
 }
 
+// TODO: 매 픽셀 색상 계산시마다 불필요하게 폴리곤 정보를 채우고 있는 부분 최적화
 static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
 {
 	const t_vec3	*vertices = object->vertices;
 	const t_vec3	*normals = object->normals;
-	const int		*indices = object->mesh->indices;
+	const int		idx1 = object->mesh->indices[nth * 3];
+	const int		idx2 = object->mesh->indices[nth * 3 + 1];
+	const int		idx3 = object->mesh->indices[nth * 3 + 2];
 
-	polygon->vertex[0] = vertices[indices[nth * 3]];
-	polygon->vertex[1] = vertices[indices[nth * 3 + 1]];
-	polygon->vertex[2] = vertices[indices[nth * 3 + 2]];
+	polygon->vertex[0] = vertices[idx1];
+	polygon->vertex[1] = vertices[idx2];
+	polygon->vertex[2] = vertices[idx3];
 	polygon->normal = vec3_mul(\
-						(vec3_add(normals[indices[nth * 3]], \
-							normals[indices[nth * 3 + 1]]), \
-							normals[indices[nth * 3 + 2]]), \
-						1 / 3);
+						vec3_add(vec3_add(normals[idx1], normals[idx2]), \
+											normals[idx3]), (float)1 / 3);
 }
 
 /*
