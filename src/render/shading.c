@@ -44,7 +44,7 @@ static t_vec3	specular_reflection_value(const t_material *material, \
 	t_vec3		color;
 
 	brightness = fmaxf(vec3_dot(reflection, view), 0);
-	brightness = powf(brightness, material->shininess);
+	brightness = clamp(powf(brightness, material->shininess), 0, 1);
 	color = vec3_mul(ray_color, material->k_specular);
 	return (vec3_mul(color, brightness));
 }
@@ -75,11 +75,9 @@ t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.eye, hit->point));
 	
-	return ((t_vec3){1.0, 0.0, 0.0});
-	// TODO: 가시성(visibility)판단 문제 해결될 시 쉐이딩값 계산 버그 해결하기
-	// return (vec3_add(ambient, \
-	// 		vec3_add(vec3_mul(diffuse, (float)1 - material.reflectivity), \
-	// 				vec3_mul(specular, (float)material.reflectivity))));
+	return (vec3_add(ambient, \
+			vec3_add(vec3_mul(diffuse, (float)1 - material.reflectivity), \
+					vec3_mul(specular, (float)material.reflectivity))));
 }
 /*
 사용자 정의 상수값
