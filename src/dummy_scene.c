@@ -63,14 +63,14 @@ int	dummy_scene(t_scene *scene)
 	scene->meshs[0] = mesh_plane();
 	scene->objects[0] = dummy_object(&scene->meshs[0], (t_vec3){1, 0, 0});
 
-	scene->camera.eye = (t_vec3){0, 0.5f, 0};
+	scene->camera.eye = (t_vec3){0, 1, 0};
 	scene->camera.look_at = (t_vec3){0, 3, 1};
 	scene->camera.up = (t_vec3){0, 1, 0};
 	scene->camera.fov = 100;
 
-	scene->light.position = (t_vec3){0, 0, 0};
-	scene->light.color = (t_vec3){1, 0, 0};
+	scene->light.position = (t_vec3){0, 1, 7};
+	scene->light.color = (t_vec3){0, 0, 1};
 
-	scene->ambient_light = (t_vec3){0, 0.5, 0};
+	scene->ambient_light = (t_vec3){0.1, 0.1, 0.1};
 	return (0);
 }
