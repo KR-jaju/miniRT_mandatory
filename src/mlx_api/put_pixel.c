@@ -2,9 +2,11 @@
 #include "libmath.h"
 #include "miniRT.h"
 
-// vec3 컴포넌트 값이 1을 넘는 경우 발생시 clamp 연산 추가
 static uint32_t	vec3_to_rgb(t_vec3 v)
 {
+	v.x = clamp(v.x, 0.0f, 1.0f);
+	v.y = clamp(v.y, 0.0f, 1.0f);
+	v.z = clamp(v.z, 0.0f, 1.0f);
 	return ((int)(v.x * 255) << 16 | (int)(v.y * 255) << 8 | (int)(v.z * 255));
 }
 
