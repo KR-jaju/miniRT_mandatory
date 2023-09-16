@@ -1,4 +1,3 @@
-
 #include "libft.h"
 #include "render.h"
 #include "debug.h"
@@ -46,9 +45,10 @@ static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
 
 평면: (p-p0) * n = 0
 레이: l0 + l * t = p
+두 식을 연립하면 t = (p0 - l0) * n / (n * l)
 
-두 식을 연립하면 t = (p0 - l0) * n / (l * n)
-n과 l이 평행할 시, 즉 평면과 직선이 수직할시 값은 무한대에 가까워짐
+- n과 l의 방향이 같을 시(n * l > 0), 즉 레이가 평면의 뒷면과 교차하는 경우 false
+- n과 l이 평행할 시(n * l = 0), 즉 평면과 직선이 수직할시 false
 */
 bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 									t_hit_record *record)
@@ -57,7 +57,7 @@ bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
 	float		t;
 	t_vec3		p;
 
-	if (is_zero(dot_nl) || dot_nl > 0)
+	if (dot_nl > 0 || (-EPSILON < dot_nl && dot_nl < 0))
 		return (false);
 	t = vec3_dot(vec3_sub(polygon->vertex[0], ray->origin), polygon->normal) \
 																/ dot_nl;
