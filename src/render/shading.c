@@ -44,7 +44,7 @@ static t_vec3	specular_reflection_value(const t_material *material, \
 	t_vec3		color;
 
 	brightness = fmaxf(vec3_dot(reflection, view), 0);
-	brightness = clamp(powf(brightness, material->shininess), 0, 1);
+	brightness = powf(brightness, material->shininess);
 	color = vec3_mul(ray_color, material->k_specular);
 	return (vec3_mul(color, brightness));
 }
