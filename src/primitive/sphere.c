@@ -1,27 +1,25 @@
-// TODO: 변경된 구조체 구성 반영
-// #include "primitive.h"
-// #include <math.h>
-// #include "libds.h"
+#include "libds.h"
+#include "primitive.h"
 
-// #define PI 3.14159f
+// TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)
+// TODO: mesh 구조체 안에서 t_polygon 구조체를 더 이상 두고있지 않으므로 해당 사항 반영할 것
 
-// static
-// t_vec3	point_at(float yaw, float pitch)
-// {
-// 	const float	sin_yaw = sin(yaw * PI / 180);
-// 	const float	cos_yaw = sin(yaw * PI / 180);
-// 	const float	sin_pitch = sin(pitch * PI / 180);
-// 	const float	cos_pitch = sin(pitch * PI / 180);
+// yaw와 pitch 각도 값을 가지고 길이가 1인 벡터 반환
+static t_vec3	point_at(float yaw, float pitch)
+{
+	const float	sin_yaw = sin(yaw * M_PI / 180);
+	const float	cos_yaw = sin(yaw * M_PI / 180);
+	const float	sin_pitch = sin(pitch * M_PI / 180);
+	const float	cos_pitch = sin(pitch * M_PI / 180);
 
-// 	return (vec3(
-// 			sin_yaw * sin_pitch,
-// 			cos_pitch,
-// 			cos_yaw * sin_pitch
-// 		));
-// }
+	return (vec3(
+			sin_yaw * sin_pitch,
+			cos_pitch,
+			cos_yaw * sin_pitch
+		));
+}
 
-// static
-// void	add_patch(t_list *triangles, t_vec3 *vertices)
+// static void	add_patch(t_list *triangles, t_vec3 *vertices)
 // {
 // 	list_push(triangles, &(t_polygon){
 // 		.vertex[0] = vertices[0],
