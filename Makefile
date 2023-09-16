@@ -9,7 +9,7 @@ LDFLAGS			=
 LDLIBS			=	
 
 ifdef DEV
-    CFLAGS += -g
+    CFLAGS = -MMD -MP -g -fsanitize=address
 endif
 
 # ********************************* LIBRAY *********************************** #
@@ -87,5 +87,8 @@ fclean:
 re: 
 	make fclean
 	make all
+
+dev:
+	make DEV=1
 
 .PHONY: all clean fclean re

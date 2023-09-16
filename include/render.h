@@ -9,8 +9,9 @@
 // default material
 # define REFLECTIVITY	0.3
 # define K_DIFFUSE		0.3
-# define K_SPECULAR		0.3
-# define SHININESS		0.3
+# define K_SPECULAR		0.7
+# define SHININESS		64
+// diffuse 상수값 + specular 상수값 <= 1
 
 // default camera parameter
 # define NEAR	0.3

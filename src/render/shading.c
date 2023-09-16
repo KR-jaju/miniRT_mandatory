@@ -4,10 +4,11 @@ static t_material	default_material(t_vec3 color)
 {
 	static t_material	material = {\
 									(t_vec3){0, 0, 0}, \
+									REFLECTIVITY, \
 									K_DIFFUSE, \
 									K_SPECULAR, \
 									SHININESS, \
-									REFLECTIVITY};
+									};
 
 	material.color = color;
 	return (material);
@@ -73,9 +74,10 @@ t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 	specular = specular_reflection_value(&material, scene->light.color, \
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.eye, hit->point));
+	
 	return (vec3_add(ambient, \
-			vec3_add(vec3_mul(diffuse, 1 - material.reflectivity), \
-					vec3_mul(specular, material.reflectivity))));
+			vec3_add(vec3_mul(diffuse, (float)1 - material.reflectivity), \
+					vec3_mul(specular, (float)material.reflectivity))));
 }
 /*
 사용자 정의 상수값

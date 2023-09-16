@@ -32,7 +32,7 @@ typedef union s_mat4 {
 /* -------------------------- FUNCTION PROTOTYPES --------------------------- */
 
 // zero
-bool		is_near_zero(float n);
+bool		is_zero(float n);
 
 // vector3
 t_vec3		vec3(float x, float y, float z);
@@ -63,12 +63,14 @@ t_mat4		mat4_inverse(t_mat4 m);
 
 // transform
 t_vec4		mat4_mulmv(t_mat4 m, t_vec4 v);
-void		compose_scale_mat4(t_mat4 *m, float x, float y, float z);
-void		compose_rotate_mat4(t_mat4 *m, float x, float y, float z);
-void		compose_move_mat4(t_mat4 *m, float x, float y, float z);
 
 // homogeneous
-t_vec4		homogenize(t_vec3 v);
-t_vec3		dehomogenize(t_vec4 v);
+t_vec4		homogenize_pos(t_vec3 v);
+t_vec4		homogenize_dir(t_vec3 v);
+t_vec3		dehomogenize_pos(t_vec4 v);
+t_vec3		dehomogenize_dir(t_vec4 v);
+
+// clamp
+float	clamp(float a, float min, float max);
 
 #endif
