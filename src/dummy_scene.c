@@ -69,7 +69,8 @@ int	dummy_scene(t_scene *scene)
 	scene->camera.fov = 100;
 
 	scene->light.position = (t_vec3){0, 1, 7};
-	scene->light.color = (t_vec3){0, 0, 1};
+	scene->light.color = (t_vec3){2, 2, 2};
+	// scene->light.color = (t_vec3){1, 1, 1};
 
 	scene->ambient_light = (t_vec3){0.1, 0.1, 0.1};
 	return (0);
