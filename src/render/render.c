@@ -4,6 +4,7 @@
 #include "miniRT.h"
 #include "render.h"
 #include "mlx_api.h"
+#include "strdef.h"
 
 // TODO: 차후 최적화를 위해 함수 호출 최소화
 /*
@@ -84,11 +85,12 @@ int	render_to_window(t_program_data *data)
 	t_scene	*scene;
 	t_image	*img;
 	t_pixel	p;
+	static bool	done = false;
 
 	mlx = data->mlx;
 	scene = data->scene;
 	img = data->img;
-	if (img->progress == img->n_pixels)
+	if (done)
 		return (0);
 	p.y = img->progress / img->width;
 	p.x = img->progress - (p.y * img->width);
@@ -96,6 +98,11 @@ int	render_to_window(t_program_data *data)
 	put_pixel_to_image(p, img);
 	if (img->progress % 5000 == 0)
 	{
+		if (img->progress == img->n_pixels)
+		{
+			printf(MSG_RENDER_DONE"\n");
+			done = true;
+		}
 		mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
 		printf("progress: %d / %d\n", img->progress, img->n_pixels);
 	}
