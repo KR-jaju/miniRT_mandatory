@@ -46,7 +46,7 @@ object 구조체는 이 기본 메쉬를 포인터로 들고있음
 */
 typedef struct s_scene
 {
-	t_mesh		*meshs;
+	t_mesh		mesh[3];
 	t_object	*objects;
 	t_camera	camera;
 	t_light		light;
