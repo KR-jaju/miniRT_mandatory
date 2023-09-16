@@ -1,8 +1,9 @@
-// TODO: 변경된 구조체 구성 반영
-// #include "primitive.h"
-// #include <math.h>
-// #include "libds.h"
-// #include "alloc.h"
+#include "primitive.h"
+#include "libds.h"
+#include "alloc.h"
+
+// TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)
+// TODO: mesh 구조체 안에서 t_polygon 구조체를 더 이상 두고있지 않으므로 해당 사항 반영할 것
 
 // void	plane_init(t_mesh *mesh)
 // {
