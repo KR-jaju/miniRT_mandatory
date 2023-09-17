@@ -57,11 +57,11 @@ int	dummy_scene(t_scene *scene)
 	const int n_objects = 1;
 	scene->n_meshs = n_meshs;
 	scene->n_objects = n_objects;
-	scene->meshs = malloc(sizeof(t_object) * n_meshs);
+	//scene->mesh = malloc(sizeof(t_object) * n_meshs);
 	scene->objects = malloc(sizeof(t_object) * n_objects);
 
-	scene->meshs[0] = mesh_plane();
-	scene->objects[0] = dummy_object(&scene->meshs[0], (t_vec3){1, 0, 0});
+	scene->mesh[0] = mesh_plane();
+	scene->objects[0] = dummy_object(&scene->mesh[0], (t_vec3){1, 0, 0});
 
 	scene->camera.eye = (t_vec3){0, 1, 0};
 	scene->camera.look_at = (t_vec3){0, 3, 1};
