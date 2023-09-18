@@ -53,13 +53,13 @@ static void fill_indices_top_bottom(int *indices, int stacks, int sectors, int *
 	i = 0;
 	while (i < sectors)
 	{
-		indices[(*idx++)] = 0;
-		indices[(*idx++)] = i;
-		indices[(*idx++)] = i + 1;
+		indices[(*idx)++] = 0;
+		indices[(*idx)++] = i;
+		indices[(*idx)++] = i + 1;
 
-		indices[(*idx++)] = sectors * (stacks - 1) + i;
-		indices[(*idx++)] = n_vertices - 1;
-		indices[(*idx++)] = sectors * (stacks - 1) + i + 1;
+		indices[(*idx)++] = sectors * (stacks - 1) + i;
+		indices[(*idx)++] = n_vertices - 1;
+		indices[(*idx)++] = sectors * (stacks - 1) + i + 1;
 		i++;
 	}
 }
