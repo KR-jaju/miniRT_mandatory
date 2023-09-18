@@ -37,7 +37,7 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 		while (j < sectors)
 		{
 			vertices[(i * sectors) + j + 1] = \
-					point_at(d_sector * j, d_stack * i - M_PI / 2);
+					point_at(d_sector * j, M_PI / 2 - d_stack * i);
 			j++;
 		}
 		i++;
