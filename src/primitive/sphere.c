@@ -94,15 +94,17 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 
 void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 {
-	const int n_polygons = (2 * stacks * (sectors - 2)) + (2 * sectors);
+	const int	n_polygons = (2 * stacks * (sectors - 2)) + (2 * sectors);
 
 	mesh->n_polygons = n_polygons; // TODO: 없앨지 검토 필요
 	mesh->n_vertices = sectors * (stacks - 1) + 2;
 	mesh->n_indices = n_polygons * 3;
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
+	mesh->normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
 
 	fill_vertices(mesh->vertices, stacks, sectors);
 	fill_indices(mesh->indices, stacks, sectors);
-	// fill_normals(mesh->normals, stacks, sectors); // TODO: 정점 노말 구하기
+	ft_memcpy(mesh->normals, mesh->vertices, \
+				(sizeof(t_vec3) * mesh->n_vertices));
 }
