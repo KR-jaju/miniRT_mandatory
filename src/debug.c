@@ -30,3 +30,8 @@ void	print_mat4(t_mat4 m)
 	}
 	printf("------------------\n");
 }
+
+int	radian_to_degree(float r)
+{
+	return (r / M_PI * 180);
+}
