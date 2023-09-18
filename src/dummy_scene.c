@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include "scene.h"
+#include "primitive.h"
+#include "debug.h"
 
 t_mesh	mesh_plane(void)
 {
@@ -45,8 +47,9 @@ t_object	dummy_object(t_mesh *mesh, t_vec3 color)
 	object.scale = (t_vec3){1, 1, 1};
 	object.color = color;
 
-	object.vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
-	object.normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	// printf("mesh->n_vertices: %d\n", mesh->n_vertices);
+	// object.vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	// object.normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
 
 	return (object);
 }
@@ -60,15 +63,18 @@ int	dummy_scene(t_scene *scene)
 	scene->meshs = malloc(sizeof(t_object) * n_meshs);
 	scene->objects = malloc(sizeof(t_object) * n_objects);
 
-	scene->meshs[0] = mesh_plane();
+	// scene->meshs[0] = mesh_plane();
+	sphere_init(&scene->meshs[0], 20, 20);
 	scene->objects[0] = dummy_object(&scene->meshs[0], (t_vec3){1, 0, 0});
 
-	scene->camera.eye = (t_vec3){0, 1, 0};
-	scene->camera.look_at = (t_vec3){0, 3, 1};
-	scene->camera.up = (t_vec3){0, 1, 0};
-	scene->camera.fov = 100;
+	// printf("%d\n",scene->meshs[0].n_vertices);
 
-	scene->light.position = (t_vec3){0, 1, 7};
+	scene->camera.eye = (t_vec3){0, 0, -5};
+	// scene->camera.look_at = (t_vec3){0, 3, 1};
+	// scene->camera.up = (t_vec3){0, 1, 0};
+	// scene->camera.fov = 100;
+
+	scene->light.position = (t_vec3){-2, 2, 0};
 	scene->light.color = (t_vec3){2, 2, 2};
 	// scene->light.color = (t_vec3){1, 1, 1};
 
