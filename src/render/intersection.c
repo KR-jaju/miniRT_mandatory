@@ -21,23 +21,6 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 			&& vec3_dot(cross_abap, cross_cacp) >= 0);
 }
 
-// TODO: 매 픽셀 색상 계산시마다 불필요하게 폴리곤 정보를 채우고 있는 부분 최적화
-static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
-{
-	const t_vec3	*vertices = object->vertices;
-	const t_vec3	*normals = object->normals;
-	const int		idx1 = object->mesh->indices[nth * 3];
-	const int		idx2 = object->mesh->indices[nth * 3 + 1];
-	const int		idx3 = object->mesh->indices[nth * 3 + 2];
-
-	polygon->vertex[0] = vertices[idx1];
-	polygon->vertex[1] = vertices[idx2];
-	polygon->vertex[2] = vertices[idx3];
-	polygon->normal = vec3_mul(\
-						vec3_add(vec3_add(normals[idx1], normals[idx2]), \
-											normals[idx3]), (float)1 / 3);
-}
-
 /*
 레이-폴리곤(삼각형) 교차 검사:
 	1. 삼각형의 평면과 레이가 교차하는지 확인한다
@@ -50,25 +33,25 @@ static void	fill_polygon_info(int nth, t_object *object, t_polygon *polygon)
 - n과 l의 방향이 같을 시(n * l > 0), 즉 레이가 평면의 뒷면과 교차하는 경우 false
 - n과 l이 평행할 시(n * l = 0), 즉 평면과 직선이 수직할시 false
 */
-bool	ray_polygon_intersection(t_ray *ray, t_polygon *polygon, \
+bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 									t_hit_record *record)
 {
-	const float	dot_nl = vec3_dot(ray->dir, polygon->normal);
+	const float	dot_nl = vec3_dot(ray->dir, tri->face_normal);
 	float		t;
-	t_vec3		p;
+	t_vec3		point;
 
 	if (dot_nl > 0 || (-EPSILON < dot_nl && dot_nl < 0))
 		return (false);
-	t = vec3_dot(vec3_sub(polygon->vertex[0], ray->origin), polygon->normal) \
+	t = vec3_dot(vec3_sub(tri->vertices[0], ray->origin), tri->face_normal) \
 																/ dot_nl;
 	if (t < 0)
 		return (false);
-	p = vec3_add(ray->origin, vec3_mul(ray->dir, t));
-	if (is_point_in_triangle(p, polygon->vertex) == false)
+	point = vec3_add(ray->origin, vec3_mul(ray->dir, t));
+	if (is_point_in_triangle(point, tri->vertices) == false)
 		return (false);
-	record->point = p;
-	record->normal = polygon->normal;
 	record->t = t;
+	record->point = point;
+	record->triangle = tri;
 	return (true);
 }
 
@@ -81,15 +64,13 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 {
 	t_hit_record	hit;
 	t_hit_record	closest_hit;
-	t_polygon		polygon;
 	int				i;
 
 	closest_hit.t = INFINITY;
 	i = 0;
-	while (i < object->mesh->n_polygons)
+	while (i < object->mesh->n_triangles)
 	{
-		fill_polygon_info(i, object, &polygon);
-		if (ray_polygon_intersection(ray, &polygon, &hit) == true \
+		if (ray_triangle_intersection(ray, &object->triangles[i], &hit) == true \
 			&& hit.t < closest_hit.t)
 			{
 				ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
@@ -99,9 +80,6 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 	}
 	if (closest_hit.t == INFINITY)
 		return (false);
-	else
-	{
-		ft_memcpy(record, &closest_hit, sizeof(t_hit_record));
-		return (true);
-	}
+	ft_memcpy(record, &closest_hit, sizeof(t_hit_record));
+	return (true);
 }

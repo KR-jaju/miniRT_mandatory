@@ -49,6 +49,35 @@ static t_vec3	specular_reflection_value(const t_material *material, \
 	return (vec3_mul(color, brightness));
 }
 
+static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *barycentric)
+{
+	const float area_abc = vec3_length(\
+				vec3_cross(vec3_sub(abc[B], abc[A]), vec3_sub(abc[C], abc[A])));
+	const float area_abp = vec3_length(\
+				vec3_cross(vec3_sub(abc[B], abc[A]), vec3_sub(p, abc[A])));
+	const float area_acp = vec3_length(\
+				vec3_cross(vec3_sub(abc[A], abc[C]), vec3_sub(p, abc[C])));
+	const float area_bcp = vec3_length(\
+				vec3_cross(vec3_sub(abc[C], abc[B]), vec3_sub(p, abc[B])));
+	
+	barycentric[A] = area_bcp / area_abc;
+	barycentric[B] = area_acp / area_abc;
+	barycentric[C] = area_abp / area_abc;
+}
+
+t_vec3	interpolate_normal(t_vec3 p, t_triangle *t)
+{
+	float	ratio[3];
+	t_vec3	normal[3];
+
+	barycentric_coordinates(p, t->vertices, ratio);
+	normal[A] = vec3_mul(t->vertex_normals[A], ratio[A]);
+	normal[B] = vec3_mul(t->vertex_normals[B], ratio[B]);
+	normal[C] = vec3_mul(t->vertex_normals[C], ratio[C]);
+	return (vec3_normalize(\
+					vec3_add(vec3_add(normal[A], normal[B]), normal[C])));
+}
+
 /*
 교차점 색상 계산:
 
@@ -59,7 +88,7 @@ ambient: 배경색상 (지역조명 모델이므로 매우 간단)
 diffuse: 빛의 입사벡터, 정점 노멀벡터
 specular: 빛의 반사벡터, 시선벡터
 */
-t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
+t_vec3	shade_intersection(t_hit_record *hit, const t_scene *scene)
 {
 	const t_material	material = default_material(hit->color);
 	const t_vec3		incident = incident_direction(\
@@ -68,6 +97,7 @@ t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene)
 	t_vec3				diffuse;
 	t_vec3				specular;
 
+	hit->normal = interpolate_normal(hit->point, hit->triangle);
 	ambient = vec3_hadamard(scene->ambient_light, material.color);
 	diffuse = diffuse_reflection_value(&material, scene->light.color, \
 										incident, hit->normal);

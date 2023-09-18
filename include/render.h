@@ -17,12 +17,12 @@
 # define NEAR	0.3
 # define FAR	1000
 
-typedef struct s_polygon
+enum e_vertex
 {
-	t_vec3		vertex[3];
-	t_vec3		normal;
-}t_polygon;
-
+	A,
+	B,
+	C
+};
 typedef struct s_material
 {
 	t_vec3	color;
@@ -40,15 +40,16 @@ typedef struct s_ray
 
 typedef struct s_hit_record
 {
+	float		t; // 카메라 레이 디렉션 스칼라
 	t_vec3		point;
+	t_triangle	*triangle;
 	t_vec3		normal;
 	t_vec3		color;
-	float		t; // 카메라 레이 디렉션 스칼라
 }t_hit_record;
 
 // render main logic
 t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img);
-t_vec3	shade_intersection(const t_hit_record *hit, const t_scene *scene);
+t_vec3	shade_intersection(t_hit_record *hit, const t_scene *scene);
 bool	ray_object_intersection(t_ray *ray, t_object *object, \
 								t_hit_record *record);
 

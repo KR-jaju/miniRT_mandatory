@@ -50,6 +50,45 @@ static void	world_transform(t_scene *scene)
 	}
 }
 
+static void	fill_triangle_info(int nth, t_object *object, t_triangle *triangle)
+{
+	const t_vec3	*vertices = object->vertices;
+	const t_vec3	*normals = object->normals;
+	const int		idx[3] = {object->mesh->indices[nth * 3],
+							object->mesh->indices[nth * 3 + 1], 
+							object->mesh->indices[nth * 3 + 2]};
+
+	triangle->vertices[0] = vertices[idx[0]];
+	triangle->vertices[1] = vertices[idx[1]];
+	triangle->vertices[2] = vertices[idx[2]];
+	triangle->face_normal = vec3_normalize(vec3_mul(\
+						vec3_add(vec3_add(normals[idx[0]], normals[idx[1]]), \
+											normals[idx[2]]), (float)1 / 3));
+}
+
+static void	fill_triangles(t_scene *scene)
+{
+	t_object	*object;
+	int			idx[3];
+	int			i;
+	int			j;
+
+	i = 0;
+	while (i < scene->n_objects)
+	{
+		object = &scene->objects[i];
+		// TODO: 동적할당은 현 함수 호출 이전에 미리 함. 아래는 임시
+		object->triangles = malloc(sizeof(t_triangle) * object->mesh->n_triangles);
+		j = 0;
+		while (j < object->mesh->n_triangles)
+		{
+			fill_triangle_info(j, object, &object->triangles[j]);
+			j++;
+		}
+		i++;
+	}
+}
+
 static bool	has_extension(const char *path, const char *ext)
 {
 	const size_t	path_len = ft_strlen(path);
@@ -75,7 +114,11 @@ int	main(int argc, char *argv[])
 	dummy_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
+
+	// TODO: 차후 별도의 전처리로 분리
 	world_transform(&scene);
+	fill_triangles(&scene);
+
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_to_window, \
