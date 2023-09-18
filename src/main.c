@@ -31,14 +31,19 @@ static void	world_transform(t_scene *scene)
 	while (i < scene->n_objects)
 	{
 		object = &scene->objects[i];
+
+		// TODO: 동적할당은 현 함수 호출 이전에 미리 함. 아래는 임시
+		object->vertices = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
+		object->normals = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
+
 		model = model_matrix(object->position, object->rotation, object->scale);
 		j = 0;
 		while (j < object->mesh->n_vertices)
 		{
 			object->vertices[j] = dehomogenize_pos(\
 				mat4_mulmv(model, homogenize_pos(object->mesh->vertices[j])));
-			object->normals[j] = dehomogenize_dir(\
-				mat4_mulmv(model, homogenize_dir(object->mesh->normals[j])));
+			object->normals[j] = vec3_normalize(dehomogenize_dir(\
+				mat4_mulmv(model, homogenize_dir(object->mesh->normals[j]))));
 			j++;
 		}
 		i++;
@@ -66,7 +71,8 @@ int	main(int argc, char *argv[])
 		printf("Error\n"MSG_USAGE"\n");
 		return (1);
 	}
-	parse_scene(&scene);
+	// parse_scene(&scene);
+	dummy_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	world_transform(&scene);

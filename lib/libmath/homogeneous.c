@@ -1,5 +1,6 @@
-#include "libmath.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include "libmath.h"
 
 /*
 동차좌표계에서
@@ -19,13 +20,19 @@ t_vec4	homogenize_dir(t_vec3 v)
 t_vec3	dehomogenize_pos(t_vec4 v)
 {
 	if (v.w != 1)
+	{
+		printf("logic error: %s\n", __func__);
 		exit(1);
+	}
 	return ((t_vec3){v.x, v.y, v.z});
 }
 
 t_vec3	dehomogenize_dir(t_vec4 v)
 {
 	if (v.w != 0)
+	{
+		printf("logic error: %s\n", __func__);
 		exit(1);
+	}
 	return ((t_vec3){v.x, v.y, v.z});
 }
