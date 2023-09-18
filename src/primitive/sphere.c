@@ -21,13 +21,13 @@ static t_vec3	point_at(float yaw, float pitch)
 		));
 }
 
-static void fill_vertices(t_vec3 *vertices, int stacks, int sectors)
+static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 {
 	const int	n_vertices = sectors * (stacks - 1) + 2;
-	const float	d_sector = 2 * M_PI / sectors; // delta sector
-	const float	d_stack = M_PI / stacks; // delta stack
-	int	i;
-	int	j;
+	const float	d_sector = 2 * M_PI / sectors;
+	const float	d_stack = M_PI / stacks;
+	int			i;
+	int			j;
 
 	i = 0;
 	vertices[0] = point_at(0, M_PI / 2);
@@ -42,13 +42,14 @@ static void fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 		}
 		i++;
 	}
-	vertices[n_vertices - 1] = point_at(0, - M_PI / 2);
+	vertices[n_vertices - 1] = point_at(0, -M_PI / 2);
 }
 
-static void fill_indices_top_bottom(int *indices, int stacks, int sectors, int *idx)
+static void	fill_indices_top_bottom(int *indices, \
+									int stacks, int sectors, int *idx)
 {
-	const int n_vertices = sectors * (stacks - 1) + 2;
-	int	i;
+	const int	n_vertices = sectors * (stacks - 1) + 2;
+	int			i;
 
 	i = 0;
 	while (i < sectors)
@@ -56,7 +57,6 @@ static void fill_indices_top_bottom(int *indices, int stacks, int sectors, int *
 		indices[(*idx)++] = 0;
 		indices[(*idx)++] = i;
 		indices[(*idx)++] = i + 1;
-
 		indices[(*idx)++] = sectors * (stacks - 1) + i;
 		indices[(*idx)++] = n_vertices - 1;
 		indices[(*idx)++] = sectors * (stacks - 1) + i + 1;
@@ -64,10 +64,10 @@ static void fill_indices_top_bottom(int *indices, int stacks, int sectors, int *
 	}
 }
 
-static void fill_indices(int *indices, int stacks, int sectors)
+static void	fill_indices(int *indices, int stacks, int sectors)
 {
-	int idx;
-	int cur;
+	int	idx;
+	int	cur;
 	int	i;
 	int	j;
 
@@ -80,11 +80,9 @@ static void fill_indices(int *indices, int stacks, int sectors)
 		while (j < sectors)
 		{
 			cur = j + i * sectors;
-
 			indices[idx++] = cur;
 			indices[idx++] = cur + sectors;
 			indices[idx++] = cur + 1;
-
 			indices[idx++] = cur + 1;
 			indices[idx++] = cur + sectors;
 			indices[idx++] = cur + sectors + 1;
@@ -106,4 +104,5 @@ void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 
 	fill_vertices(mesh->vertices, stacks, sectors);
 	fill_indices(mesh->indices, stacks, sectors);
+	// fill_normals(mesh->normals, stacks, sectors); // TODO: 정점 노말 구하기
 }
