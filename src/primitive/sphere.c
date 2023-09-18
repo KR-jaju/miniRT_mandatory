@@ -1,6 +1,6 @@
 #include "libds.h"
 #include "primitive.h"
-
+#include "debug.h"
 /*
 yaw(y축)와 pitch(x축) 각도 값을 가지고 길이가 1인 벡터 반환.
 매개변수 yaw와 pitch는 라디안 단위로 들어옴.
@@ -45,8 +45,7 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 	vertices[n_vertices - 1] = point_at(0, -M_PI / 2);
 }
 
-static void	fill_indices_top_bottom(int *indices, \
-									int stacks, int sectors, int *idx)
+static void	fill_indices_top(int *indices, int stacks, int sectors, int *idx)
 {
 	const int	n_vertices = sectors * (stacks - 1) + 2;
 	int			i;
@@ -57,6 +56,18 @@ static void	fill_indices_top_bottom(int *indices, \
 		indices[(*idx)++] = 0;
 		indices[(*idx)++] = i;
 		indices[(*idx)++] = i + 1;
+		i++;
+	}
+}
+
+static void	fill_indices_bottom(int *indices, int stacks, int sectors, int *idx)
+{
+	const int	n_vertices = sectors * (stacks - 1) + 2;
+	int			i;
+
+	i = 0;
+	while (i < sectors)
+	{
 		indices[(*idx)++] = sectors * (stacks - 1) + i;
 		indices[(*idx)++] = n_vertices - 1;
 		indices[(*idx)++] = sectors * (stacks - 1) + i + 1;
@@ -72,7 +83,7 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 	int	j;
 
 	idx = 0;
-	fill_indices_top_bottom(indices, stacks, sectors, &idx);
+	fill_indices_top(indices, stacks, sectors, &idx);
 	i = 0;
 	while (i < stacks - 1)
 	{
@@ -90,6 +101,7 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 		}
 		i++;
 	}
+	fill_indices_bottom(indices, stacks, sectors, &idx);
 }
 
 void	sphere_init(t_mesh *mesh, int stacks, int sectors)
