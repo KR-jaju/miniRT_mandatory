@@ -68,9 +68,9 @@ static void	fill_indices_bottom(int *indices, int stacks, int sectors, int *idx)
 	i = 0;
 	while (i < sectors)
 	{
-		indices[(*idx)++] = sectors * (stacks - 1) + i;
+		indices[(*idx)++] = sectors * (stacks - 2) + i;
 		indices[(*idx)++] = n_vertices - 1;
-		indices[(*idx)++] = sectors * (stacks - 1) + i + 1;
+		indices[(*idx)++] = sectors * (stacks - 2) + i + 1;
 		i++;
 	}
 }
@@ -85,12 +85,12 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 	idx = 0;
 	fill_indices_top(indices, stacks, sectors, &idx);
 	i = 0;
-	while (i < stacks - 1)
+	while (i < stacks - 2)
 	{
 		j = 0;
 		while (j < sectors)
 		{
-			cur = j + i * sectors;
+			cur = j + i * sectors + 1;
 			indices[idx++] = cur;
 			indices[idx++] = cur + sectors;
 			indices[idx++] = cur + 1;
