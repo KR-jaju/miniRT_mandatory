@@ -35,7 +35,7 @@ t_mat4	mat4_mulmm(t_mat4 a, t_mat4 b)
 		j = 0;
 		while (j < 4)
 		{
-			m.e[j][i] = vec4_dot(b.col[i], \
+			m.e[i][j] = vec4_dot(b.col[i], \
 					(t_vec4){a.e[0][j], a.e[1][j], a.e[2][j], a.e[3][j]});
 			j++;
 		}
