@@ -2,12 +2,6 @@
 #include "primitive.h"
 #include "debug.h"
 
-// for debug
-int radian_to_degree(float r)
-{
-	return (r / M_PI * 180);
-}
-
 /*
 yaw(y축)와 pitch(x축) 각도 값을 가지고 길이가 1인 벡터 반환.
 매개변수 yaw와 pitch는 라디안 단위로 들어옴.
@@ -28,8 +22,6 @@ static t_vec3	point_at(float y, float x)
 		));
 }
 
-
-// ok
 static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 {
 	const int	n_vertices = sectors * (stacks - 1) + 2;
@@ -45,10 +37,6 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 		j = 0;
 		while (j < sectors)
 		{
-			// printf("%dth vertex: (%d, %d)\n", \
-			// 	(i * sectors) + j + 1, \
-			// 	radian_to_degree(M_PI / 2 - d_stack * (i + 1)), \
-			// 	radian_to_degree(d_sector * j));
 			vertices[(i * sectors) + j + 1] = \
 					point_at(d_sector * j, M_PI / 2 - d_stack * (i + 1));
 			j++;
@@ -58,7 +46,6 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 	vertices[n_vertices - 1] = point_at(0, -M_PI / 2);
 }
 
-// ok
 static void	fill_indices_top(int *indices, int stacks, int sectors, int *idx)
 {
 	int	i;
@@ -106,11 +93,9 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 		while (j < sectors)
 		{
 			cur = j + i * sectors + 1;
-
 			indices[idx++] = cur;
 			indices[idx++] = cur + sectors;
 			indices[idx++] = cur + 1;
-
 			indices[idx++] = cur + 1;
 			indices[idx++] = cur + sectors;
 			indices[idx++] = cur + sectors + 1;
@@ -134,25 +119,8 @@ void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
 	mesh->normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
-
-	printf("n_polygons: %d\n", n_polygons);
-	printf("n_vertices: %d\n", mesh->n_vertices);
-	printf("n_indices: %d\n-------------------------\n", mesh->n_indices);
-
 	fill_vertices(mesh->vertices, stacks, sectors);
 	fill_indices(mesh->indices, stacks, sectors);
 	ft_memcpy(mesh->normals, mesh->vertices, \
 				(sizeof(t_vec3) * mesh->n_vertices));
-
-	// for (int i = 0; i < mesh->n_vertices; i++)
-	// {
-	// 	printf("%d: ", i);
-	// 	print_vec3(mesh->vertices[i]);
-	// 	printf("%d length: %f\n", i, vec3_length(mesh->vertices[i]));
-	// }
-
-	// for (int i = 0; i < mesh->n_indices / 3; i++)
-	// {
-	// 	printf("%dth polygon: %d %d %d\n", i + 1, mesh->indices[i * 3], mesh->indices[i * 3 + 1], mesh->indices[i * 3 + 2]);
-	// }
 }
