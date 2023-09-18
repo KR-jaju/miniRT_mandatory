@@ -100,7 +100,7 @@ void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 {
 	const int	n_polygons = 2 * sectors * (stacks - 1);
 
-	mesh->n_polygons = n_polygons; // TODO: 없앨지 검토 필요
+	mesh->n_triangles = n_polygons; // TODO: 없앨지 검토 필요
 	mesh->n_vertices = sectors * (stacks - 1) + 2;
 	mesh->n_indices = n_polygons * 3;
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);

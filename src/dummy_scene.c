@@ -32,7 +32,7 @@ t_mesh	mesh_plane(void)
 
 	plane.n_vertices = 4;
 	plane.n_indices = 6;
-	plane.n_polygons = 2; // 생각해보니 무조건 indices / 3 아닌가?
+	plane.n_triangles = 2; // 생각해보니 무조건 indices / 3 아닌가?
 
 	return (plane);
 }
