@@ -61,6 +61,9 @@ static void	fill_triangle_info(int nth, t_object *object, t_triangle *tri)
 	tri->vertices[0] = vertices[idx[0]];
 	tri->vertices[1] = vertices[idx[1]];
 	tri->vertices[2] = vertices[idx[2]];
+	tri->vertex_normals[0] = normals[idx[0]];
+	tri->vertex_normals[1] = normals[idx[1]];
+	tri->vertex_normals[2] = normals[idx[2]];
 	tri->face_normal = vec3_normalize(\
 						vec3_cross(vec3_sub(tri->vertices[2], tri->vertices[0]), \
 								vec3_sub(tri->vertices[1], tri->vertices[0])));
