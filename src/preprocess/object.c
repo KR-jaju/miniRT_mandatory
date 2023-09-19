@@ -1,17 +1,15 @@
-#include <stdlib.h>
-#include "libmath.h"
 #include "scene.h"
 
 t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
 t_mat4	rotate_matrix(t_vec3 r);
 
-static t_triangle nth_triangle(int nth, \
-							t_vec3 *vertices, t_vec3 *normals, int *indices)
+static t_triangle	nth_triangle(int nth, \
+								t_vec3 *vertices, t_vec3 *normals, int *indices)
 {
 	t_triangle	tri;
-	const int	idx[3] = {indices[nth * 3],
-							indices[nth * 3 + 1], 
-							indices[nth * 3 + 2]};
+	const int	idx[3] = {indices[nth * 3], \
+						indices[nth * 3 + 1], \
+						indices[nth * 3 + 2]};
 
 	tri.vertices[0] = vertices[idx[0]];
 	tri.vertices[1] = vertices[idx[1]];
@@ -25,7 +23,7 @@ static t_triangle nth_triangle(int nth, \
 	return (tri);
 }
 
-static void	fill_triangles(t_object *object)
+void	fill_triangles(t_object *object)
 {
 	int	i;
 
@@ -38,7 +36,7 @@ static void	fill_triangles(t_object *object)
 	}
 }
 
-static void	fill_normals(t_object *object)
+void	fill_normals(t_object *object)
 {
 	const t_mat4	r_m = rotate_matrix(object->rotation);
 	t_vec3			v3;
@@ -55,7 +53,7 @@ static void	fill_normals(t_object *object)
 	}
 }
 
-static void	fill_vertices(t_object *object)
+void	fill_vertices(t_object *object)
 {
 	const t_mat4	trs_m = model_matrix(\
 							object->position, object->rotation, object->scale);
@@ -71,40 +69,4 @@ static void	fill_vertices(t_object *object)
 		object->vertices[i] = (t_vec3){v4.x, v4.y, v4.z};
 		i++;
 	}
-}
-
-// TODO: 메모리 할당 실패 예외처리
-int	allocate_array(t_object *objects, int n_objects)
-{
-	t_object	*object;
-	int			i;
-
-	i = 0;
-	while (i < n_objects)
-	{
-		object = &objects[i];
-		object->vertices = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-		object->normals = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-		object->triangles = malloc(sizeof(t_triangle) \
-									* object->mesh->n_triangles);
-		i++;
-	}
-	return (0);
-}
-
-int	preprocess_scene(t_scene *scene)
-{
-	int	i;
-
-	allocate_array(scene->objects, scene->n_objects);
-	i = 0;
-	while (i < scene->n_objects)
-	{
-		fill_vertices(&scene->objects[i]);
-		fill_normals(&scene->objects[i]);
-		fill_triangles(&scene->objects[i]);
-		i++;
-	}
-	// TODO: 카메라 행렬 여기서 구하기
-	return (0);
 }
