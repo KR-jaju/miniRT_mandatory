@@ -102,13 +102,13 @@ int	render_window(t_program_data *data)
 	if (progress == 0)
 		console_msg(MSG_RENDER_START"\n"MSG_RENDER_PROGRESS);
 	render_image(progress, data->scene, data->img, &done);
-	progress++;
 	if (progress % 5000 == 0 || done)
 	{
 		mlx_put_image_to_window(data->mlx->conn,
 								data->mlx->win, data->img->addr, 0, 0);
 		printf("progress: %d / %d\n", progress, data->img->n_pixels);
 	}
+	progress++;
 	if (done)
 		console_msg(MSG_RENDER_DONE);
 	return (0);
