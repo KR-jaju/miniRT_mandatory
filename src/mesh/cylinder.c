@@ -4,83 +4,124 @@
 // TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)
 // TODO: mesh 구조체 안에서 t_polygon 구조체를 더 이상 두고있지 않으므로 해당 사항 반영할 것
 
-// yaw값과 실린더 높이의 절반(y)을 받아 실린더 중심을 기준으로 좌표를 구함
-// static t_vec3	point_at(float yaw, float y)
-// {
-// 	const float	sin_yaw = sin(yaw * M_PI / 180);
-// 	const float	cos_yaw = sin(yaw * M_PI / 180);
+// wall, base
 
-// 	return ((t_vec3){
-// 		sin_yaw,
-// 		y,
-// 		cos_yaw
-// 	});
-// }
+/*
+yaw(y축 기준 회전)값과 y값을 받아 해당하는 좌표를 구함
+매개변수 yaw는 라디안 단위로 들어옴.
+실린더 중심을 기준으로 좌표를 구하기 위해, y값은 실린더 높이의 절반이 됨
+*/
+static t_vec3	point_at(float yaw, float y)
+{
+	const float	sin_yaw = sin(yaw);
+	const float	cos_yaw = cos(yaw);
 
-// static
-// void	add_wall(t_list *triangles, t_vec3 *vertices)
-// {
-// 	t_vec3	normal;
+	return ((t_vec3){
+		cos_yaw,
+		y,
+		sin_yaw
+	});
+}
 
-// 	normal = vec3_add(
-// 			vec3_add(vertices[0], vertices[1]),
-// 			vec3_add(vertices[2], vertices[3]));
-// 	normal = vec3_mul(normal, 1 / vec3_length(normal));
-// 	list_push(triangles, &(t_polygon){
-// 		.vertex[0] = vertices[0],
-// 		.vertex[1] = vertices[2],
-// 		.vertex[2] = vertices[1],
-// 		.normal = normal
-// 	});
-// 	list_push(triangles, &(t_polygon){
-// 		.vertex[0] = vertices[1],
-// 		.vertex[1] = vertices[2],
-// 		.vertex[2] = vertices[3],
-// 		.normal = normal
-// 	});
-// }
+static void	fill_vertices(t_vec3 *vertices, int sectors)
+{
+	const float	d_sector = 2 * M_PI / sectors;
+	int			i;
 
-// static
-// void	add_base(t_list *triangles, t_vec3 *vertices)
-// {
-// 	list_push(triangles, &(t_polygon){
-// 		.vertex[0] = (t_vec3){0.0f, -1.0f, 0.0f},
-// 		.vertex[1] = vertices[3],
-// 		.vertex[2] = vertices[2],
-// 		.normal = (t_vec3){0.0f, -1.0f, 0.0f}
-// 	});
-// 	list_push(triangles, &(t_polygon){
-// 		.vertex[0] = vertices[0],
-// 		.vertex[1] = vertices[1],
-// 		.vertex[2] = (t_vec3){0.0f, 1.0f, 0.0f},
-// 		.normal = (t_vec3){0.0f, 1.0f, 0.0f}
-// 	});
-// }
+	vertices[0] = (t_vec3){0, 1, 0};
+	i = 0;
+	while (i < sectors)
+	{
+		vertices[i + 1] = point_at(d_sector * i, (float)1 / 2);
+		i++;
+	}
+	i = 0;
+	while (i < sectors)
+	{
+		vertices[i + sectors + 1] = point_at(d_sector * i, (float)-1 / 2);
+		i++;
+	}
+	vertices[sectors * 2 + 1] = (t_vec3){0, -1, 0};
+}
 
-// static
-// void	add_polygons(t_list *triangles, t_vec3 *vertices)
-// {
-// 	add_base(triangles, vertices);
-// 	add_wall(triangles, vertices);
-// }
+static void	fill_indices_caps(int *indices, int sectors, int *idx)
+{
+	const int	last = sectors * 2 + 1;
+	int			i;
 
-// void	cylinder_init(t_mesh *mesh, uint32_t sectors)
-// {
-// 	t_list		triangles;
-// 	const float	d_sector = 2 * PI / sectors;
-// 	uint32_t	i;
+	i = 0;
+	while (i < sectors)
+	{
+		indices[(*idx)++] = 0;
+		indices[(*idx)++] = i;
+		indices[(*idx)++] = i + 1;
+		indices[(*idx)++] = sectors + 1;
+		indices[(*idx)++] = sectors + 2;
+		indices[(*idx)++] = last;
+		i++;
+	}
+	indices[*idx - 4] = 1;
+	indices[(*idx) - 2] = sectors + 1;
+}
 
-// 	i = 0;
-// 	while (i < sectors)
-// 	{
-// 		add_polygons(&triangles, (t_vec3 []){
-// 			point_at(i * d_sector, 1),
-// 			point_at((i + 1) * d_sector, 1),
-// 			point_at(i * d_sector, -1),
-// 			point_at((i + 1) * d_sector, -1),
-// 		});
-// 		i++;
-// 	}
-// 	mesh->polygons = list_collect(&triangles, &mesh->n_polygons);
-// 	//TODO: free list
-// }
+static void	fill_indices_side(int *indices, int sectors, int *idx)
+{
+	int	i;
+
+	i = 0;
+	while (i < sectors)
+	{
+		indices[(*idx)++] = i + 1;
+		indices[(*idx)++] = i + sectors + 1;
+		indices[(*idx)++] = i + sectors + 2;
+		indices[(*idx)++] = i + 2;
+		indices[(*idx)++] = i + 1;
+		indices[(*idx)++] = i + sectors + 2;
+		i++;
+	}
+}
+
+static void	fill_indices(int *indices, int sectors)
+{
+	int	idx;
+
+	idx = 0;
+	fill_indices_caps(indices, sectors, &idx);
+	fill_indices_side(indices, sectors, &idx);
+}
+
+static void	fill_vertex_normals(t_vec3 *vertex_normals, \
+								t_vec3 *vertices, int sectors)
+{
+	int	i;
+
+	vertex_normals[0] = (t_vec3){0, 1, 0};
+	while (i < sectors)
+	{
+		vertex_normals[i + 1] = vec3_normalize(\
+								vec3_sub(vertices[i + 1], (t_vec3){0, 1, 0}));
+		vertex_normals[sectors + i + 1] = vec3_normalize(\
+						vec3_sub(vertices[sectors + i + 1], (t_vec3){0, 1, 0}));
+		i++;
+	}
+	vertex_normals[sectors * 2 + 1] = (t_vec3){0, -1, 0};
+}
+
+/*
+실린더의 정점 노말:
+vertexNormal = normalize(vertexPosition - ringCenter)
+*/
+void	cylinder_init(t_mesh *mesh, int sectors)
+{
+	int	i;
+
+	mesh->n_triangles = sectors * 4;
+	mesh->n_vertices = sectors * 2 + 2;
+	mesh->n_indices = mesh->n_triangles * 3;
+	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
+	mesh->vertex_normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	fill_vertices(mesh->vertices, sectors);
+	fill_indices(mesh->indices, sectors);
+	fill_vertex_normals(mesh->vertex_normals, mesh->vertices, sectors);
+}
