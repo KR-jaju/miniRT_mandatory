@@ -88,7 +88,7 @@ ambient: 배경색상 (지역조명 모델이므로 매우 간단)
 diffuse: 빛의 입사벡터, 정점 노멀벡터
 specular: 빛의 반사벡터, 시선벡터
 */
-t_vec3	shade_intersection(t_hit_record *hit, const t_scene *scene)
+t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 {
 	const t_material	material = default_material(hit->color);
 	const t_vec3		incident = incident_direction(\

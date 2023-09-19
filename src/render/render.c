@@ -70,7 +70,7 @@ t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	if (closest_hit.t == INFINITY)
 		return (scene->ambient_light);
 	else
-		return (shade_intersection(&closest_hit, scene));
+		return (shading(&closest_hit, scene));
 }
 
 //TODO: 진척도에 따라 메세지 출력
