@@ -78,6 +78,6 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 	if (closest_hit.t == INFINITY)
 		return (false);
 	ft_memcpy(record, &closest_hit, sizeof(t_hit_record));
-	closest_hit.material = &object->material;
+	record->material = &object->material;
 	return (true);
 }
