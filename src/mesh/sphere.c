@@ -8,17 +8,17 @@ yaw(y축)와 pitch(x축) 각도 값을 가지고 길이가 1인 벡터 반환.
 	yaw 범위: 0 ~ 2pi (0 ~ 360도)
 	pitch 범위: -pi ~ pi (-90 ~ 90도)
 */
-static t_vec3	point_at(float y, float x)
+static t_vec3	point_at(float yaw, float pitch)
 {
-	const float	sin_y = sin(y);
-	const float	cos_y = cos(y);
-	const float	sin_x = sin(x);
-	const float	cos_x = cos(x);
+	const float	sin_yaw = sin(yaw);
+	const float	cos_yaw = cos(yaw);
+	const float	sin_pitch = sin(pitch);
+	const float	cos_pitch = cos(pitch);
 
 	return (vec3(
-			cos_x * cos_y,
-			sin_x,
-			cos_x * sin_y
+			cos_pitch * cos_yaw,
+			sin_pitch,
+			cos_pitch * sin_yaw
 		));
 }
 
@@ -46,10 +46,9 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 	vertices[n_vertices - 1] = point_at(0, -M_PI / 2);
 }
 
-static void	fill_indices_top_bottom(int *indices, \
-									int stacks, int sectors, int *idx)
+static void	fill_indices_caps(int *indices, int stacks, int sectors, int *idx)
 {
-	const int	n_vertices = sectors * (stacks - 1) + 2;
+	const int	last = sectors * (stacks - 1) + 1;
 	int			i;
 
 	i = 0;
@@ -60,7 +59,7 @@ static void	fill_indices_top_bottom(int *indices, \
 		indices[(*idx)++] = i + 2;
 		indices[(*idx)++] = sectors * (stacks - 2) + 1 + i;
 		indices[(*idx)++] = sectors * (stacks - 2) + 2 + i;
-		indices[(*idx)++] = n_vertices - 1;
+		indices[(*idx)++] = last;
 		i++;
 	}
 	indices[*idx - 4] = 1;
@@ -75,7 +74,7 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 	int	j;
 
 	idx = 0;
-	fill_indices_top_bottom(indices, stacks, sectors, &idx);
+	fill_indices_caps(indices, stacks, sectors, &idx);
 	i = -1;
 	while (++i < stacks - 2)
 	{
@@ -98,11 +97,9 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 
 void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 {
-	const int	n_polygons = 2 * sectors * (stacks - 1);
-
-	mesh->n_triangles = n_polygons; // TODO: 없앨지 검토 필요
+	mesh->n_triangles = 2 * sectors * (stacks - 1);
 	mesh->n_vertices = sectors * (stacks - 1) + 2;
-	mesh->n_indices = n_polygons * 3;
+	mesh->n_indices = mesh->n_triangles * 3;
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
 	mesh->vertex_normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
