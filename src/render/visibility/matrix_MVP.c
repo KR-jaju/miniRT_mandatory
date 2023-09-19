@@ -1,5 +1,6 @@
-#include "render.h"
 #include "libft.h"
+#include "libmath.h"
+# include "render.h"
 
 /*
 로컬 공간 -> 월드 공간 매핑

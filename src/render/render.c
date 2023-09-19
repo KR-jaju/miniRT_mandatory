@@ -5,6 +5,7 @@
 #include "render.h"
 #include "mlx_api.h"
 #include "console.h"
+#include "settings.h"
 
 /*
 카메라 방향벡터: 픽셀 좌표-카메라 좌표
@@ -17,7 +18,6 @@ world space상에서의 픽셀 좌표 구하기
 	(선형변환의 성질에 의해 이 나눗셈 연산을 이때 해도 상관없음)
 */
 // TODO: 전처리 과정에서 저장된 행렬 통해 구하도록 수정
-// TODO: direction.c로 이동 고려
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3	ndc_pos;
@@ -42,6 +42,41 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 }
 
 /*
+교차점 색상 계산:
+
+최종 색상 = 환경광(ambient) + 난반사(diffuse) + 정반사(specular)
+(오브젝트의 재질에 따라 난반사와 정반사 항의 비율을 조정한다, 둘을 합하면 1)
+
+ambient: 배경색상 (지역조명 모델이므로 매우 간단)
+diffuse: 빛의 입사벡터, 정점 노멀벡터
+specular: 빛의 반사벡터, 시선벡터
+*/
+static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
+{
+	const t_material	*material = hit->material;
+	const t_vec3		incident = incident_direction(\
+									hit->point, scene->light.position);
+	t_vec3				ambient;
+	t_vec3				diffuse;
+	t_vec3				specular;
+
+	if (SMOOTH_SHADING == 1)
+		hit->normal = interpolate_normal(hit->point, hit->triangle);
+	else
+		hit->normal = hit->triangle->face_normal;
+	ambient = vec3_hadamard(scene->ambient_light, material->color);
+	diffuse = diffuse_reflection_value(material, scene->light.color, \
+										incident, hit->normal);
+	specular = specular_reflection_value(material, scene->light.color, \
+						reflection_direction(incident, hit->normal), \
+						view_direction(scene->camera.eye, hit->point));
+
+	return (vec3_add(ambient, \
+			vec3_add(vec3_mul(diffuse, (float)1 - material->reflectivity), \
+					vec3_mul(specular, (float)material->reflectivity))));
+}
+
+/*
 1. 카메라 레이 생성
 2. 오브젝트와 충돌 체크, 가장 가까운 오브젝트 찾음
 3.1. 찾은 경우 -
@@ -50,7 +85,7 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 		다른 오브젝트가 가리지 않고 있는 경우 반영o
 3.2. 못 찾은 경우 - 배경 색 반환
 */
-t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
+t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 {
 	t_ray			cam_ray;
 	t_hit_record	hit;
@@ -86,7 +121,7 @@ void	render_image(int progress, t_scene *scene, t_image *img, bool *done)
 
 	p.y = progress / img->width;
 	p.x = progress - (p.y * img->width);
-	p.color = compute_pixel_color(p.x, p.y, scene, img);
+	p.color = render_pixel(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
 	if (progress == img->n_pixels)
 		*done = true;
