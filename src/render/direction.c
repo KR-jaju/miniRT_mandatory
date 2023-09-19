@@ -17,7 +17,8 @@ t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos)
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n)
 {
 	return (vec3_normalize(\
-			vec3_add(vec3_mul(i, -1), vec3_mul(vec3_mul(n, vec3_dot(i, n)), 2))));
+			vec3_add(vec3_mul(i, -1), \
+					vec3_mul(vec3_mul(n, vec3_dot(i, n)), 2))));
 }
 
 /*
