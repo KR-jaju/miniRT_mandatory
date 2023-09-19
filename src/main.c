@@ -62,13 +62,13 @@ static void	fill_triangle_info(int nth, t_object *object, t_triangle *tri)
 	tri->vertices[1] = vertices[idx[1]];
 	tri->vertices[2] = vertices[idx[2]];
 	tri->face_normal = vec3_normalize(\
-						vec3_cross(tri->vertices[0], tri->vertices[1]));
+						vec3_cross(vec3_sub(tri->vertices[1], tri->vertices[0]), \
+								vec3_sub(tri->vertices[2], tri->vertices[0])));
 }
 
 static void	fill_triangles(t_scene *scene)
 {
 	t_object	*object;
-	int			idx[3];
 	int			i;
 	int			j;
 
