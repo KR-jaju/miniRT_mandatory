@@ -48,7 +48,7 @@ int	main(int argc, char *argv[])
 	init_image(&img, mlx.conn);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
-	mlx_loop_hook(mlx.conn, render_to_window, \
+	mlx_loop_hook(mlx.conn, render_window, \
 				&(t_program_data){&mlx, &scene, &img});
 	mlx_loop(mlx.conn);
 	return (0);

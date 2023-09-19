@@ -6,7 +6,6 @@
 #include "mlx_api.h"
 #include "strdef.h"
 
-// TODO: 차후 최적화를 위해 함수 호출 최소화
 /*
 카메라 방향벡터: 픽셀 좌표-카메라 좌표
 이후 모든 계산은 월드 공간 기준으로 이루어질 것이므로 카메라 방향벡터 또한 월드좌표계 기준으로 구한다.
@@ -17,6 +16,8 @@ world space상에서의 픽셀 좌표 구하기
 3. w 성분을 1로 만들어주기 위해 전체 성분 w값으로 나누기
 	(선형변환의 성질에 의해 이 나눗셈 연산을 이때 해도 상관없음)
 */
+// TODO: 전처리 과정에서 저장된 행렬 통해 구하도록 수정
+// TODO: direction.c로 이동 고려
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3	ndc_pos;
@@ -79,33 +80,34 @@ t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 2. 계산된 픽셀 이미지에 반영
 3. 이미지를 윈도우에 put
 */
-int	render_to_window(t_program_data *data)
+void	render_image(int progress, t_scene *scene, t_image *img, bool *done)
 {
-	t_mlx	*mlx;
-	t_scene	*scene;
-	t_image	*img;
 	t_pixel	p;
-	static bool	done = false;
 
-	mlx = data->mlx;
-	scene = data->scene;
-	img = data->img;
-	if (done)
-		return (0);
-	p.y = img->progress / img->width;
-	p.x = img->progress - (p.y * img->width);
+	p.y = progress / img->width;
+	p.x = progress - (p.y * img->width);
 	p.color = compute_pixel_color(p.x, p.y, scene, img);
 	put_pixel_to_image(p, img);
-	if (img->progress % 5000 == 0)
+	if (progress == img->n_pixels)
+		*done = true;
+}
+
+int	render_window(t_program_data *data)
+{
+	static bool	done = false;
+	static int	progress = 0;
+
+	if (done)
+		return (0);
+	render_image(progress, data->scene, data->img, &done);
+	progress++;
+	if (progress % 5000 == 0 || done)
 	{
-		if (img->progress == img->n_pixels)
-		{
-			printf(MSG_RENDER_DONE"\n");
-			done = true;
-		}
-		mlx_put_image_to_window(mlx->conn, mlx->win, img->addr, 0, 0);
-		printf("progress: %d / %d\n", img->progress, img->n_pixels);
+		mlx_put_image_to_window(data->mlx->conn,
+								data->mlx->win, data->img->addr, 0, 0);
+		printf("progress: %d / %d\n", progress, data->img->n_pixels);
 	}
-	img->progress++;
+	if (done)
+		printf(MSG_RENDER_DONE"\n");
 	return (0);
 }

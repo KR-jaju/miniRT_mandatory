@@ -30,7 +30,6 @@ typedef struct s_image
 	int		bits_per_pixel;
 	int		bytes_per_line;
 	int		endian;
-	int		progress;
 }t_image;
 
 typedef struct s_pixel
