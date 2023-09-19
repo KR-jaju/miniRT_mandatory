@@ -92,7 +92,7 @@ void	render_image(int progress, t_scene *scene, t_image *img, bool *done)
 		*done = true;
 }
 
-int	render_window(t_program_data *data)
+int	render_display(t_program_data *data)
 {
 	static bool	done = false;
 	static int	progress = 0;

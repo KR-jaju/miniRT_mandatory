@@ -15,7 +15,7 @@ typedef struct s_program_data
 	t_image	*img;
 }t_program_data;
 
-int	render_window(t_program_data *data);
+int	render_display(t_program_data *data);
 int	shutdown_program(void *resource);
 int	parse_scene(t_scene *scene);
 int	preprocess_scene(t_scene *scene);
