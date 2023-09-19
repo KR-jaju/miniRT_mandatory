@@ -4,7 +4,7 @@
 #include "miniRT.h"
 #include "render.h"
 #include "mlx_api.h"
-#include "strdef.h"
+#include "console.h"
 
 /*
 카메라 방향벡터: 픽셀 좌표-카메라 좌표
@@ -99,6 +99,8 @@ int	render_window(t_program_data *data)
 
 	if (done)
 		return (0);
+	if (progress == 0)
+		console_msg(MSG_RENDER_START"\n"MSG_RENDER_PROGRESS);
 	render_image(progress, data->scene, data->img, &done);
 	progress++;
 	if (progress % 5000 == 0 || done)
@@ -108,6 +110,6 @@ int	render_window(t_program_data *data)
 		printf("progress: %d / %d\n", progress, data->img->n_pixels);
 	}
 	if (done)
-		printf(MSG_RENDER_DONE"\n");
+		console_msg(MSG_RENDER_DONE);
 	return (0);
 }
