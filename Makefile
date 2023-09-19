@@ -48,7 +48,8 @@ LDLIBS			+=	-lmath
 
 SRCS 			=	\
 					$(wildcard src/*.c) \
-					$(wildcard src/*/*.c)
+					$(wildcard src/*/*.c) \
+					$(wildcard src/*/*/*.c)
 OBJS			=	$(SRCS:.c=.o)
 DEPS			=	$(SRCS:.c=.d)
 
