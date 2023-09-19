@@ -64,12 +64,6 @@ t_mat4		mat4_inverse(t_mat4 m);
 // transform
 t_vec4		mat4_mulmv(t_mat4 m, t_vec4 v);
 
-// homogeneous
-t_vec4		homogenize_pos(t_vec3 v);
-t_vec4		homogenize_dir(t_vec3 v);
-t_vec3		dehomogenize_pos(t_vec4 v);
-t_vec3		dehomogenize_dir(t_vec4 v);
-
 // clamp
 float	clamp(float a, float min, float max);
 
