@@ -18,79 +18,6 @@ ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는
 loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
 */
 
-t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
-
-static void	world_transform(t_scene *scene)
-{
-	t_object	*object;
-	t_mat4		model;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < scene->n_objects)
-	{
-		object = &scene->objects[i];
-
-		// TODO: 동적할당은 현 함수 호출 이전에 미리 함. 아래는 임시
-		object->vertices = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-		object->normals = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-
-		model = model_matrix(object->position, object->rotation, object->scale);
-		j = 0;
-		while (j < object->mesh->n_vertices)
-		{
-			object->vertices[j] = dehomogenize_pos(\
-				mat4_mulmv(model, homogenize_pos(object->mesh->vertices[j])));
-			object->normals[j] = vec3_normalize(dehomogenize_dir(\
-				mat4_mulmv(model, homogenize_dir(object->mesh->normals[j]))));
-			j++;
-		}
-		i++;
-	}
-}
-
-static void	fill_triangle_info(int nth, t_object *object, t_triangle *tri)
-{
-	const t_vec3	*vertices = object->vertices;
-	const t_vec3	*normals = object->normals;
-	const int		idx[3] = {object->mesh->indices[nth * 3],
-							object->mesh->indices[nth * 3 + 1], 
-							object->mesh->indices[nth * 3 + 2]};
-
-	tri->vertices[0] = vertices[idx[0]];
-	tri->vertices[1] = vertices[idx[1]];
-	tri->vertices[2] = vertices[idx[2]];
-	tri->vertex_normals[0] = normals[idx[0]];
-	tri->vertex_normals[1] = normals[idx[1]];
-	tri->vertex_normals[2] = normals[idx[2]];
-	tri->face_normal = vec3_normalize(\
-						vec3_cross(vec3_sub(tri->vertices[2], tri->vertices[0]), \
-								vec3_sub(tri->vertices[1], tri->vertices[0])));
-}
-
-static void	fill_triangles(t_scene *scene)
-{
-	t_object	*object;
-	int			i;
-	int			j;
-
-	i = 0;
-	while (i < scene->n_objects)
-	{
-		object = &scene->objects[i];
-		// TODO: 동적할당은 현 함수 호출 이전에 미리 함. 아래는 임시
-		object->triangles = malloc(sizeof(t_triangle) * object->mesh->n_triangles);
-		j = 0;
-		while (j < object->mesh->n_triangles)
-		{
-			fill_triangle_info(j, object, &object->triangles[j]);
-			j++;
-		}
-		i++;
-	}
-}
-
 static bool	has_extension(const char *path, const char *ext)
 {
 	const size_t	path_len = ft_strlen(path);
@@ -112,15 +39,11 @@ int	main(int argc, char *argv[])
 		printf("Error\n"MSG_USAGE"\n");
 		return (1);
 	}
-	// parse_scene(&scene);
 	dummy_scene(&scene);
+	// parse_scene(&scene);
+	preprocess_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
-
-	// TODO: 차후 별도의 전처리로 분리
-	world_transform(&scene);
-	fill_triangles(&scene);
-
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_to_window, \
