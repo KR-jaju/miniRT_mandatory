@@ -1,4 +1,4 @@
-#include "primitive.h"
+#include "mesh.h"
 #include "libds.h"
 
 // TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)

@@ -1,5 +1,4 @@
 #include "libft.h"
-#include "strdef.h"
 #include "miniRT.h"
 #include "mlx_api.h"
 
@@ -14,7 +13,6 @@ void	init_image(t_image *img, void *mlx_conn)
 	img->n_pixels = img->width * img->height;
 	img->data_size = img->bytes_per_line * img->height;
 	ft_memset(img->data, 0, img->data_size);
-	img->progress = 0;
 }
 
 // 차후 지역 static 변수에 가둬두는 방식 고려

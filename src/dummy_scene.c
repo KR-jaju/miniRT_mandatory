@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "scene.h"
-#include "primitive.h"
+#include "mesh.h"
 #include "debug.h"
 
 t_mesh	mesh_plane(void)
