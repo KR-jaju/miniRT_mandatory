@@ -50,7 +50,7 @@ static void	world_transform(t_scene *scene)
 	}
 }
 
-static void	fill_triangle_info(int nth, t_object *object, t_triangle *triangle)
+static void	fill_triangle_info(int nth, t_object *object, t_triangle *tri)
 {
 	const t_vec3	*vertices = object->vertices;
 	const t_vec3	*normals = object->normals;
@@ -58,12 +58,11 @@ static void	fill_triangle_info(int nth, t_object *object, t_triangle *triangle)
 							object->mesh->indices[nth * 3 + 1], 
 							object->mesh->indices[nth * 3 + 2]};
 
-	triangle->vertices[0] = vertices[idx[0]];
-	triangle->vertices[1] = vertices[idx[1]];
-	triangle->vertices[2] = vertices[idx[2]];
-	triangle->face_normal = vec3_normalize(vec3_mul(\
-						vec3_add(vec3_add(normals[idx[0]], normals[idx[1]]), \
-											normals[idx[2]]), (float)1 / 3));
+	tri->vertices[0] = vertices[idx[0]];
+	tri->vertices[1] = vertices[idx[1]];
+	tri->vertices[2] = vertices[idx[2]];
+	tri->face_normal = vec3_normalize(\
+						vec3_cross(tri->vertices[0], tri->vertices[1]));
 }
 
 static void	fill_triangles(t_scene *scene)
