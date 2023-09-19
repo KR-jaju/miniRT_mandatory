@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include "scene.h"
 
-void	fill_triangles(t_object *object);
-void	fill_normals(t_object *object);
-void	fill_vertices(t_object *object);
+void		fill_triangles(t_object *object);
+void		fill_normals(t_object *object);
+void		fill_vertices(t_object *object);
+t_material	default_material(t_vec3 color);
 
 // TODO: 메모리 할당 실패 예외처리
 int	allocate_array(t_object *objects, int n_objects)
@@ -36,6 +37,8 @@ int	preprocess_scene(t_scene *scene)
 		fill_vertices(&scene->objects[i]);
 		fill_normals(&scene->objects[i]);
 		fill_triangles(&scene->objects[i]);
+		scene->objects[i].material = \
+				default_material(scene->objects[i].material.color);
 		i++;
 	}
 	// TODO: 카메라 행렬 여기서 구하기

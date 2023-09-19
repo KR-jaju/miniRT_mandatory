@@ -3,6 +3,22 @@
 
 # include "libmath.h"
 
+// default material
+# define REFLECTIVITY	0.3
+# define K_DIFFUSE		0.3
+# define K_SPECULAR		0.7
+# define SHININESS		64
+// diffuse 상수값 + specular 상수값 <= 1
+
+typedef struct s_material
+{
+	t_vec3	color;
+	float	reflectivity;
+	float	k_diffuse;
+	float	k_specular;
+	float	shininess;
+}t_material;
+
 typedef struct s_triangle
 {
 	t_vec3		vertices[3];
@@ -30,7 +46,7 @@ typedef struct s_object
 	t_vec3		position;
 	t_vec3		rotation;
 	t_vec3		scale;
-	t_vec3		color;
+	t_material	material;
 }t_object;
 
 typedef struct s_camera

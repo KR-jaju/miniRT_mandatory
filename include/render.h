@@ -6,13 +6,6 @@
 # include "scene.h"
 # include "mlx_api.h"
 
-// default material
-# define REFLECTIVITY	0.3
-# define K_DIFFUSE		0.3
-# define K_SPECULAR		0.7
-# define SHININESS		64
-// diffuse 상수값 + specular 상수값 <= 1
-
 // default camera parameter
 # define NEAR	0.3
 # define FAR	1000
@@ -23,14 +16,6 @@ enum e_vertex
 	B,
 	C
 };
-typedef struct s_material
-{
-	t_vec3	color;
-	float	reflectivity;
-	float	k_diffuse;
-	float	k_specular;
-	float	shininess;
-}t_material;
 
 typedef struct s_ray
 {
@@ -44,7 +29,7 @@ typedef struct s_hit_record
 	t_vec3		point;
 	t_triangle	*triangle;
 	t_vec3		normal;
-	t_vec3		color;
+	t_material	*material;
 }t_hit_record;
 
 // render main logic
