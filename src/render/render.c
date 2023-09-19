@@ -57,7 +57,7 @@ t_vec3	compute_pixel_color(int x, int y, t_scene *scene, t_image *img)
 	int				i;
 
 	closest_hit.t = INFINITY;
-	cam_ray.origin = scene->camera.eye;
+	cam_ray.origin = scene->camera.position;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
 	i = 0;
 	while (i < scene->n_objects)

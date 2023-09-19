@@ -66,7 +66,7 @@ int	main(int argc, char *argv[])
 		printf("Error\n"MSG_USAGE"\n");
 		return (1);
 	}
-	parse_scene(&scene);
+	//parse_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	world_transform(&scene);

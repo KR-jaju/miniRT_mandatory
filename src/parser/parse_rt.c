@@ -6,20 +6,21 @@
 
 //t_scene, declared, str_ref : int
 static
-int	parse_line(const char *line, t_scene *scene, int declared[3])
+void	parse_line(const char *line, t_scene *scene, int declared[3])
 {
-	if (ft_strncmp(line, "A", 1))
-		return (parse_a(scene, declared, line + 1));
+	if (ft_strncmp(line, "A", 1) == 0)
+		return (parse_a(scene, declared, &line));
 	else if (ft_strncmp(line, "C", 1))
-		return (parse_c(scene, declared, line + 1));
+		return (parse_c(scene, declared, &line));
 	else if (ft_strncmp(line, "L", 1))
-		return (parse_c(scene, declared, line + 1));
+		return (parse_l(scene, declared, &line));
 	else if (ft_strncmp(line, "sp", 2))
-		return (parse_sp(scene, declared, line + 2));
+		return (parse_sp(scene, declared, &line));
 	else if (ft_strncmp(line, "pl", 2))
-		return (parse_pl(scene, declared, line + 2));
+		return (parse_pl(scene, declared, &line));
 	else if (ft_strncmp(line, "cy", 2))
-		return (parse_cy(scene, declared, line + 2));
+		return (parse_cy(scene, declared, &line));
+	exit(1);
 }
 
 // TODO: 씬 파싱부 구현
@@ -35,8 +36,7 @@ t_scene	*parse_rt(int fd)
 	line = get_next_line(fd);
 	while (line != (void *)0)
 	{
-		if (parse_line(line, &scene, declared) == -1)
-			return ((void *)0);
+		parse_line(line, scene, declared);
 		line = get_next_line(fd);
 	}
 	if (!declared[A] || !declared[C] || !declared[L])

@@ -1,6 +1,7 @@
 
 #include "parser.h"
 #include "scene.h"
+#include <stdlib.h>
 
 static
 void	prepare(t_camera *camera)
@@ -11,21 +12,19 @@ void	prepare(t_camera *camera)
 	//up = camera.
 }
 
-int	parse_c(t_scene *scene, int declared[3], const char **str_ref)
+void	parse_c(t_scene *scene, int declared[3], const char **str_ref)
 {
-	int	i;
-
+	*str_ref += 1;
 	if (declared[C])
-		return (-1);
+		exit(1);
 	else
 		declared[C] = 1;
 	skip_space(str_ref);
-	scene->camera.eye = parse_vec3(str_ref);
+	scene->camera.position = parse_vec3(str_ref);
 	skip_space(str_ref);
-	scene->camera.look_at = parse_vec3(str_ref);
+	scene->camera.forward = parse_vec3(str_ref);
 	skip_space(str_ref);
 	scene->camera.fov = parse_float(str_ref);
 	line_end(str_ref);
 	prepare(&scene->camera);
-	return (0);
 }

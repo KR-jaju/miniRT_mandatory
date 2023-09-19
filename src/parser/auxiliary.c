@@ -21,7 +21,6 @@ void	skip_space(const char **str_ref)
 	*str_ref = str + count;
 	if (count == 0)
 		exit(1);
-	return (0);
 }
 
 void	line_end(const char **str_ref)
