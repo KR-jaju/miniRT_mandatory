@@ -1,4 +1,5 @@
 #include "render.h"
+#include "settings.h"
 
 static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *barycentric)
 {
@@ -88,7 +89,10 @@ t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 	t_vec3				diffuse;
 	t_vec3				specular;
 
-	hit->normal = interpolate_normal(hit->point, hit->triangle);
+	if (SMOOTH_SHADING == 1)
+		hit->normal = interpolate_normal(hit->point, hit->triangle);
+	else
+		hit->normal = hit->triangle->face_normal;
 	ambient = vec3_hadamard(scene->ambient_light, material->color);
 	diffuse = diffuse_reflection_value(material, scene->light.color, \
 										incident, hit->normal);

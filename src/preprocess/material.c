@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "settings.h"
 
 t_material	default_material(t_vec3 color)
 {
