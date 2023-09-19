@@ -1,5 +1,5 @@
-#ifndef PRIMITIVE_H
-# define PRIMITIVE_H
+#ifndef MESH_H
+# define MESH_H
 
 # include <stdint.h>
 # include <math.h>
