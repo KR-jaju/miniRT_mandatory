@@ -1,19 +1,5 @@
 #include "render.h"
 
-static t_material	default_material(t_vec3 color)
-{
-	static t_material	material = {\
-									(t_vec3){0, 0, 0}, \
-									REFLECTIVITY, \
-									K_DIFFUSE, \
-									K_SPECULAR, \
-									SHININESS, \
-									};
-
-	material.color = color;
-	return (material);
-}
-
 /*
 diffuse = 난반사 세기 * 컬러
 	- 난반사 세기: 입사벡터와 노멀벡터의 내적
@@ -51,15 +37,15 @@ static t_vec3	specular_reflection_value(const t_material *material, \
 
 static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *barycentric)
 {
-	const float area_abc = vec3_length(\
+	const float	area_abc = vec3_length(\
 				vec3_cross(vec3_sub(abc[B], abc[A]), vec3_sub(abc[C], abc[A])));
-	const float area_abp = vec3_length(\
+	const float	area_abp = vec3_length(\
 				vec3_cross(vec3_sub(abc[B], abc[A]), vec3_sub(p, abc[A])));
-	const float area_acp = vec3_length(\
+	const float	area_acp = vec3_length(\
 				vec3_cross(vec3_sub(abc[A], abc[C]), vec3_sub(p, abc[C])));
-	const float area_bcp = vec3_length(\
+	const float	area_bcp = vec3_length(\
 				vec3_cross(vec3_sub(abc[C], abc[B]), vec3_sub(p, abc[B])));
-	
+
 	barycentric[A] = area_bcp / area_abc;
 	barycentric[B] = area_acp / area_abc;
 	barycentric[C] = area_abp / area_abc;
@@ -90,7 +76,7 @@ specular: 빛의 반사벡터, 시선벡터
 */
 t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 {
-	const t_material	material = default_material(hit->color);
+	const t_material	*material = hit->material;
 	const t_vec3		incident = incident_direction(\
 									hit->point, scene->light.position);
 	t_vec3				ambient;
@@ -98,16 +84,16 @@ t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 	t_vec3				specular;
 
 	hit->normal = interpolate_normal(hit->point, hit->triangle);
-	ambient = vec3_hadamard(scene->ambient_light, material.color);
-	diffuse = diffuse_reflection_value(&material, scene->light.color, \
+	ambient = vec3_hadamard(scene->ambient_light, material->color);
+	diffuse = diffuse_reflection_value(material, scene->light.color, \
 										incident, hit->normal);
-	specular = specular_reflection_value(&material, scene->light.color, \
+	specular = specular_reflection_value(material, scene->light.color, \
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.eye, hit->point));
-	
+
 	return (vec3_add(ambient, \
-			vec3_add(vec3_mul(diffuse, (float)1 - material.reflectivity), \
-					vec3_mul(specular, (float)material.reflectivity))));
+			vec3_add(vec3_mul(diffuse, (float)1 - material->reflectivity), \
+					vec3_mul(specular, (float)material->reflectivity))));
 }
 /*
 사용자 정의 상수값

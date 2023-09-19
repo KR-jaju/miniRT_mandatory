@@ -72,14 +72,12 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 	{
 		if (ray_triangle_intersection(ray, &object->triangles[i], &hit) == true \
 			&& hit.t < closest_hit.t)
-			{
-				ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
-				closest_hit.color = object->color;
-			}
+			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
 		i++;
 	}
 	if (closest_hit.t == INFINITY)
 		return (false);
 	ft_memcpy(record, &closest_hit, sizeof(t_hit_record));
+	closest_hit.material = &object->material;
 	return (true);
 }

@@ -45,7 +45,7 @@ t_object	dummy_object(t_mesh *mesh, t_vec3 color)
 	object.position = (t_vec3){0, 0, 0};
 	object.rotation = (t_vec3){0, 0, 0};
 	object.scale = (t_vec3){1, 1, 1};
-	object.color = color;
+	object.material.color = color;
 
 	// printf("mesh->n_vertices: %d\n", mesh->n_vertices);
 	// object.vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
