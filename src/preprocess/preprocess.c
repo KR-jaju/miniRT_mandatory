@@ -16,7 +16,8 @@ int	allocate_array(t_object *objects, int n_objects)
 	{
 		object = &objects[i];
 		object->vertices = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-		object->normals = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
+		object->vertex_normals = malloc(sizeof(t_vec3) \
+									* object->mesh->n_vertices);
 		object->triangles = malloc(sizeof(t_triangle) \
 									* object->mesh->n_triangles);
 		i++;

@@ -31,7 +31,7 @@ void	fill_triangles(t_object *object)
 	while (i < object->mesh->n_triangles)
 	{
 		object->triangles[i] = nth_triangle(i, object->vertices, \
-									object->normals, object->mesh->indices);
+								object->vertex_normals, object->mesh->indices);
 		i++;
 	}
 }
@@ -46,9 +46,9 @@ void	fill_normals(t_object *object)
 	i = 0;
 	while (i < object->mesh->n_vertices)
 	{
-		v3 = object->mesh->normals[i];
+		v3 = object->mesh->vertex_normals[i];
 		v4 = mat4_mulmv(r_m, (t_vec4){v3.x, v3.y, v3.z, 0});
-		object->normals[i] = vec3_normalize((t_vec3){v4.x, v4.y, v4.z});
+		object->vertex_normals[i] = vec3_normalize((t_vec3){v4.x, v4.y, v4.z});
 		i++;
 	}
 }

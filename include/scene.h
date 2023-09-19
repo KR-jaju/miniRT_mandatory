@@ -13,7 +13,7 @@ typedef struct s_triangle
 typedef struct s_mesh
 {
 	t_vec3		*vertices;
-	t_vec3		*normals;
+	t_vec3		*vertex_normals;
 	int			*indices; // 시계 반대 방향(ccw)으로 저장
 	int			n_vertices;
 	int			n_indices;
@@ -25,7 +25,7 @@ typedef struct s_object
 {
 	t_mesh		*mesh;
 	t_vec3		*vertices; // 변환 후 버텍스 좌표
-	t_vec3		*normals; // 변환 후 버텍스 노멀
+	t_vec3		*vertex_normals; // 변환 후 버텍스 노멀
 	t_triangle	*triangles;
 	t_vec3		position;
 	t_vec3		rotation;

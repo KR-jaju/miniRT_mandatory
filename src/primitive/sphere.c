@@ -105,9 +105,9 @@ void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 	mesh->n_indices = n_polygons * 3;
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
-	mesh->normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	mesh->vertex_normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	fill_vertices(mesh->vertices, stacks, sectors);
 	fill_indices(mesh->indices, stacks, sectors);
-	ft_memcpy(mesh->normals, mesh->vertices, \
+	ft_memcpy(mesh->vertex_normals, mesh->vertices, \
 				(sizeof(t_vec3) * mesh->n_vertices));
 }

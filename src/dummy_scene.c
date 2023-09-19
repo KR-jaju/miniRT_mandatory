@@ -8,7 +8,7 @@ t_mesh	mesh_plane(void)
 	t_mesh	plane;
 
 	plane.vertices = malloc(sizeof(t_vec3) * 4);
-	plane.normals = malloc(sizeof(t_vec3) * 4);
+	plane.vertex_normals = malloc(sizeof(t_vec3) * 4);
 	plane.indices = malloc(sizeof(int) * 6);
 
 	plane.vertices[0] = (t_vec3){-5, 0, 5};
@@ -16,10 +16,10 @@ t_mesh	mesh_plane(void)
 	plane.vertices[2] = (t_vec3){5, 0, -5};
 	plane.vertices[3] = (t_vec3){5, 0, 5};
 
-	plane.normals[0] = (t_vec3){0, 1, 0};
-	plane.normals[1] = (t_vec3){0, 1, 0};
-	plane.normals[2] = (t_vec3){0, 1, 0};
-	plane.normals[3] = (t_vec3){0, 1, 0};
+	plane.vertex_normals[0] = (t_vec3){0, 1, 0};
+	plane.vertex_normals[1] = (t_vec3){0, 1, 0};
+	plane.vertex_normals[2] = (t_vec3){0, 1, 0};
+	plane.vertex_normals[3] = (t_vec3){0, 1, 0};
 
 // polygon 1
 	plane.indices[0] = 0;

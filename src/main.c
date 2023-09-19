@@ -6,6 +6,8 @@
 #include "strdef.h"
 #include "mlx_api.h"
 
+// TODO: 메모리 할당 예외처리
+
 /*
 1. scene 파싱 작업 및 initialize
 2. scene의 정보를 사용해 image를 렌더링
