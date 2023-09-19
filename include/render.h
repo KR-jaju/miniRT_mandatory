@@ -7,6 +7,7 @@
 # include "mlx_api.h"
 
 // default camera parameter
+// 사실 아무 값이나 상관없다.
 # define NEAR	0.3
 # define FAR	1000
 

@@ -1,6 +1,5 @@
 #include "libft.h"
 #include "render.h"
-#include "debug.h"
 
 /*
 삼각형의 세 점 a, b, c는 한 평면 안에 놓여있기 때문에,

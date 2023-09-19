@@ -5,6 +5,9 @@
 # include "mlx_api.h"
 # include "scene.h"
 
+# define PROGRAM_NAME 	"miniRT"
+# define WINDOW_TITLE 	PROGRAM_NAME
+
 typedef struct s_program_data
 {
 	t_mlx	*mlx;
