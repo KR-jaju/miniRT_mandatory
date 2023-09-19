@@ -3,8 +3,8 @@
 #include <mlx.h>
 #include "libft.h"
 #include "miniRT.h"
-#include "strdef.h"
 #include "mlx_api.h"
+#include "console.h"
 
 // TODO: 메모리 할당 예외처리
 
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[])
 	init_image(&img, mlx.conn);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
-	mlx_loop_hook(mlx.conn, render_window, \
+	mlx_loop_hook(mlx.conn, render_display, \
 				&(t_program_data){&mlx, &scene, &img});
 	mlx_loop(mlx.conn);
 	return (0);
