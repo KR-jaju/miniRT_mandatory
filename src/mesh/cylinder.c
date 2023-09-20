@@ -53,10 +53,10 @@ static void	fill_indices_caps(int *indices, int sectors, int *idx)
 	while (i < sectors)
 	{
 		indices[(*idx)++] = 0;
-		indices[(*idx)++] = i;
 		indices[(*idx)++] = i + 1;
-		indices[(*idx)++] = sectors + 1;
-		indices[(*idx)++] = sectors + 2;
+		indices[(*idx)++] = i + 2;
+		indices[(*idx)++] = i + (sectors + 1);
+		indices[(*idx)++] = i + (sectors + 2);
 		indices[(*idx)++] = last;
 		i++;
 	}
