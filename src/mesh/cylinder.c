@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "mesh.h"
 
 void	cylinder_fill_vertices(t_vec3 *vertices, int sectors);
