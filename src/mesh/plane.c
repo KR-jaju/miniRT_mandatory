@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "mesh.h"
 
 void	plane_fill_vertices(t_vec3 *vertices)
