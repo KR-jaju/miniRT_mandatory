@@ -1,6 +1,7 @@
 #include "render.h"
+#include "debug.h"
 
-static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *barycentric)
+static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *coord)
 {
 	const float	area_abc = vec3_length(\
 				vec3_cross(vec3_sub(abc[B], abc[A]), vec3_sub(abc[C], abc[A])));
@@ -11,9 +12,9 @@ static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *barycentric)
 	const float	area_bcp = vec3_length(\
 				vec3_cross(vec3_sub(abc[C], abc[B]), vec3_sub(p, abc[B])));
 
-	barycentric[A] = area_bcp / area_abc;
-	barycentric[B] = area_acp / area_abc;
-	barycentric[C] = area_abp / area_abc;
+	coord[A] = area_bcp / area_abc;
+	coord[B] = area_acp / area_abc;
+	coord[C] = area_abp / area_abc;
 }
 
 /*
@@ -24,12 +25,7 @@ Barycentric(무게중심) 좌표계를 통해 구하고 해당 비율로 보간�
 t_vec3	interpolate_normal(t_vec3 p, t_triangle *t)
 {
 	float	ratio[3];
-	t_vec3	normal[3];
 
 	barycentric_coordinates(p, t->vertices, ratio);
-	normal[A] = vec3_mul(t->vertex_normals[A], ratio[A]);
-	normal[B] = vec3_mul(t->vertex_normals[B], ratio[B]);
-	normal[C] = vec3_mul(t->vertex_normals[C], ratio[C]);
-	return (vec3_normalize(\
-					vec3_add(vec3_add(normal[A], normal[B]), normal[C])));
+	return (vec3_interpolate(t->vertex_normals, ratio, 3));
 }
