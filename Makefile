@@ -10,6 +10,7 @@ LDLIBS			=
 
 ifdef DEV
     CFLAGS = -MMD -MP -g -fsanitize=address
+    CPPFLAGS += -I./test
 endif
 
 # ********************************* LIBRAY *********************************** #
@@ -52,6 +53,10 @@ SRCS 			=	\
 					$(wildcard src/*/*/*.c)
 OBJS			=	$(SRCS:.c=.o)
 DEPS			=	$(SRCS:.c=.d)
+
+ifdef DEV
+    SRCS += $(wildcard test/*.c)
+endif
 
 # ********************************** RULES ********************************** #
 
