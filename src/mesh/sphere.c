@@ -22,7 +22,7 @@ static t_vec3	point_at(float yaw, float pitch)
 		));
 }
 
-static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
+static void	sphere_fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 {
 	const int	n_vertices = sectors * (stacks - 1) + 2;
 	const float	d_sector = 2 * M_PI / sectors;
@@ -46,7 +46,8 @@ static void	fill_vertices(t_vec3 *vertices, int stacks, int sectors)
 	vertices[n_vertices - 1] = point_at(0, -M_PI / 2);
 }
 
-static void	fill_indices_caps(int *indices, int stacks, int sectors, int *idx)
+static void	sphere_fill_indices_caps(int *indices, \
+									int stacks, int sectors, int *idx)
 {
 	const int	last = sectors * (stacks - 1) + 1;
 	int			i;
@@ -57,8 +58,8 @@ static void	fill_indices_caps(int *indices, int stacks, int sectors, int *idx)
 		indices[(*idx)++] = 0;
 		indices[(*idx)++] = i + 1;
 		indices[(*idx)++] = i + 2;
-		indices[(*idx)++] = sectors * (stacks - 2) + 1 + i;
-		indices[(*idx)++] = sectors * (stacks - 2) + 2 + i;
+		indices[(*idx)++] = i + sectors * (stacks - 2) + 1;
+		indices[(*idx)++] = i + sectors * (stacks - 2) + 2;
 		indices[(*idx)++] = last;
 		i++;
 	}
@@ -66,7 +67,7 @@ static void	fill_indices_caps(int *indices, int stacks, int sectors, int *idx)
 	indices[(*idx) - 2] = sectors * (stacks - 2) + 1;
 }
 
-static void	fill_indices(int *indices, int stacks, int sectors)
+static void	sphere_fill_indices(int *indices, int stacks, int sectors)
 {
 	int	idx;
 	int	cur;
@@ -74,7 +75,7 @@ static void	fill_indices(int *indices, int stacks, int sectors)
 	int	j;
 
 	idx = 0;
-	fill_indices_caps(indices, stacks, sectors, &idx);
+	sphere_fill_indices_caps(indices, stacks, sectors, &idx);
 	i = -1;
 	while (++i < stacks - 2)
 	{
@@ -103,8 +104,8 @@ void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
 	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
 	mesh->vertex_normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
-	fill_vertices(mesh->vertices, stacks, sectors);
-	fill_indices(mesh->indices, stacks, sectors);
+	sphere_fill_vertices(mesh->vertices, stacks, sectors);
+	sphere_fill_indices(mesh->indices, stacks, sectors);
 	ft_memcpy(mesh->vertex_normals, mesh->vertices, \
 				(sizeof(t_vec3) * mesh->n_vertices));
 }
