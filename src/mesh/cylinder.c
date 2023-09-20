@@ -1,8 +1,6 @@
 #include "mesh.h"
 #include "libds.h"
-
-// TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)
-// TODO: mesh 구조체 안에서 t_polygon 구조체를 더 이상 두고있지 않으므로 해당 사항 반영할 것
+#include "debug.h"
 
 // wall, base
 
@@ -126,4 +124,19 @@ void	cylinder_init(t_mesh *mesh, int sectors)
 	fill_vertices(mesh->vertices, sectors);
 	fill_indices(mesh->indices, sectors);
 	fill_vertex_normals(mesh->vertex_normals, mesh->vertices, sectors);
+
+	for (int i = 0; i < mesh->n_vertices; i++)
+	{
+		printf("%dth vertex: ", i);
+		print_vec3(mesh->vertices[i]);
+	}
+		for (int i = 0; i < mesh->n_vertices; i++)
+	{
+		printf("%dth normal: ", i);
+		print_vec3(mesh->vertex_normals[i]);
+	}
+	for (int i = 0; i < mesh->n_triangles; i++)
+	{
+		printf("%dth polygon: %d %d %d\n", i, mesh->indices[i * 3], mesh->indices[i * 3 + 1], mesh->indices[i * 3 + 2]);
+	}
 }
