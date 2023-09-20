@@ -69,7 +69,7 @@ static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 										incident, hit->normal);
 	specular = specular_reflection_value(material, scene->light.color, \
 						reflection_direction(incident, hit->normal), \
-						view_direction(scene->camera.eye, hit->point));
+						view_direction(scene->camera.position, hit->point));
 
 	return (vec3_add(ambient, \
 			vec3_add(vec3_mul(diffuse, (float)1 - material->reflectivity), \
@@ -93,7 +93,7 @@ t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 	int				i;
 
 	closest_hit.t = INFINITY;
-	cam_ray.origin = scene->camera.eye;
+	cam_ray.origin = scene->camera.position;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
 	i = 0;
 	while (i < scene->n_objects)

@@ -54,7 +54,7 @@ int	dummy_scene(t_scene *scene)
 
 	// printf("%d\n",scene->meshs[0].n_vertices);
 
-	scene->camera.eye = (t_vec3){0, 2, -5};
+	scene->camera.position = (t_vec3){0, 2, -5};
 	// scene->camera.look_at = (t_vec3){0, 3, 1};
 	// scene->camera.up = (t_vec3){0, 1, 0};
 	// scene->camera.fov = 100;

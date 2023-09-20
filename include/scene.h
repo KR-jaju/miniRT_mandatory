@@ -44,7 +44,7 @@ typedef struct s_object
 
 typedef struct s_camera
 {
-	t_vec3		eye; // 차후 position으로 이름 바꿀 예정
+	t_vec3		position;
 	t_vec3		right;
 	t_vec3		up;
 	t_vec3		forward;
