@@ -46,7 +46,7 @@ t_mat4	scale_matrix(t_vec3 s);
 
 // MVP matrix
 t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale);
-t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up);
+t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position);
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
 // intersection
