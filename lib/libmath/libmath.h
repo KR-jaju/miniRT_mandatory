@@ -67,4 +67,7 @@ t_vec4		mat4_mulmv(t_mat4 m, t_vec4 v);
 // clamp
 float	clamp(float a, float min, float max);
 
+// interpolate
+t_vec3	vec3_interpolate(t_vec3 *vectors, float *ratio, int n_vectors);
+
 #endif
