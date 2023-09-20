@@ -49,6 +49,7 @@ typedef struct s_camera
 	t_vec3		up;
 	t_vec3		forward;
 	float		fov; // 육십분법
+	t_vec3		corners_world_pos[4];
 }t_camera;
 
 typedef struct s_light
