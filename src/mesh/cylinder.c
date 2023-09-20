@@ -28,7 +28,7 @@ static void	fill_vertices(t_vec3 *vertices, int sectors)
 	const float	d_sector = 2 * M_PI / sectors;
 	int			i;
 
-	vertices[0] = (t_vec3){0, 1, 0};
+	vertices[0] = (t_vec3){0, 0.5, 0};
 	i = 0;
 	while (i < sectors)
 	{
@@ -41,7 +41,7 @@ static void	fill_vertices(t_vec3 *vertices, int sectors)
 		vertices[i + sectors + 1] = point_at(d_sector * i, (float)-1 / 2);
 		i++;
 	}
-	vertices[sectors * 2 + 1] = (t_vec3){0, -1, 0};
+	vertices[sectors * 2 + 1] = (t_vec3){0, -0.5, 0};
 }
 
 static void	fill_indices_caps(int *indices, int sectors, int *idx)
