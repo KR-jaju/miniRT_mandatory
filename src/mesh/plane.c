@@ -1,24 +1,40 @@
 #include "mesh.h"
-#include "libds.h"
-#include "alloc.h"
 
-// TODO: vertex 개수 먼저 계산해서 동적할당 (list 더 이상 사용x)
-// TODO: mesh 구조체 안에서 t_polygon 구조체를 더 이상 두고있지 않으므로 해당 사항 반영할 것
+void	plane_fill_vertices(t_vec3 *vertices)
+{
+	vertices[0] = (t_vec3){-1, 0, 1};
+	vertices[1] = (t_vec3){-1, 0, -1};
+	vertices[2] = (t_vec3){1, 0, -1};
+	vertices[3] = (t_vec3){1, 0, 1};
+}
 
-// void	plane_init(t_mesh *mesh)
-// {
-// 	mesh->polygons = alloc(2 * sizeof(t_polygon));
-// 	mesh->n_polygons = 2;
-// 	mesh->polygons[0] = (t_polygon){
-// 		.vertex[0] = vec3(-1, 0, 1),
-// 		.vertex[1] = vec3(-1, 0, -1),
-// 		.vertex[2] = vec3(1, 0, 1),
-// 		.normal = vec3(0, 1, 0)
-// 	};
-// 	mesh->polygons[1] = (t_polygon){
-// 		.vertex[0] = vec3(1, 0, 1),
-// 		.vertex[1] = vec3(-1, 0, -1),
-// 		.vertex[2] = vec3(1, 0, -1),
-// 		.normal = vec3(0, 1, 0)
-// 	};
-// }
+void	plane_fill_indices(int *indices)
+{
+	indices[0] = 0;
+	indices[1] = 1;
+	indices[2] = 2;
+	indices[3] = 0;
+	indices[4] = 2;
+	indices[5] = 3;
+}
+
+void	plane_fill_vertex_normals(t_vec3 *vertex_normals)
+{
+	vertex_normals[0] = (t_vec3){0, 1, 0};
+	vertex_normals[1] = (t_vec3){0, 1, 0};
+	vertex_normals[2] = (t_vec3){0, 1, 0};
+	vertex_normals[3] = (t_vec3){0, 1, 0};
+}
+
+void	plane_init(t_mesh *mesh)
+{
+	mesh->n_triangles = 2;
+	mesh->n_vertices = 4;
+	mesh->n_indices = mesh->n_triangles * 3;
+	mesh->vertices = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	mesh->indices = malloc(sizeof(t_vec3) * mesh->n_indices);
+	mesh->vertex_normals = malloc(sizeof(t_vec3) * mesh->n_vertices);
+	plane_fill_vertices(mesh->vertices);
+	plane_fill_indices(mesh->indices);
+	plane_fill_vertex_normals(mesh->vertex_normals);
+}
