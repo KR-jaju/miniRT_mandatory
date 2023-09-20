@@ -49,5 +49,7 @@ t_vec3	vec3_normalize(t_vec3 v)
 {
 	const float	length = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 
+	if (length == 0)
+		return (vec3(0, 0, 0));
 	return (vec3(v.x / length, v.y / length, v.z / length));
 }
