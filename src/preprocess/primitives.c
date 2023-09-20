@@ -23,7 +23,7 @@ static t_triangle	nth_triangle(int nth, \
 	return (tri);
 }
 
-void	fill_triangles(t_object *object)
+void	object_fill_triangles(t_object *object)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	fill_triangles(t_object *object)
 	}
 }
 
-void	fill_normals(t_object *object)
+void	object_fill_normals(t_object *object)
 {
 	const t_mat4	r_m = rotate_matrix(object->rotation);
 	t_vec3			v3;
@@ -53,7 +53,7 @@ void	fill_normals(t_object *object)
 	}
 }
 
-void	fill_vertices(t_object *object)
+void	object_fill_vertices(t_object *object)
 {
 	const t_mat4	trs_m = model_matrix(\
 							object->position, object->rotation, object->scale);
