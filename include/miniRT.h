@@ -14,7 +14,7 @@ typedef struct s_program_data
 
 int	render_to_window(t_program_data *data);
 int	shutdown_program(void *resource);
-int	parse_scene(t_scene *scene);
+int	parse_scene(t_scene *scene, const char *path);
 
 // for dev
 int	dummy_scene(t_scene *scene);
