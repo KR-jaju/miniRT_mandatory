@@ -1,5 +1,4 @@
 
-#include "libft.h"
 #include "scene.h"
 
 static

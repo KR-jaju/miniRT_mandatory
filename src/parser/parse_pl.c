@@ -1,19 +1,39 @@
 
 #include "parser.h"
 #include <stdlib.h>
+#include <math.h>
 
-void	parse_pl(t_scene *scene, int declared[3], const char **str_ref)
+static
+t_vec3	rotation_from(t_vec3 axis)
 {
-	float	intensity;
-	t_vec3	color;
+	float	yaw;
+	float	pitch;
 
+	yaw = acosf(vec3_dot(axis, (t_vec3){0, 0, 0}));
+	if (axis.x == 0 && axis.z == 0)
+		pitch = 0;
+	else
+		pitch = atan2f(axis.z, axis.x);
+	return (t_vec3){pitch, yaw, 0};
+}
+
+void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref)
+{
+	t_object	plane;
+	t_vec3		normal;
+	t_vec3		color;
+
+	ft_bzero(&plane, sizeof(t_object));
 	*str_ref += 2;
+	cylinder.mesh = &scene->mesh[MESH_PLANE];
 	skip_space(str_ref);
-	intensity = parse_float(str_ref);
+	plane.position = parse_vec3(str_ref);
+	skip_space(str_ref);
+	normal = parse_vec3(str_ref);
+	plane.rotation = rotation_from(normal);
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	plane.color = vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256);
 	line_end(str_ref);
-	scene->ambient_light = vec3_mul(
-			vec3_add(color, vec3(0.5f, 0.5f, 0.5f)),
-			intensity / 256.0f);
+	list_push(obj_list, &plane);
 }

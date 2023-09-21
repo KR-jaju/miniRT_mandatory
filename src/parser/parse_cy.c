@@ -1,23 +1,47 @@
 
 #include "parser.h"
+#include "scene.h"
 #include <stdlib.h>
+#include <math.h>
 
-void	parse_cy(t_scene *scene, int declared[3], const char **str_ref)
+static
+t_vec3	rotation_from(t_vec3 axis)
 {
-	float	intensity;
-	t_vec3	color;
+	float	yaw;
+	float	pitch;
 
-	*str_ref += 2;
-	if (declared[L])
-		exit(1);
+	yaw = acosf(vec3_dot(axis, (t_vec3){0, 0, 0}));
+	if (axis.x == 0 && axis.z == 0)
+		pitch = 0;
 	else
-		declared[L] = 1;
+		pitch = atan2f(axis.z, axis.x);
+	return (t_vec3){pitch, yaw, 0};
+}
+
+void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
+{
+	t_object	cylinder;
+	t_vec3		axis;
+	float		diameter;
+	float		height;
+	t_vec3		color;
+
+	ft_bzero(&cylinder, sizeof(t_object));
+	*str_ref += 2;
+	cylinder.mesh = &scene->mesh[MESH_CYLINDER];
 	skip_space(str_ref);
-	intensity = parse_float(str_ref);
+	cylinder.position = parse_vec3(str_ref);
+	skip_space(str_ref);
+	axis = parse_vec3(str_ref);
+	cylinder.rotation = rotation_from(axis);
+	skip_space(str_ref);
+	diameter = parse_float(str_ref);
+	skip_space(str_ref);
+	height = parse_float(str_ref);
+	cylinder.scale = (t_vec3){diameter, height, diameter};
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	cylinder.color = vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256);
 	line_end(str_ref);
-	scene->ambient_light = vec3_mul(
-			vec3_add(color, vec3(0.5f, 0.5f, 0.5f)),
-			intensity / 256.0f);
+	list_push(obj_list, &cylinder);
 }
