@@ -14,7 +14,7 @@ t_vec3	rotation_from(t_vec3 axis)
 	if (axis.x == 0 && axis.z == 0)
 		pitch = 0;
 	else
-		pitch = atan2f(axis.y, hypot);
+		pitch = atan2f(axis.y, hypot); // radians
 	return (t_vec3){pitch, yaw, 0};
 }
 

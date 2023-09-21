@@ -21,7 +21,8 @@ void	parse_line(const char *line, t_list *obj_list, t_scene *scene, int declared
 		return (parse_pl(scene, obj_list, &line));
 	else if (ft_strncmp(line, "cy", 2))
 		return (parse_cy(scene, obj_list, &line));
-	exit(1);
+	else
+		line_end(&line);
 }
 
 // TODO: 씬 파싱부 구현
