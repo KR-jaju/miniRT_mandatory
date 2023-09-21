@@ -15,8 +15,7 @@ void	skip_space(const char **str_ref)
 
 void	ensure_empty(char const *str)
 {
-	while (is_space(*str))
-		str++;
+	skip_space(&str);
 	if (*str == '\0' || *str == '\n')
 		return ;
 	handle_parse_error(ERROR_INVALID_LINE_FORMAT);

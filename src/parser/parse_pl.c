@@ -32,6 +32,7 @@ void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref)
 	skip_space(str_ref);
 	normal = parse_vec3(str_ref);
 	plane.rotation = rotation_from(normal);
+	plane.scale = (t_vec3){1, 1, 1};
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
 	plane.color = vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256);
