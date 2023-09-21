@@ -16,7 +16,7 @@ enum	e_mesh_type
 	MESH_SPHERE = 0,
 	MESH_PLANE,
 	MESH_CYLINDER
-}
+};
 
 void	parse_a(t_scene *scene, int declared[3], const char **str_ref);
 void	parse_c(t_scene *scene, int declared[3], const char **str_ref);

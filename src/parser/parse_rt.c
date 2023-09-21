@@ -46,7 +46,7 @@ t_scene	*parse_rt(int fd)
 	}
 	if (!declared[A] || !declared[C] || !declared[L])
 		exit(1);
-	scene->objects = list_collect(&object_list, &scene->n_objects);
+	scene->objects = list_collect(&object_list, (uint32_t *)&scene->n_objects);
 	//TODO: free list
 	return (scene);
 }
