@@ -1,6 +1,7 @@
 #include "scene.h"
 #include "settings.h"
 #include "render.h"
+#include "debug.h"
 
 static t_vec3	ndc_to_world_space(t_vec3 ndc, const t_mat4 *pv_inverse)
 {
@@ -51,6 +52,8 @@ void camera_fill_corners_world_pos(t_camera *cam)
 		ndc = screen_to_ndc(corners[i][0], corners[i][1], \
 							IMAGE_WIDTH, IMAGE_HEIGHT);
 		cam->corners_world_pos[i] = ndc_to_world_space(ndc, &pv_inverse);
+		// printf("%dth corner: ", i);
+		// print_vec3(cam->corners_world_pos[i]);
 		i++;
 	}
 }
