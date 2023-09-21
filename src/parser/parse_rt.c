@@ -28,12 +28,11 @@ void	parse_line(const char *line, t_list *obj_list, t_scene *scene, int declared
 // TODO: 씬 파싱부 구현
 // 변환 후 버텍스 좌표 및 노말을 위한 동적할당 여기서 해둘 것
 // 아직 에러 메세지 표시는 없음
-t_scene	*parse_rt(int fd)
+void	parse_rt(t_scene *scene, const int fd)
 {
-	t_scene*const	scene = malloc(sizeof(t_scene));
-	t_list			object_list;
-	int				declared[3];
-	char			*line;
+	t_list	object_list;
+	int		declared[3];
+	char	*line;
 
 	list_init(&object_list, sizeof(t_object), 8);
 	ft_bzero(declared, sizeof(int) * 3);
@@ -48,5 +47,4 @@ t_scene	*parse_rt(int fd)
 		exit(1);
 	scene->objects = list_collect(&object_list, (uint32_t *)&scene->n_objects);
 	//TODO: free list
-	return (scene);
 }
