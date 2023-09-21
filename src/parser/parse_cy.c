@@ -10,7 +10,7 @@ t_vec3	rotation_from(t_vec3 axis)
 	float	yaw;
 	float	pitch;
 
-	yaw = acosf(vec3_dot(axis, (t_vec3){0, 0, 0}));
+	yaw = acosf(vec3_dot(axis, (t_vec3){0, 1, 0}));
 	if (axis.x == 0 && axis.z == 0)
 		pitch = 0;
 	else
