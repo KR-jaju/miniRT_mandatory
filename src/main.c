@@ -55,10 +55,13 @@ static bool	has_extension(const char *path, const char *ext)
 	return (ft_strcmp(path + path_len - ext_len, ext) == 0);
 }
 
+#include <fcntl.h>
+t_scene	*parse_rt(int fd);
+
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;
-	t_scene	scene;
+	t_scene	*scene;
 	t_image	img;
 
 	if (argc != 2 || has_extension(argv[1], ".rt") == false)
@@ -66,7 +69,16 @@ int	main(int argc, char *argv[])
 		printf("Error\n"MSG_USAGE"\n");
 		return (1);
 	}
-	//parse_scene(&scene);
+
+	// parse_scene(&scene);
+	int fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+	{
+		printf("File cannot opened\n");
+		return (1);
+	}
+	scene = parse_rt(fd);
+
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	world_transform(&scene);
