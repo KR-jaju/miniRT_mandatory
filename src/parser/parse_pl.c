@@ -25,7 +25,7 @@ void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref)
 
 	ft_bzero(&plane, sizeof(t_object));
 	*str_ref += 2;
-	cylinder.mesh = &scene->mesh[MESH_PLANE];
+	plane.mesh = &scene->mesh[MESH_PLANE];
 	skip_space(str_ref);
 	plane.position = parse_vec3(str_ref);
 	skip_space(str_ref);

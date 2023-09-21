@@ -11,7 +11,7 @@ void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref)
 
 	ft_bzero(&sphere, sizeof(t_object));
 	*str_ref += 2;
-	cylinder.mesh = &scene->mesh[MESH_SPHERE];
+	sphere.mesh = &scene->mesh[MESH_SPHERE];
 	skip_space(str_ref);
 	sphere.position = parse_vec3(str_ref);
 	skip_space(str_ref);
