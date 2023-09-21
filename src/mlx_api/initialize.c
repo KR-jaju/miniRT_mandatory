@@ -1,7 +1,9 @@
 #include "libft.h"
-#include "strdef.h"
+#include "console.h"
 #include "miniRT.h"
 #include "mlx_api.h"
+
+#define WINDOW_TITLE "test"
 
 void	init_image(t_image *img, void *mlx_conn)
 {

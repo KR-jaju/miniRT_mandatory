@@ -4,7 +4,7 @@
 #include "miniRT.h"
 #include "render.h"
 #include "mlx_api.h"
-#include "strdef.h"
+#include "console.h"
 
 // TODO: 차후 최적화를 위해 함수 호출 최소화
 /*

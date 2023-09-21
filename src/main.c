@@ -3,7 +3,7 @@
 #include <mlx.h>
 #include "libft.h"
 #include "miniRT.h"
-#include "strdef.h"
+#include "console.h"
 #include "mlx_api.h"
 
 /*
