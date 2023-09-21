@@ -27,7 +27,7 @@ void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref);
 void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref);
 
 void	skip_space(const char **str_ref);
-void	line_end(const char **str_ref);
+void	ensure_empty(char const *str);
 t_vec3	parse_vec3(const char **str_ref);
 float	parse_float(const char **str_ref);
 

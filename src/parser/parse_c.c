@@ -25,6 +25,6 @@ void	parse_c(t_scene *scene, int declared[3], const char **str_ref)
 	scene->camera.forward = parse_vec3(str_ref);
 	skip_space(str_ref);
 	scene->camera.fov = parse_float(str_ref);
-	line_end(str_ref);
+	ensure_empty(*str_ref);
 	prepare(&scene->camera);
 }

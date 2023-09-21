@@ -1,9 +1,8 @@
-
 #include "stdlib.h"
 #include "scene.h"
+#include "parser.h"
 
-static
-bool	is_space(char c)
+static bool	is_space(char c)
 {
 	return (c == ' ' || c == '\t');
 }
@@ -14,13 +13,11 @@ void	skip_space(const char **str_ref)
 		(*str_ref)++;
 }
 
-void	line_end(const char **str_ref)
+void	ensure_empty(char const *str)
 {
-	const char	*str = *str_ref;
-
-	while (str[0] != '\0' && str[0] != '\n' && is_space(str[0]))
+	while (is_space(*str))
 		str++;
-	if (str[0] == '\0' || str[0] == '\n')
+	if (*str == '\0' || *str == '\n')
 		return ;
-	exit(1);
+	handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 }

@@ -43,6 +43,6 @@ void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
 	cylinder.color = vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256);
-	line_end(str_ref);
+	ensure_empty(*str_ref);
 	list_push(obj_list, &cylinder);
 }
