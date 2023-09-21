@@ -60,6 +60,8 @@ t_mat4		mat4_identity(void);
 t_mat4		mat4_by_values(const float values[]);
 t_mat4		mat4_mulmm(t_mat4 a, t_mat4 b);
 t_mat4		mat4_transpose(t_mat4 m);
+float		mat4_determinant(t_mat4	m);
+float		mat4_cofactor(t_mat4 m, int row, int column);
 t_mat4		mat4_inverse(t_mat4 m);
 
 // transform
