@@ -1,7 +1,7 @@
 #include "libmath.h"
 #include "libft.h"
 
-t_mat4	identity_mat4(void)
+t_mat4	mat4_identity(void)
 {
 	static const float values[16] = {
 		1, 0, 0, 0,
@@ -15,7 +15,7 @@ t_mat4	identity_mat4(void)
 	return (m);
 }
 
-t_mat4		values_mat4(const float values[])
+t_mat4		mat4_by_values(const float values[])
 {
 	t_mat4	m;
 
