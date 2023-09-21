@@ -8,8 +8,8 @@ void	parse_a(t_scene *scene, int declared[3], const char **str_ref)
 	t_vec3	color;
 
 	*str_ref += 1;
-	if (declared[A])
-		exit(1);
+	if (declared[A] == 1)
+		handle_parse_error(ERROR_DUPLIATE_DECLARED);
 	else
 		declared[A] = 1;
 	skip_space(str_ref);

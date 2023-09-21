@@ -4,7 +4,6 @@
 #include "libft.h"
 #include "libds.h"
 
-
 //t_scene, declared, str_ref : int
 static
 void	parse_line(const char *line, t_list *obj_list, t_scene *scene, int declared[3])
@@ -41,10 +40,11 @@ void	parse_rt(t_scene *scene, const int fd)
 	while (line != (void *)0)
 	{
 		parse_line(line, &object_list, scene, declared);
+		status_parse_count(COUNT_UP);
 		line = get_next_line(fd);
 	}
 	if (!declared[A] || !declared[C] || !declared[L])
-		exit(1);
+		handle_parse_error(ERROR_MANDATORY_NOT_EXIST);
 	scene->objects = list_collect(&object_list, (uint32_t *)&scene->n_objects);
 	//TODO: free list
 }
