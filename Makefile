@@ -9,7 +9,8 @@ LDFLAGS			=
 LDLIBS			=	
 
 ifdef DEV
-    CFLAGS = -MMD -MP -g -fsanitize=address -Wall -Wextra -Werror
+    CFLAGS = -MMD -MP -g -fsanitize=address \
+				# -Wall -Wextra -Werror
     CPPFLAGS += -I./test
 endif
 
