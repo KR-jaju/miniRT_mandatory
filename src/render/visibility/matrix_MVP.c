@@ -41,7 +41,7 @@ t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 	r.col[0] = (t_vec4){right.x, up.x, forward.x, 0};
 	r.col[1] = (t_vec4){right.y, up.y, forward.y, 0};
 	r.col[2] = (t_vec4){right.z, up.z, forward.z, 0};
-	r.col[3] = (t_vec4){0, 0, 0, 0};
+	r.col[3] = (t_vec4){0, 0, 0, 1};
 	t = translate_matrix(vec3_mul(position, -1));
 	return (mat4_mulmm(r, t));
 }
