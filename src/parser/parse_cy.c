@@ -7,14 +7,15 @@
 static
 t_vec3	rotation_from(t_vec3 axis)
 {
+	float	hypot = sqrtf(axis.x * axis.x + axis.z * axis.z);
 	float	yaw;
 	float	pitch;
 
-	yaw = acosf(vec3_dot(axis, (t_vec3){0, 1, 0}));
+	yaw = acosf(axis.y);
 	if (axis.x == 0 && axis.z == 0)
 		pitch = 0;
 	else
-		pitch = atan2f(axis.z, axis.x);
+		pitch = atan2f(axis.y, hypot);
 	return (t_vec3){pitch, yaw, 0};
 }
 
