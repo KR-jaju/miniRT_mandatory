@@ -24,7 +24,7 @@ void	handle_parse_error(int errcode)
 	};
 
 	printf(ANSI_RED);
-	if (errcode == ERROR_MANDATORY_NOT_EXIST)
+	if (errcode == ERROR_FILEOPEN || errcode == ERROR_MANDATORY_NOT_EXIST)
 		printf("Parse Error: ");
 	else
 		printf("Parse Error in line %d: ", status_parse_count(FETCH_COUNT));
