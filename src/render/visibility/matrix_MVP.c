@@ -63,8 +63,6 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 		0, 0, (near + far) / (near - far), -1,
 		0, 0, 2 * near * far / (near - far), 0
 	};
-	t_mat4		m;
 
-	ft_memcpy(&m, values, sizeof(m));
-	return (m);
+	return (mat4_by_values(values));
 }
