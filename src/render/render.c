@@ -18,8 +18,8 @@
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3				pixel_world_pos;
-	const float			x_percentage = x / img->width;
-	const float			y_percentage = y / img->height;
+	const float			x_percentage = (float)x / img->width;
+	const float			y_percentage = (float)y / img->height;
 	float				ratio[4];
 
 	ratio[0] = (1 - x_percentage) * (1 - y_percentage);
@@ -27,7 +27,7 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	ratio[2] = (1 - x_percentage) * y_percentage;
 	ratio[3] = x_percentage * y_percentage;
 	pixel_world_pos = vec3_interpolate(cam->corners_world_pos, ratio, 4);
-	return (vec3_sub(pixel_world_pos, cam->position));
+	return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
 }
 
 /*
