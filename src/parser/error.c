@@ -3,7 +3,7 @@
 #include "parser.h"
 #include "console.h"
 
-int	status_parse_count(int mode)
+int	parser_count_state(int mode)
 {
 	static int nth = 1;
 
@@ -27,7 +27,7 @@ void	handle_parse_error(int errcode)
 	if (errcode == ERROR_FILEOPEN || errcode == ERROR_MANDATORY_NOT_EXIST)
 		printf("Parse Error: ");
 	else
-		printf("Parse Error in line %d: ", status_parse_count(FETCH_COUNT));
+		printf("Parse Error in line %d: ", parser_count_state(FETCH_COUNT));
 	printf("%s\n", errmsg[errcode]);
 	printf(ANSI_RESET);
 	exit(1);

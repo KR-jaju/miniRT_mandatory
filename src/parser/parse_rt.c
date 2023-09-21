@@ -40,7 +40,7 @@ void	parse_rt(t_scene *scene, const int fd)
 	while (line != (void *)0)
 	{
 		parse_line(line, &object_list, scene, declared);
-		status_parse_count(COUNT_UP);
+		parser_count_state(COUNT_UP);
 		line = get_next_line(fd);
 	}
 	if (!declared[A] || !declared[C] || !declared[L])

@@ -20,6 +20,8 @@ enum	e_mesh_type
 };
 
 void	parse_rt(t_scene *scene, const int fd);
+
+// parse element
 void	parse_a(t_scene *scene, int declared[3], const char **str_ref);
 void	parse_c(t_scene *scene, int declared[3], const char **str_ref);
 void	parse_l(t_scene *scene, int declared[3], const char **str_ref);
@@ -27,15 +29,15 @@ void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref);
 void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref);
 void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref);
 
-void	skip_space(const char **str_ref);
-void	ensure_empty(char const *str);
+// parse number
 t_vec3	parse_vec3(const char **str_ref);
 float	parse_float(const char **str_ref);
 
-/* ------------------ HANDLE ERROR ------------------- */
+// utils
+void	skip_space(const char **str_ref);
+void	ensure_empty(char const *str);
 
-int		status_parse_count(int mode);
-void	handle_parse_error(int errcode);
+/* ------------------ HANDLE ERROR ------------------- */
 
 enum e_parse_error
 {
@@ -52,5 +54,8 @@ enum e_parse_error
 
 # define COUNT_UP 0
 # define FETCH_COUNT 1
+
+int		parser_count_state(int mode);
+void	handle_parse_error(int errcode);
 
 #endif
