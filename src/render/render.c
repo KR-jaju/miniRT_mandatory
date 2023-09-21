@@ -9,7 +9,7 @@
 #include "settings.h"
 
 /*
-카메라 방향벡터: 픽셀 좌표-카메라 좌표
+카메라 방향벡터: 카메라 좌표->픽셀 좌표
 이후 모든 계산은 월드 공간 기준으로 이루어질 것이므로 카메라 방향벡터 또한 월드좌표계 기준으로 구한다.
 
 화면 모서리의 네 픽셀에 대해서만 world space 기준 좌표를 미리 구하고,
@@ -98,7 +98,6 @@ t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 		return (shading(&closest_hit, scene));
 }
 
-//TODO: 진척도에 따라 메세지 출력
 /*
 1. 현재 처리해야하는 픽셀 컬러 계산
 2. 계산된 픽셀 이미지에 반영
@@ -116,6 +115,8 @@ void	render_image(int progress, t_scene *scene, t_image *img, bool *done)
 		*done = true;
 }
 
+// TODO: 현재는 window에 put하는 작업과 콘솔 출력을 이 함수에서 전부 하고 있는데
+// 차후 render_loop 함수 별도로 만들어 render_display 함수 호출 + 콘솔 출력 
 int	render_display(t_program_data *data)
 {
 	static bool	done = false;
