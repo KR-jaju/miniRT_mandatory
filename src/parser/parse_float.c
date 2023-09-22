@@ -25,6 +25,7 @@ float	parse_integer_part(const char **str_ref)
 		integer_part += **str_ref - '0';
 		(*str_ref)++;
 	}
+	return (integer_part);
 }
 
 static
