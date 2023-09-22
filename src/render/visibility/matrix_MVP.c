@@ -33,22 +33,16 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 뷰 공간으로 매핑하기 위해서는 먼저 중심을 카메라 기준으로 옮기고(이동변환), 그 다음 회전변환을 하면 된다.
 뷰 행렬 = (회전 변환 행렬) * (이동 변환 행렬)
 */
-t_mat4	view_matrix(t_vec3 eye, t_vec3 look_at, t_vec3 up)
+t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 {
-	t_vec3	basis_right;
-	t_vec3	basis_up;
-	t_vec3	basis_forward;
 	t_mat4	r;
 	t_mat4	t;
 
-	basis_forward = vec3_normalize(vec3_sub(eye, look_at));
-	basis_right = vec3_normalize(vec3_cross(up, basis_forward));
-	basis_up = vec3_normalize(vec3_cross(basis_forward, basis_right));
-	r.col[0] = (t_vec4){basis_right.x, basis_up.x, basis_forward.x, 0};
-	r.col[1] = (t_vec4){basis_right.y, basis_up.y, basis_forward.y, 0};
-	r.col[2] = (t_vec4){basis_right.z, basis_up.z, basis_forward.z, 0};
-	r.col[3] = (t_vec4){0, 0, 0, 0};
-	t = translate_matrix(vec3_mul(eye, -1));
+	r.col[0] = (t_vec4){right.x, up.x, forward.x, 0};
+	r.col[1] = (t_vec4){right.y, up.y, forward.y, 0};
+	r.col[2] = (t_vec4){right.z, up.z, forward.z, 0};
+	r.col[3] = (t_vec4){0, 0, 0, 1};
+	t = translate_matrix(vec3_mul(position, -1));
 	return (mat4_mulmm(r, t));
 }
 
@@ -69,8 +63,6 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 		0, 0, (near + far) / (near - far), -1,
 		0, 0, 2 * near * far / (near - far), 0
 	};
-	t_mat4		m;
 
-	ft_memcpy(&m, values, sizeof(m));
-	return (m);
+	return (mat4_by_values(values));
 }

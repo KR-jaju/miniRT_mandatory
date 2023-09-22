@@ -53,21 +53,21 @@ t_vec4		vec4_mul(t_vec4 v, float a);
 float		vec4_dot(t_vec4 v1, t_vec4 v2);
 float		vec4_length(t_vec4 v);
 t_vec4		vec4_normalize(t_vec4 v);
+t_vec3		vec3_interpolate(t_vec3 *vectors, float *ratio, int n_vectors);
 
-// matrix
-t_mat4		identity_mat4(void);
-t_mat4		values_mat4(const float values[]);
+// matrix4
+t_mat4		mat4_identity(void);
+t_mat4		mat4_by_values(const float values[]);
 t_mat4		mat4_mulmm(t_mat4 a, t_mat4 b);
 t_mat4		mat4_transpose(t_mat4 m);
+float		mat4_determinant(t_mat4	m);
+float		mat4_cofactor(t_mat4 m, int row, int column);
 t_mat4		mat4_inverse(t_mat4 m);
 
 // transform
 t_vec4		mat4_mulmv(t_mat4 m, t_vec4 v);
 
 // clamp
-float	clamp(float a, float min, float max);
-
-// interpolate
-t_vec3	vec3_interpolate(t_vec3 *vectors, float *ratio, int n_vectors);
+float		clamp(float a, float min, float max);
 
 #endif

@@ -9,8 +9,8 @@
 # define EVENT_DESTROY		17
 # define KEY_ESC 			53
 
-# define WINDOW_WIDTH	800
-# define WINDOW_HEIGHT	600
+# define IMAGE_WIDTH	800
+# define IMAGE_HEIGHT	600
 
 typedef struct s_mlx
 {

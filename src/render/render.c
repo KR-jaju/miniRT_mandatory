@@ -1,44 +1,39 @@
 #include <stdio.h>
 #include "libft.h"
 #include "mlx.h"
+#include "libmath.h"
 #include "miniRT.h"
 #include "render.h"
 #include "mlx_api.h"
 #include "console.h"
 #include "settings.h"
+#include "debug.h"
 
 /*
-카메라 방향벡터: 픽셀 좌표-카메라 좌표
+카메라 방향벡터: 카메라 좌표->픽셀 좌표
 이후 모든 계산은 월드 공간 기준으로 이루어질 것이므로 카메라 방향벡터 또한 월드좌표계 기준으로 구한다.
 
-world space상에서의 픽셀 좌표 구하기
-1. NDC 좌표로 변환 (=[-1,1] 범위로 매핑)
-2. 투영 행렬(P) 및 카메라 행렬(V)의 역행렬 적용하기
-3. w 성분을 1로 만들어주기 위해 전체 성분 w값으로 나누기
-	(선형변환의 성질에 의해 이 나눗셈 연산을 이때 해도 상관없음)
+화면 모서리의 네 픽셀에 대해서만 world space 기준 좌표를 미리 구하고,
+해당 4개의 좌표들을 선형 보간(linear interpolate)하여 현재 구하고 싶은 픽셀의 world space 기준 좌표를 구한다.
 */
-// TODO: 전처리 과정에서 저장된 행렬 통해 구하도록 수정
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
-	t_vec3	ndc_pos;
-	// t_vec4	world_pos;
+	t_vec3				pixel_world_pos;
+	const float			x_percentage = (float)x / img->width;
+	const float			y_percentage = (float)y / img->height;
+	float				ratio[4];
 
-	(void) cam;
-	ndc_pos.x = ((x + 0.5) / img->width) * 2 - 1;
-	ndc_pos.y = 1 - ((y + 0.5) / img->height) * 2;
-	ndc_pos.z = 0; // -1~1 사이면 아무 값이나 상관없음
-
-	// world_pos = mat4_mulmv(\
-	// 		(mat4_transpose(mat4_mulmm(\
-	// 			projection_matrix(cam->fov, img->aspect_ratio, NEAR, FAR), \
-	// 			view_matrix(cam->eye, cam->look_at, cam->up)))), \
-	// 		vec4(ndc_pos.x, ndc_pos.y, ndc_pos.z, 1)); // TRANSPOSE X -> INVERSE
-	// world_pos = vec4_mul(world_pos, (1 / world_pos.w));
-
-	// return (vec3_normalize(vec3(world_pos.x - cam->eye.x, \
-	// 							world_pos.y - cam->eye.y, \
-	// 							world_pos.z - cam->eye.z)));
-	return (vec3_normalize(vec3(ndc_pos.x, ndc_pos.y, 1)));
+	ratio[0] = (1 - x_percentage) * (1 - y_percentage);
+	ratio[1] = x_percentage * (1 - y_percentage);
+	ratio[2] = (1 - x_percentage) * y_percentage;
+	ratio[3] = x_percentage * y_percentage;
+	pixel_world_pos = vec3_interpolate(cam->corners_world_pos, ratio, 4);
+	// printf("\nratio: %f %f %f %f\n", ratio[0], ratio[1], ratio[2], ratio[3]);
+	// printf("pixel_world_pos(x:%d, y:%d): ", x, y);
+	// print_vec3(pixel_world_pos);
+	// printf("cam_ray_dir(x:%d, y:%d): ", x, y);
+	// print_vec3(vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
+	return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
 }
 
 /*
@@ -95,6 +90,7 @@ t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 	closest_hit.t = INFINITY;
 	cam_ray.origin = scene->camera.position;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
+	// print_vec3(cam_ray.dir);
 	i = 0;
 	while (i < scene->n_objects)
 	{
@@ -109,7 +105,6 @@ t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 		return (shading(&closest_hit, scene));
 }
 
-//TODO: 진척도에 따라 메세지 출력
 /*
 1. 현재 처리해야하는 픽셀 컬러 계산
 2. 계산된 픽셀 이미지에 반영
@@ -127,6 +122,8 @@ void	render_image(int progress, t_scene *scene, t_image *img, bool *done)
 		*done = true;
 }
 
+// TODO: 현재는 window에 put하는 작업과 콘솔 출력을 이 함수에서 전부 하고 있는데
+// 차후 render_loop 함수 별도로 만들어 render_display 함수 호출 + 콘솔 출력 
 int	render_display(t_program_data *data)
 {
 	static bool	done = false;
