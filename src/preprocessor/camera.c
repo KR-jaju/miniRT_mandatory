@@ -43,7 +43,7 @@ world space상에서의 픽셀 좌표 구하기
 구해야하는 이미지 플레인 모서리 좌표
 (0, 0), (WIDTH, 0), (0, HEIGHT), (WIDTH, HEIGHT)
 */
-void	preprocess_camera(t_camera *cam)
+int	preprocess_camera(t_camera *cam)
 {
 	const t_mat4	pv = mat4_mulmm(\
 			projection_matrix(cam->fov, (float)IMAGE_WIDTH / IMAGE_HEIGHT, \
@@ -63,4 +63,5 @@ void	preprocess_camera(t_camera *cam)
 			screen_to_world_space(corners[i][0], corners[i][1], &pv_inverse);
 		i++;
 	}
+	return (0);
 }
