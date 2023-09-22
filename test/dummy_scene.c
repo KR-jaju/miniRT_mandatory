@@ -3,7 +3,7 @@
 #include "mesh.h"
 #include "debug.h"
 
-enum e_meshs
+enum e_meshes
 {
 	PLANE,
 	SPHERE,
@@ -36,12 +36,12 @@ void set_objects(t_scene *scene)
 
 	scene->n_objects = n_objects;
 	scene->objects = malloc(sizeof(t_object) * n_objects);
-	scene->objects[0] = dummy_object(&scene->meshs[PLANE], blue);
-	scene->objects[1] = dummy_object(&scene->meshs[CYLINDER], green);
+	scene->objects[0] = dummy_object(&scene->meshes[PLANE], blue);
+	scene->objects[1] = dummy_object(&scene->meshes[CYLINDER], green);
 	scene->objects[1].position = (t_vec3){-2, 4, 0};
-	scene->objects[2] = dummy_object(&scene->meshs[CYLINDER], green);
+	scene->objects[2] = dummy_object(&scene->meshes[CYLINDER], green);
 	scene->objects[2].position = (t_vec3){0, 2, 0};
-	scene->objects[3] = dummy_object(&scene->meshs[CYLINDER], green);
+	scene->objects[3] = dummy_object(&scene->meshes[CYLINDER], green);
 	scene->objects[3].position = (t_vec3){2, 1, 0};
 }
 
@@ -54,7 +54,7 @@ void	set_objects_test_camera(t_scene *scene)
 
 	scene->n_objects = n_objects;
 	scene->objects = malloc(sizeof(t_object) * n_objects);
-	scene->objects[0] = dummy_object(&scene->meshs[SPHERE], blue);
+	scene->objects[0] = dummy_object(&scene->meshes[SPHERE], blue);
 	scene->objects[0].position = (t_vec3){0, 0, 5};
 }
 
@@ -77,10 +77,10 @@ void	set_light(t_scene *scene)
 int	dummy_scene(t_scene *scene)
 {
 	// 초기화 작업
-	const int n_meshs = 3;
-	plane_init(&scene->meshs[0]);
-	sphere_init(&scene->meshs[1], 10, 10);
-	cylinder_init(&scene->meshs[2], 10);
+	const int n_meshes = 3;
+	plane_init(&scene->meshes[0]);
+	sphere_init(&scene->meshes[1], 10, 10);
+	cylinder_init(&scene->meshes[2], 10);
 
 	// 오브젝트, 카메라, 빛 세팅
 	// set_objects(scene);

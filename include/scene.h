@@ -50,7 +50,7 @@ typedef struct s_light
 
 typedef struct s_scene
 {
-	t_mesh		meshs[MESH_COUNT];
+	t_mesh		meshes[MESH_COUNT];
 	t_object	*objects;
 	t_camera	camera;
 	t_light		light;

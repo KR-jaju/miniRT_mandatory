@@ -28,7 +28,7 @@ void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
 
 	ft_bzero(&cylinder, sizeof(t_object));
 	*str_ref += 2;
-	cylinder.mesh = &scene->meshs[MESH_CYLINDER];
+	cylinder.mesh = &scene->meshes[MESH_CYLINDER];
 	skip_space(str_ref);
 	cylinder.position = parse_vec3(str_ref);
 	skip_space(str_ref);
