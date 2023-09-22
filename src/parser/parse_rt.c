@@ -1,5 +1,4 @@
-
-#include "parser.h"
+#include "parser_internal.h"
 #include "scene.h"
 #include "libft.h"
 

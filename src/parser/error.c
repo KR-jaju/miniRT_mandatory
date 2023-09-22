@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "parser.h"
+#include "parser_internal.h"
 #include "console.h"
 
 int	parser_line_count(int mode)

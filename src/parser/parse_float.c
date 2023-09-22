@@ -1,7 +1,5 @@
-
 #include "libft.h"
-#include "parser.h"
-#include "debug.h"
+#include "parser_internal.h"
 
 static
 float	parse_sign(const char **str_ref)
@@ -50,7 +48,6 @@ float	parse_decimal_part(const char **str_ref)
 	return (decimal_part);
 }
 
-// DEBUG
 float	parse_float(const char **str_ref)
 {
 	const float	sign = parse_sign(str_ref);

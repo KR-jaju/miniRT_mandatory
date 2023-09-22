@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "console.h"
-#include "parser.h"
+#include "parser_internal.h"
 
 int	parse_scene(t_scene *scene, const char *path)
 {

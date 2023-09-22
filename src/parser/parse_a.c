@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "parser_internal.h"
 #include "scene.h"
 #include <stdlib.h>
 
@@ -16,9 +16,6 @@ void	parse_a(t_scene *scene, bool declared[3], const char **str_ref)
 	intensity = parse_float(str_ref);
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	scene->ambient_light = rgb_to_vec3(vec3_mul(color, intensity));
 	ensure_empty(*str_ref);
-	scene->ambient_light = vec3_mul(
-			vec3_add(color, vec3(0.5f, 0.5f, 0.5f)),
-			intensity / 256.0f);
 }
-
