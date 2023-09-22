@@ -9,7 +9,7 @@ void	console_msg(const char *msg)
 
 void	console_settings(void)
 {
-	printf(ANSI_BLUE);
+	// printf(ANSI_BLUE);
 	printf("-------- Rendering settings --------\n");
 	printf("Image Size: \n");
 	printf("\tWidth=%d, Height=%d\n", IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -20,6 +20,10 @@ void	console_settings(void)
 	printf("\treflectivity=%f\n", REFLECTIVITY);
 	printf("\tk_diffuse=%f\n", K_DIFFUSE);
 	printf("\tk_specular=%f\n", K_SPECULAR);
+	if (K_DIFFUSE + K_SPECULAR > 1)
+		printf(ANSI_YELLOW \
+		"\t(Warning: k_diffuse + k_specular is bigger than 1)\n"\
+		ANSI_BLUE);
 	printf("\tshininess=%d\n", SHININESS);
 	printf("------------------------------------\n");
 	printf(ANSI_RESET);
@@ -27,7 +31,7 @@ void	console_settings(void)
 
 void	console_start(void)
 {
-	console_msg(ANSI_GREEN""MSG_SCENE_LOADED"\n"ANSI_RESET);
+	console_msg(ANSI_GREEN"\n"MSG_SCENE_LOADED"\n"ANSI_RESET);
 	console_settings();
 	console_msg(ANSI_RESET);
 	console_msg(MSG_RENDER_START);
