@@ -1,8 +1,8 @@
-#include <mlx.h>
 #include "libft.h"
 #include "mlx_api.h"
-#include "mesh.h"
+#include "scene.h"
 #include "parser.h"
+#include "console.h"
 #include "settings.h"
 
 int	preprocess_scene(t_scene *scene);
@@ -28,7 +28,11 @@ void	init_scene(t_scene *scene, const char *path)
 {
 	init_meshs(scene->meshs);
 	parse_scene(scene, path);
-	preprocess_scene(scene);
+	if (preprocess_scene(scene) == -1)
+	{
+		console_msg(MSG_ERROR_MALLOC);
+		exit(1);
+	}
 }
 
 void	init_mlx(t_mlx *mlx)
