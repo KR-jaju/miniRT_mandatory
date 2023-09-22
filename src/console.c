@@ -1,33 +1,35 @@
+#include <stdio.h>
 #include "console.h"
-
-void	clear_console(void)
-{
-#ifdef _WIN32
-   	system("cls"); // Windows
-#else
-    system("clear"); // Linux/macOS 
-#endif
-}
-
-void	console_progressbar(int progress, int total)
-{
-    const int barWidth = 50;
-    float percentage = (float)progress / total;
-    int progressBarWidth = (int)(percentage * barWidth);
-
-    printf("[");
-    for (int i = 0; i < barWidth; i++) {
-        if (i < progressBarWidth) {
-            printf("#"); // 진행 부분은 "#"으로 표시
-        } else {
-            printf(" "); // 나머지는 공백으로 표시
-        }
-    }
-    printf("] %.2f%%\r", percentage * 100); // 퍼센트 표시 및 커서 이동
-    fflush(stdout); // 버퍼 비우기
-}
+#include "settings.h"
 
 void	console_msg(const char *msg)
 {
 	printf("%s\n", msg);
+}
+
+void	console_settings(void)
+{
+	printf(ANSI_BLUE);
+	printf("-------- Rendering settings --------\n");
+	printf("Image Size: \n");
+	printf("\tWidth=%d, Height=%d\n", IMAGE_WIDTH, IMAGE_HEIGHT);
+	printf("Image Update Interval: %d%%\n", IMAGE_PUT_INTERVAL_PERCENT);
+	printf("Smooth Shading: %d (if false, Flat Shading)\n", SMOOTH_SHADING);
+	printf("Resolution: %d\n", RESOLUTION);
+	printf("Material: \n");
+	printf("\treflectivity=%f\n", REFLECTIVITY);
+	printf("\tk_diffuse=%f\n", K_DIFFUSE);
+	printf("\tk_specular=%f\n", K_SPECULAR);
+	printf("\tshininess=%d\n", SHININESS);
+	printf("------------------------------------\n");
+	printf(ANSI_RESET);
+}
+
+void	console_start(void)
+{
+	console_msg(ANSI_GREEN""MSG_SCENE_LOADED"\n"ANSI_RESET);
+	console_settings();
+	console_msg(ANSI_RESET);
+	console_msg(MSG_RENDER_START);
+	console_msg(MSG_RENDER_PROGRESS"\n");
 }
