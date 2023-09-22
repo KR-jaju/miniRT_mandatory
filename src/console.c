@@ -37,3 +37,8 @@ void	console_start(void)
 	console_msg(MSG_RENDER_START);
 	console_msg(MSG_RENDER_PROGRESS"\n");
 }
+
+void	console_finish(void)
+{
+	console_msg("\n"ANSI_GREEN""MSG_RENDER_FINISHED);
+}

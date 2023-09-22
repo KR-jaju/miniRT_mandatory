@@ -38,5 +38,6 @@
 
 void	console_msg(const char *msg);
 void	console_start(void);
+void	console_finish(void);
 
 #endif

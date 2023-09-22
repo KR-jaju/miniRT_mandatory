@@ -44,7 +44,7 @@ int	render_display(t_program_data *data)
 	if (progress == data->img->n_pixels)
 	{
 		finished = true;
-		console_msg(ANSI_GREEN""MSG_RENDER_FINISHED);
+		console_finish();
 	}
 	return (0);
 }
