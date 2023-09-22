@@ -3,12 +3,32 @@
 #include "miniRT.h"
 #include "mlx_api.h"
 #include "scene.h"
+#include "mesh.h"
+#include "settings.h"
 
 int	parse_scene(t_scene *scene, const char *path);
 int	preprocess_scene(t_scene *scene);
 
+static void	init_meshs(t_mesh *meshs)
+{
+	const int	parms[3][2] = {\
+	[MESH_SPHERE] = {10, 10},
+	[MESH_PLANE] = {-1, -1},
+	[MESH_CYLINDER] = {10, -1},
+	};
+
+	// TODO: 해상도(RESOLUTION)값에 따른 섹터, 스택 개수 계산식 조율
+	sphere_init(&meshs[MESH_SPHERE], \
+				RESOLUTION * parms[MESH_SPHERE][0], \
+				RESOLUTION * parms[MESH_SPHERE][1]);
+	plane_init(&meshs[MESH_PLANE]);
+	cylinder_init(&meshs[MESH_CYLINDER], \
+				RESOLUTION * parms[MESH_CYLINDER][0]);
+}
+
 void	init_scene(t_scene *scene, const char *path)
 {
+	init_meshs(scene->meshs);
 	parse_scene(scene, path);
 	preprocess_scene(scene);
 }

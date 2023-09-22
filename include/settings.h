@@ -9,6 +9,8 @@
 # define SMOOTH_SHADING		1 // Shading mode (Flat or Smooth)
 # define IMAGE_PUT_INTERVAL	5
 
+# define RESOLUTION			1 // 폴리곤 개수 비율
+
 // material constants
 # define REFLECTIVITY		0.3
 # define K_DIFFUSE			0.3 // recommended: K_DIFFUSE + K_SPECULAR <= 1
