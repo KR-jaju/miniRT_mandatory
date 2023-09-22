@@ -9,8 +9,8 @@
 
 enum	e_mesh_type
 {
-	MESH_SPHERE = 0,
 	MESH_PLANE,
+	MESH_SPHERE,
 	MESH_CYLINDER
 };
 
