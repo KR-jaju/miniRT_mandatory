@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+// TODO: 라디안 단위인지 육십분법 단위인지 확인 필요 (육십분법이어야함)
 static
 t_vec3	rotation_from(t_vec3 axis)
 {

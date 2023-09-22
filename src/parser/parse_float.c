@@ -48,6 +48,7 @@ float	parse_decimal_part(const char **str_ref)
 	return (decimal_part);
 }
 
+// DEBUG: '70.'과 같은 케이스 처럼 .으로 끝나는 경우 에러 처리 필요
 float	parse_float(const char **str_ref)
 {
 	const float	sign = parse_sign(str_ref);
