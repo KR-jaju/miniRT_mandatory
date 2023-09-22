@@ -42,7 +42,7 @@ int	render_display(t_program_data *data)
 	render_image(progress, data->scene, data->img, &done);
 	if (progress % 5000 == 0 || done)
 	{
-		mlx_put_image_to_window(data->mlx->conn,
+		mlx_put_image_to_window(data->mlx->conn, \
 								data->mlx->win, data->img->addr, 0, 0);
 		printf("progress: %d / %d\n", progress, data->img->n_pixels);
 	}
