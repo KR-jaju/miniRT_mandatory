@@ -27,16 +27,6 @@ int	stack_init(t_stack *this, size_t type_size, int capacity)
 	return (0);
 }
 
-bool	stack_is_empty(t_stack *this)
-{
-	return (this->count == 0);
-}
-
-bool	stack_is_full(t_stack *this)
-{
-	return (this->count == this->capacity);
-}
-
 int	stack_push(t_stack *this, void *elem)
 {
 	if (this->count == this->capacity \

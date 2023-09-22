@@ -28,16 +28,6 @@ int	queue_init(t_queue *this, size_t type_size, int capacity)
 	return (0);
 }
 
-bool	queue_is_empty(t_queue *this)
-{
-	return (this->count == 0);
-}
-
-bool	queue_is_full(t_queue *this)
-{
-	return (this->count == this->capacity);
-}
-
 int	queue_enqueue(t_queue *this, void *elem)
 {
 	if (this->count == this->capacity \
