@@ -1,4 +1,4 @@
-#include "render.h"
+#include "libmath.h"
 
 /*
 입사벡터: 교차점 -> 빛

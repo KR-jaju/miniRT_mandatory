@@ -4,7 +4,6 @@
 #include "console.h"
 #include "parser.h"
 
-
 int	parse_scene(t_scene *scene, const char *path)
 {
 	int	fd;

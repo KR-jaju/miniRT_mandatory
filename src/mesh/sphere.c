@@ -1,6 +1,6 @@
-#include "libds.h"
+#include <stdlib.h>
+#include "libft.h"
 #include "mesh.h"
-#include "debug.h"
 
 /*
 yaw(y축)와 pitch(x축) 각도 값을 가지고 길이가 1인 벡터 반환.

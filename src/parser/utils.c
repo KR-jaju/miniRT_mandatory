@@ -1,5 +1,3 @@
-#include "stdlib.h"
-#include "scene.h"
 #include "parser.h"
 
 static bool	is_space(char c)

@@ -1,17 +1,16 @@
-
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "scene.h"
-# include "libmath.h"
 # include "libds.h"
-# include "mesh.h"
+# include "scene.h"
 # include "console.h"
 
 # define A 0
 # define C 1
 # define L 2
 
+// parse file
+int		parse_scene(t_scene *scene, const char *path);
 void	parse_rt(t_scene *scene, const int fd);
 
 // parse element
@@ -41,12 +40,6 @@ enum e_parse_error
 	ERROR_DUPLIATE_DECLARED,
 	ERROR_MANDATORY_NOT_EXIST,
 };
-
-# define MSG_ERROR_MALLOC "memory allocation failed"
-# define MSG_ERROR_FILEOPEN "file open failed"
-# define MSG_ERROR_INVALID_LINE_FORMAT "invalid line format"
-# define MSG_ERROR_DUPLIATE_DECLARED "duplicate declared"
-# define MSG_ERROR_MANDATORY_NOT_EXIST "mandatory element not exist in scene"
 
 # define COUNT_UP 0
 # define FETCH_COUNT 1

@@ -4,13 +4,9 @@
 # include <stdbool.h>
 # include "libmath.h"
 # include "scene.h"
-# include "mlx_api.h"
 # include "render.h"
 
-// default camera parameter
-// 사실 아무 값이나 상관없다.
-# define NEAR	0.3
-# define FAR	1000
+/* ---------------------------- MACRO CONSTANTS ----------------------------- */
 
 enum e_vertex
 {
@@ -18,6 +14,8 @@ enum e_vertex
 	B,
 	C
 };
+
+/* ------------------------ USER DEFINED DATA TYPES ------------------------- */
 
 typedef struct s_ray
 {
@@ -27,12 +25,14 @@ typedef struct s_ray
 
 typedef struct s_hit_record
 {
-	float		t; // 카메라 레이 디렉션 스칼라
+	float		t;
 	t_vec3		point;
 	t_triangle	*triangle;
 	t_vec3		normal;
 	t_material	*material;
 }t_hit_record;
+
+/* --------------------------- FUNCTION PROTOTYPES -------------------------- */
 
 // direction
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos);

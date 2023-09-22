@@ -1,12 +1,10 @@
+#include <mlx.h>
 #include "libft.h"
-#include "console.h"
-#include "miniRT.h"
 #include "mlx_api.h"
-#include "scene.h"
 #include "mesh.h"
+#include "parser.h"
 #include "settings.h"
 
-int	parse_scene(t_scene *scene, const char *path);
 int	preprocess_scene(t_scene *scene);
 
 static void	init_meshs(t_mesh *meshs)
@@ -52,4 +50,3 @@ void	init_image(t_image *img, void *mlx_conn)
 	img->data_size = img->bytes_per_line * img->height;
 	ft_memset(img->data, 0, img->data_size);
 }
-

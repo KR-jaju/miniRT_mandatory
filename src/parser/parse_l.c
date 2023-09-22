@@ -19,6 +19,6 @@ void	parse_l(t_scene *scene, bool declared[3], const char **str_ref)
 	intensity = parse_float(str_ref);
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
-	scene->light.color = rgb_to_vec3(color);
+	scene->light.color = rgb_to_vec3(vec3_mul(color, intensity));
 	ensure_empty(*str_ref);
 }

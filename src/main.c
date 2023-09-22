@@ -7,7 +7,19 @@
 #include "mlx_api.h"
 #include "console.h"
 
-// TODO: 메모리 할당 예외처리
+void	init_scene(t_scene *scene, const char *path);
+void	init_mlx(t_mlx *mlx);
+void	init_image(t_image *img, void *mlx_conn);
+
+static bool	has_extension(const char *path, const char *ext)
+{
+	const size_t	path_len = ft_strlen(path);
+	const size_t	ext_len = ft_strlen(ext);
+
+	if (path_len <= ext_len)
+		return (false);
+	return (ft_strcmp(path + path_len - ext_len, ext) == 0);
+}
 
 /*
 1. scene 파싱 작업 및 initialize
@@ -20,17 +32,6 @@ ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는
 전부 다 렌더링되기 이전에도 window에 image를 지속적으로 put하여 현황을 확인하게끔 하고 싶으므로
 loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
 */
-
-static bool	has_extension(const char *path, const char *ext)
-{
-	const size_t	path_len = ft_strlen(path);
-	const size_t	ext_len = ft_strlen(ext);
-
-	if (path_len <= ext_len)
-		return (false);
-	return (ft_strcmp(path + path_len - ext_len, ext) == 0);
-}
-
 int	main(int argc, char *argv[])
 {
 	t_mlx	mlx;

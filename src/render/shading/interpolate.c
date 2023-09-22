@@ -1,5 +1,4 @@
 #include "render.h"
-#include "debug.h"
 
 static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *coord)
 {

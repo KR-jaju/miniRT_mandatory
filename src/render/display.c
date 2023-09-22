@@ -1,13 +1,7 @@
-#include <stdio.h>
-#include "libft.h"
-#include "mlx.h"
-#include "libmath.h"
-#include "miniRT.h"
-#include "render.h"
 #include "mlx_api.h"
+#include "render.h"
 #include "console.h"
-#include "settings.h"
-#include "debug.h"
+#include "miniRT.h"
 
 t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img);
 

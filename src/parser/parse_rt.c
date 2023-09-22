@@ -2,7 +2,6 @@
 #include "parser.h"
 #include "scene.h"
 #include "libft.h"
-#include "libds.h"
 
 static
 void	parse_line(const char *line, t_list *obj_list, \

@@ -1,13 +1,7 @@
-#include <stdio.h>
 #include "libft.h"
-#include "mlx.h"
-#include "libmath.h"
-#include "miniRT.h"
-#include "render.h"
 #include "mlx_api.h"
-#include "console.h"
+#include "render.h"
 #include "settings.h"
-#include "debug.h"
 
 /*
 카메라 방향벡터: 카메라 좌표->픽셀 좌표
@@ -28,11 +22,6 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	ratio[2] = (1 - x_percentage) * y_percentage;
 	ratio[3] = x_percentage * y_percentage;
 	pixel_world_pos = vec3_interpolate(cam->corners_world_pos, ratio, 4);
-	// printf("\nratio: %f %f %f %f\n", ratio[0], ratio[1], ratio[2], ratio[3]);
-	// printf("pixel_world_pos(x:%d, y:%d): ", x, y);
-	// print_vec3(pixel_world_pos);
-	// printf("cam_ray_dir(x:%d, y:%d): ", x, y);
-	// print_vec3(vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
 	return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
 }
 
@@ -90,7 +79,6 @@ t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 	closest_hit.t = INFINITY;
 	cam_ray.origin = scene->camera.position;
 	cam_ray.dir = camera_ray_direction(x, y, &scene->camera, img);
-	// print_vec3(cam_ray.dir);
 	i = 0;
 	while (i < scene->n_objects)
 	{

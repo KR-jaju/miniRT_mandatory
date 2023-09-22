@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "console.h"
 
 void	clear_console(void)
 {

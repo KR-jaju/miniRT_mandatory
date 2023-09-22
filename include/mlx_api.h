@@ -1,16 +1,13 @@
 #ifndef MLX_API_H
 #define MLX_API_H
 
-# include "mlx.h"
+# include <mlx.h>
 # include "libmath.h"
 # include "stddef.h"
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_DESTROY		17
 # define KEY_ESC 			53
-
-# define IMAGE_WIDTH	800
-# define IMAGE_HEIGHT	600
 
 typedef struct s_mlx
 {
@@ -39,8 +36,6 @@ typedef struct s_pixel
 	t_vec3	color;
 }t_pixel;
 
-void	init_image(t_image *img, void *mlx_conn);
-void	init_mlx(t_mlx *mlx);
 int		keypress_hook(int keycode, void *param);
 void	put_pixel_to_image(t_pixel p, t_image *img);
 
