@@ -35,7 +35,7 @@ float	parse_float(const char **str_ref);
 
 // utils
 void	skip_space(const char **str_ref);
-void	ensure_empty(char const *str);
+void	ensure_empty(const char *str);
 
 /* ------------------ HANDLE ERROR ------------------- */
 

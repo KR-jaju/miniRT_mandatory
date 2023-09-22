@@ -13,7 +13,7 @@ void	skip_space(const char **str_ref)
 		(*str_ref)++;
 }
 
-void	ensure_empty(char const *str)
+void	ensure_empty(const char *str)
 {
 	skip_space(&str);
 	if (*str == '\0' || *str == '\n')

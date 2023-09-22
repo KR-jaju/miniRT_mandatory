@@ -7,7 +7,7 @@ static
 float	parse_sign(const char **str_ref)
 {
 	if (**str_ref == '-')
-		return (-1);
+		return ((*str_ref)++, -1);
 	return (1);
 }
 
@@ -34,8 +34,9 @@ float	parse_decimal_part(const char **str_ref)
 	float	decimal_part;
 	float	place;
 
-	if (*(*str_ref)++ != '.')
+	if (**str_ref != '.')
 		return (0);
+	(*str_ref)++;
 	decimal_part = 0;
 	place = 0.1f;
 	while (ft_isdigit(**str_ref))
