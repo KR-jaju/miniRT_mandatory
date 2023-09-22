@@ -1,27 +1,26 @@
 #include <stdlib.h>
 #include "scene.h"
 
-void		object_fill_triangles(t_object *object);
-void		object_fill_normals(t_object *object);
-void		object_fill_vertices(t_object *object);
-t_material	default_material(t_vec3 color);
-void		camera_fill_corners_world_pos(t_camera *cam);
+void	preprocess_object(t_object *obj);
+void	preprocess_camera(t_camera *cam);
 
-// TODO: 메모리 할당 실패 예외처리
 int	allocate_array(t_object *objects, int n_objects)
 {
-	t_object	*object;
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < n_objects)
 	{
-		object = &objects[i];
-		object->vertices = malloc(sizeof(t_vec3) * object->mesh->n_vertices);
-		object->vertex_normals = malloc(sizeof(t_vec3) \
-									* object->mesh->n_vertices);
-		object->triangles = malloc(sizeof(t_triangle) \
-									* object->mesh->n_triangles);
+		objects[i].vertices = malloc(sizeof(t_vec3) \
+									* objects[i].mesh->n_vertices);
+		objects[i].vertex_normals = malloc(sizeof(t_vec3) \
+									* objects[i].mesh->n_vertices);
+		objects[i].triangles = malloc(sizeof(t_triangle) \
+									* objects[i].mesh->n_triangles);
+		if (!objects[i].vertices \
+			|| !objects[i].vertex_normals \
+			|| !objects[i].triangles)
+			return (-1);
 		i++;
 	}
 	return (0);
@@ -31,17 +30,14 @@ int	preprocess_scene(t_scene *scene)
 {
 	int	i;
 
-	allocate_array(scene->objects, scene->n_objects);
+	if (allocate_array(scene->objects, scene->n_objects) == -1)
+		return (-1);
 	i = 0;
 	while (i < scene->n_objects)
 	{
-		object_fill_vertices(&scene->objects[i]);
-		object_fill_normals(&scene->objects[i]);
-		object_fill_triangles(&scene->objects[i]);
-		scene->objects[i].material = \
-				default_material(scene->objects[i].material.color);
+		preprocess_object(&scene->objects[i]);
 		i++;
 	}
-	camera_fill_corners_world_pos(&scene->camera);
+	preprocess_camera(&scene->camera);
 	return (0);
 }

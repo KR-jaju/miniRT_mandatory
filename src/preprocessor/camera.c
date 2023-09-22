@@ -1,7 +1,8 @@
 #include "scene.h"
 #include "settings.h"
-#include "render.h"
-#include "debug.h"
+
+t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position);
+t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
 static t_vec3	ndc_to_world_space(t_vec3 ndc, const t_mat4 *pv_inverse)
 {
@@ -12,14 +13,24 @@ static t_vec3	ndc_to_world_space(t_vec3 ndc, const t_mat4 *pv_inverse)
 	return ((t_vec3){v4.x, v4.y, v4.z});
 }
 
+// ndc.z는 -1~1 범위면 상관없음
 static t_vec3	screen_to_ndc(int screen_x, int screen_y, int width, int height)
 {
 	t_vec3	ndc;
 
 	ndc.x = ((screen_x + 0.5) / width) * 2 - 1;
 	ndc.y = 1 - ((screen_y + 0.5) / height) * 2;
-	ndc.z = 0; // -1~1 사이면 아무 값이나 상관없음
+	ndc.z = 0;
 	return (ndc);
+}
+
+static t_vec3	screen_to_world_space(int screen_x, int screen_y, \
+									const t_mat4 *pv_inverse)
+{
+	t_vec3	ndc;
+
+	ndc = screen_to_ndc(screen_x, screen_y, IMAGE_WIDTH, IMAGE_HEIGHT);
+	return (ndc_to_world_space(ndc, pv_inverse));
 }
 
 /*
@@ -32,28 +43,24 @@ world space상에서의 픽셀 좌표 구하기
 구해야하는 이미지 플레인 모서리 좌표
 (0, 0), (WIDTH, 0), (0, HEIGHT), (WIDTH, HEIGHT)
 */
-void camera_fill_corners_world_pos(t_camera *cam)
+void	preprocess_camera(t_camera *cam)
 {
 	const t_mat4	pv = mat4_mulmm(\
-			projection_matrix(cam->fov, \
-							(float)IMAGE_WIDTH / IMAGE_HEIGHT, NEAR, FAR), \
+			projection_matrix(cam->fov, (float)IMAGE_WIDTH / IMAGE_HEIGHT, \
+																NEAR, FAR), \
 			view_matrix(cam->right, cam->up, cam->forward, cam->position));
 	const t_mat4	pv_inverse = mat4_inverse(pv);
-	int				corners[4][2] = {{0, 0}, \
+	const int		corners[4][2] = {{0, 0}, \
 									{IMAGE_WIDTH, 0}, \
 									{0, IMAGE_HEIGHT}, \
 									{IMAGE_WIDTH, IMAGE_HEIGHT}};
-	t_vec3			ndc;
 	int				i;
 
 	i = 0;
 	while (i < 4)
 	{
-		ndc = screen_to_ndc(corners[i][0], corners[i][1], \
-							IMAGE_WIDTH, IMAGE_HEIGHT);
-		cam->corners_world_pos[i] = ndc_to_world_space(ndc, &pv_inverse);
-		// printf("%dth corner: ", i);
-		// print_vec3(cam->corners_world_pos[i]);
+		cam->corners_world_pos[i] = \
+			screen_to_world_space(corners[i][0], corners[i][1], &pv_inverse);
 		i++;
 	}
 }
