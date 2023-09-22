@@ -1,5 +1,12 @@
 #include "render.h"
 
+enum e_vertex
+{
+	A,
+	B,
+	C
+};
+
 static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *coord)
 {
 	const float	area_abc = vec3_length(\

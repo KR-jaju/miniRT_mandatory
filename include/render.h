@@ -3,17 +3,9 @@
 
 # include <stdbool.h>
 # include "libmath.h"
+# include "mlx_api.h"
 # include "scene.h"
 # include "render.h"
-
-/* ---------------------------- MACRO CONSTANTS ----------------------------- */
-
-enum e_vertex
-{
-	A,
-	B,
-	C
-};
 
 /* ------------------------ USER DEFINED DATA TYPES ------------------------- */
 
@@ -33,6 +25,10 @@ typedef struct s_hit_record
 }t_hit_record;
 
 /* --------------------------- FUNCTION PROTOTYPES -------------------------- */
+
+// render
+t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img);
+void	render_image(int progress, t_scene *scene, t_image *img);
 
 // direction
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos);
