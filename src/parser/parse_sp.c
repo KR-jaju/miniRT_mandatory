@@ -3,7 +3,7 @@
 #include "scene.h"
 #include <stdlib.h>
 
-void parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref)
+void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref)
 {
 	t_object	sphere;
 	float		diameter;

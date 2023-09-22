@@ -3,7 +3,6 @@
 #include "libmath.h"
 #include <stdlib.h>
 
-// DEBUG
 t_vec3	parse_vec3(const char **str_ref)
 {
 	t_vec3	v;

@@ -4,7 +4,6 @@
 #include "libft.h"
 #include "libds.h"
 
-//t_scene, declared, str_ref : int
 static
 void	parse_line(const char *line, t_list *obj_list, \
 					t_scene *scene, bool declared[3])
@@ -25,7 +24,6 @@ void	parse_line(const char *line, t_list *obj_list, \
 		ensure_empty(line);
 }
 
-// 변환 후 버텍스 좌표 및 노말을 위한 동적할당 여기서 해둘 것
 void	parse_rt(t_scene *scene, const int fd)
 {
 	t_list	object_list;

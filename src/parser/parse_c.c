@@ -3,7 +3,7 @@
 #include "scene.h"
 #include <stdlib.h>
 
-void parse_c(t_scene *scene, bool declared[3], const char **str_ref)
+void	parse_c(t_scene *scene, bool declared[3], const char **str_ref)
 {
 	t_camera*const	camera = &scene->camera;
 
