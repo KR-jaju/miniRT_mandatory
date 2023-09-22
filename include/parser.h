@@ -36,6 +36,7 @@ float	parse_float(const char **str_ref);
 // utils
 void	skip_space(const char **str_ref);
 void	ensure_empty(const char *str);
+t_vec3	rgb_to_vec3(t_vec3 color);
 
 /* ------------------ HANDLE ERROR ------------------- */
 
