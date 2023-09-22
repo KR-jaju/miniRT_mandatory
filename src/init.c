@@ -40,9 +40,7 @@ void	init_mlx(t_mlx *mlx)
 
 void	init_image(t_image *img, void *mlx_conn)
 {
-	img->addr = mlx_new_image(mlx_conn, IMAGE_WIDTH, IMAGE_HEIGHT);
-	img->data = mlx_get_data_addr(img->addr, &img->bits_per_pixel, \
-								&img->bytes_per_line, &img->endian);
+	create_image(mlx_conn, img, IMAGE_WIDTH, IMAGE_HEIGHT);
 	img->width = IMAGE_WIDTH;
 	img->height = IMAGE_HEIGHT;
 	img->aspect_ratio = img->width / img->height;

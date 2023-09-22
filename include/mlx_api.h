@@ -1,9 +1,9 @@
 #ifndef MLX_API_H
 #define MLX_API_H
 
+# include <stddef.h>
 # include <mlx.h>
 # include "libmath.h"
-# include "stddef.h"
 
 # define EVENT_KEY_PRESS	2
 # define EVENT_DESTROY		17
@@ -38,5 +38,6 @@ typedef struct s_pixel
 
 int		keypress_hook(int keycode, void *param);
 void	put_pixel_to_image(t_pixel p, t_image *img);
+void 	create_image(void *mlx_conn, t_image *img, int width, int height);
 
 #endif
