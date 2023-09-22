@@ -54,7 +54,6 @@ static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 	specular = specular_reflection_value(material, scene->light.color, \
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.position, hit->point));
-
 	return (vec3_add(ambient, \
 			vec3_add(vec3_mul(diffuse, (float)1 - material->reflectivity), \
 					vec3_mul(specular, (float)material->reflectivity))));

@@ -1,5 +1,5 @@
 #ifndef PARSER_INTERNAL_H
-#define PARSER_INTERNAL_H
+# define PARSER_INTERNAL_H
 
 # include "libds.h"
 # include "scene.h"
