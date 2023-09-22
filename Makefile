@@ -97,4 +97,8 @@ re:
 dev:
 	make DEV=1
 
+test_parse:
+	make dev
+	./miniRT ./scenes/sample.rt
+
 .PHONY: all clean fclean re

@@ -3,6 +3,7 @@
 #include <mlx.h>
 #include "libft.h"
 #include "miniRT.h"
+#include "console.h"
 #include "mlx_api.h"
 #include "console.h"
 
@@ -41,8 +42,8 @@ int	main(int argc, char *argv[])
 		printf("Error\n"MSG_USAGE"\n");
 		return (1);
 	}
-	dummy_scene(&scene);
-	// parse_scene(&scene);
+	// dummy_scene(&scene);
+	parse_scene(&scene, argv[1]);
 	preprocess_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);

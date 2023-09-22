@@ -26,7 +26,7 @@ int	dummy_scene(t_scene *scene)
 	const int n_objects = 4;
 	scene->n_meshs = n_meshs;
 	scene->n_objects = n_objects;
-	//scene->mesh = malloc(sizeof(t_object) * n_meshs);
+	//scene->meshs = malloc(sizeof(t_object) * n_meshs);
 	scene->objects = malloc(sizeof(t_object) * n_objects);
 
 	plane_init(&scene->meshs[0]);
