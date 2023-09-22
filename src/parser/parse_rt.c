@@ -7,7 +7,7 @@
 //t_scene, declared, str_ref : int
 static
 void	parse_line(const char *line, t_list *obj_list, \
-					t_scene *scene, int declared[3])
+					t_scene *scene, bool declared[3])
 {
 	if (ft_strncmp(line, "A", 1) == 0)
 		return (parse_a(scene, declared, &line));
@@ -39,7 +39,7 @@ void	parse_rt(t_scene *scene, const int fd)
 	while (line != (void *)0)
 	{
 		parse_line(line, &object_list, scene, declared);
-		parser_count_state(COUNT_UP);
+		parser_line_count(COUNT_UP);
 		free(line);
 		line = get_next_line(fd);
 	}

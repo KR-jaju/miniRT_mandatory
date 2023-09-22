@@ -5,26 +5,19 @@
 # include "scene.h"
 # include "libmath.h"
 # include "libds.h"
-# include "debug.h"
+# include "mesh.h"
 # include "console.h"
 
 # define A 0
 # define C 1
 # define L 2
 
-enum	e_mesh_type
-{
-	MESH_SPHERE = 0,
-	MESH_PLANE,
-	MESH_CYLINDER
-};
-
-void	 parse_rt(t_scene *scene, const int fd);
+void	parse_rt(t_scene *scene, const int fd);
 
 // parse element
-void	parse_a(t_scene *scene, int declared[3], const char **str_ref);
-void	parse_c(t_scene *scene, int declared[3], const char **str_ref);
-void	parse_l(t_scene *scene, int declared[3], const char **str_ref);
+void	parse_a(t_scene *scene, bool declared[3], const char **str_ref);
+void	parse_c(t_scene *scene, bool declared[3], const char **str_ref);
+void	parse_l(t_scene *scene, bool declared[3], const char **str_ref);
 void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref);
 void	parse_pl(t_scene *scene, t_list *obj_list, const char **str_ref);
 void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref);
@@ -58,7 +51,7 @@ enum e_parse_error
 # define COUNT_UP 0
 # define FETCH_COUNT 1
 
-int		parser_count_state(int mode);
+int		parser_line_count(int mode);
 void	handle_parse_error(int errcode);
 
 #endif
