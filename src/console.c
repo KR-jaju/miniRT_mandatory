@@ -9,23 +9,22 @@ void	console_msg(const char *msg)
 
 void	console_settings(void)
 {
-	// printf(ANSI_BLUE);
-	printf("-------- Rendering settings --------\n");
-	printf("Image Size: \n");
-	printf("\tWidth=%d, Height=%d\n", IMAGE_WIDTH, IMAGE_HEIGHT);
+	printf("-------------- Rendering settings --------------\n");
+	printf("Image Size: ");
+	printf("width=%d, height=%d\n", IMAGE_WIDTH, IMAGE_HEIGHT);
 	printf("Image Update Interval: %d%%\n", IMAGE_PUT_INTERVAL_PERCENT);
 	printf("Smooth Shading: %d (if false, Flat Shading)\n", SMOOTH_SHADING);
 	printf("Resolution: %d\n", RESOLUTION);
-	printf("Material: \n");
-	printf("\treflectivity=%f\n", REFLECTIVITY);
-	printf("\tk_diffuse=%f\n", K_DIFFUSE);
-	printf("\tk_specular=%f\n", K_SPECULAR);
+	printf("Material: ");
+	printf("reflectivity=%.1f, ", REFLECTIVITY);
+	printf("k_diffuse=%.1f, \n\t", K_DIFFUSE);
+	printf("  k_specular=%.1f, ", K_SPECULAR);
+	printf("shininess=%d\n", SHININESS);
 	if (K_DIFFUSE + K_SPECULAR > 1)
 		printf(ANSI_YELLOW \
 		"\t(Warning: k_diffuse + k_specular is bigger than 1)\n"\
 		ANSI_BLUE);
-	printf("\tshininess=%d\n", SHININESS);
-	printf("------------------------------------\n");
+	printf("------------------------------------------------\n");
 	printf(ANSI_RESET);
 }
 
