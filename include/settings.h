@@ -2,11 +2,14 @@
 #define SETTINGS_H
 
 /* display */
-# define PROGRAM_NAME 				"miniRT"
-# define WINDOW_TITLE 				PROGRAM_NAME
+# define WINDOW_TITLE 				"miniRT"
 # define IMAGE_WIDTH				800
 # define IMAGE_HEIGHT				600
 # define IMAGE_PUT_INTERVAL_PERCENT	5
+
+/* camera */
+# define NEAR	0.3 // 사실 아무 값이나 상관없음
+# define FAR	1000 // 사실 아무 값이나 상관없음
 
 /* render option */
 # define SMOOTH_SHADING		1 // Shading mode (Flat or Smooth)
@@ -17,9 +20,5 @@
 # define K_DIFFUSE			0.3 // recommended: K_DIFFUSE + K_SPECULAR <= 1
 # define K_SPECULAR			0.7 // recommended: K_DIFFUSE + K_SPECULAR <= 1
 # define SHININESS			64
-
-/* camera */
-# define NEAR	0.3 // 사실 아무 값이나 상관없음
-# define FAR	1000 // 사실 아무 값이나 상관없음
 
 #endif

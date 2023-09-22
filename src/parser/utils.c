@@ -1,13 +1,8 @@
-#include "parser.h"
-
-static bool	is_space(char c)
-{
-	return (c == ' ' || c == '\t');
-}
+#include "parser_internal.h"
 
 void	skip_space(const char **str_ref)
 {
-	while (is_space(**str_ref))
+	while (**str_ref == ' ' || **str_ref == '\t')
 		(*str_ref)++;
 }
 

@@ -1,15 +1,10 @@
-#include <stdbool.h>
-#include <stdio.h>
-#include <mlx.h>
 #include "libft.h"
 #include "miniRT.h"
 #include "console.h"
-#include "mlx_api.h"
-#include "console.h"
 
-void	init_scene(t_scene *scene, const char *path);
-void	init_mlx(t_mlx *mlx);
-void	init_image(t_image *img, void *mlx_conn);
+// dev
+int	dummy_scene(t_scene *scene);
+int	preprocess_scene(t_scene *scene);
 
 static bool	has_extension(const char *path, const char *ext)
 {
@@ -40,10 +35,11 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2 || has_extension(argv[1], ".rt") == false)
 	{
-		printf("Error\n"MSG_USAGE"\n");
+		console_msg("Error\n"MSG_USAGE);
 		return (1);
 	}
 	// dummy_scene(&scene);
+	// preprocess_scene(&scene);
 	init_scene(&scene, argv[1]);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
@@ -51,6 +47,7 @@ int	main(int argc, char *argv[])
 	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
 	mlx_loop_hook(mlx.conn, render_display, \
 				&(t_program_data){&mlx, &scene, &img});
+	console_start();
 	mlx_loop(mlx.conn);
 	return (0);
 }
