@@ -10,16 +10,16 @@ int	preprocess_scene(t_scene *scene);
 static void	init_meshes(t_mesh *meshes)
 {
 	const int	parms[3][2] = {\
-	[MESH_SPHERE] = {10, 10},
 	[MESH_PLANE] = {-1, -1},
+	[MESH_SPHERE] = {10, 10},
 	[MESH_CYLINDER] = {10, -1},
 	};
 
 	// TODO: 해상도(RESOLUTION)값에 따른 섹터, 스택 개수 계산식 조율
+	plane_init(&meshes[MESH_PLANE]);
 	sphere_init(&meshes[MESH_SPHERE], \
 				RESOLUTION * parms[MESH_SPHERE][0], \
 				RESOLUTION * parms[MESH_SPHERE][1]);
-	plane_init(&meshes[MESH_PLANE]);
 	cylinder_init(&meshes[MESH_CYLINDER], \
 				RESOLUTION * parms[MESH_CYLINDER][0]);
 }
