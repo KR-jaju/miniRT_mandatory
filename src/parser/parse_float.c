@@ -8,6 +8,8 @@ float	parse_sign(const char **str_ref)
 {
 	if (**str_ref == '-')
 		return ((*str_ref)++, -1);
+	if (**str_ref == '+')
+		return ((*str_ref)++, 1);
 	return (1);
 }
 
