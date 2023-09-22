@@ -12,14 +12,14 @@ int	list_resize(t_list *this, size_t new_capacity)
 	uint8_t*const	new = malloc(new_capacity * this->type_size);
 
 	if (new == (void *)0)
-		return (false);
+		return (-1);
 	if (new_capacity < this->count)
 		this->count = new_capacity;
 	this->capacity = new_capacity;
 	ft_memmove(new, this->data, this->count * this->type_size);
 	free(this->data);
 	this->data = new;
-	return (true);
+	return (0);
 }
 
 int	list_init(t_list *this, size_t type_size, size_t capacity)
