@@ -2,7 +2,7 @@
 #include "scene.h"
 #include <stdlib.h>
 
-void	parse_a(t_scene *scene, int declared[3], const char **str_ref)
+void parse_a(t_scene *scene, int declared[3], const char **str_ref)
 {
 	float	intensity;
 	t_vec3	color;

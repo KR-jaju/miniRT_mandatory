@@ -19,7 +19,7 @@ enum	e_mesh_type
 	MESH_CYLINDER
 };
 
-void	parse_rt(t_scene *scene, const int fd);
+void	 parse_rt(t_scene *scene, const int fd);
 
 // parse element
 void	parse_a(t_scene *scene, int declared[3], const char **str_ref);
@@ -42,12 +42,14 @@ t_vec3	rgb_to_vec3(t_vec3 color);
 
 enum e_parse_error
 {
+	ERROR_MALLOC,
 	ERROR_FILEOPEN,
 	ERROR_INVALID_LINE_FORMAT,
 	ERROR_DUPLIATE_DECLARED,
 	ERROR_MANDATORY_NOT_EXIST,
 };
 
+# define MSG_ERROR_MALLOC "memory allocation failed"
 # define MSG_ERROR_FILEOPEN "file open failed"
 # define MSG_ERROR_INVALID_LINE_FORMAT "invalid line format"
 # define MSG_ERROR_DUPLIATE_DECLARED "duplicate declared"

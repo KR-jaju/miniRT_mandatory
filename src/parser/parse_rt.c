@@ -6,7 +6,8 @@
 
 //t_scene, declared, str_ref : int
 static
-void	parse_line(const char *line, t_list *obj_list, t_scene *scene, int declared[3])
+void	parse_line(const char *line, t_list *obj_list, \
+					t_scene *scene, int declared[3])
 {
 	if (ft_strncmp(line, "A", 1) == 0)
 		return (parse_a(scene, declared, &line));
@@ -24,18 +25,16 @@ void	parse_line(const char *line, t_list *obj_list, t_scene *scene, int declared
 		ensure_empty(line);
 }
 
-// TODO: 씬 파싱부 구현
 // 변환 후 버텍스 좌표 및 노말을 위한 동적할당 여기서 해둘 것
-// 아직 에러 메세지 표시는 없음
 void	parse_rt(t_scene *scene, const int fd)
 {
 	t_list	object_list;
-	int		declared[3];
+	bool	declared[3];
 	char	*line;
 
-	list_init(&object_list, sizeof(t_object), 8);
-	ft_bzero(declared, sizeof(int) * 3);
-	//scene_init(&scene);
+	if (list_init(&object_list, sizeof(t_object), 8) == -1)
+		handle_parse_error(ERROR_MALLOC);
+	ft_memset(declared, false, 3);
 	line = get_next_line(fd);
 	while (line != (void *)0)
 	{
@@ -47,5 +46,7 @@ void	parse_rt(t_scene *scene, const int fd)
 	if (!declared[A] || !declared[C] || !declared[L])
 		handle_parse_error(ERROR_MANDATORY_NOT_EXIST);
 	scene->objects = list_collect(&object_list, (uint32_t *)&scene->n_objects);
-	//TODO: free list
+	if (!scene->objects)
+		handle_parse_error(ERROR_MALLOC);
+	list_free(&object_list);
 }

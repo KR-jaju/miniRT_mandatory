@@ -5,7 +5,7 @@
 
 int	parser_count_state(int mode)
 {
-	static int nth = 1;
+	static int	nth = 1;
 
 	if (mode == COUNT_UP)
 		nth++;
@@ -16,10 +16,10 @@ int	parser_count_state(int mode)
 
 void	handle_parse_error(int errcode)
 {
-	char	*errmsg[] = {
-		[ERROR_FILEOPEN] = MSG_ERROR_FILEOPEN,
-		[ERROR_INVALID_LINE_FORMAT] = MSG_ERROR_INVALID_LINE_FORMAT,
-		[ERROR_DUPLIATE_DECLARED] = MSG_ERROR_DUPLIATE_DECLARED,
+	const char	*errmsg[] = {\
+		[ERROR_FILEOPEN] = MSG_ERROR_FILEOPEN, \
+		[ERROR_INVALID_LINE_FORMAT] = MSG_ERROR_INVALID_LINE_FORMAT, \
+		[ERROR_DUPLIATE_DECLARED] = MSG_ERROR_DUPLIATE_DECLARED, \
 		[ERROR_MANDATORY_NOT_EXIST] = MSG_ERROR_MANDATORY_NOT_EXIST,
 	};
 
