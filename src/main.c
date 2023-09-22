@@ -43,8 +43,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	// dummy_scene(&scene);
-	parse_scene(&scene, argv[1]);
-	preprocess_scene(&scene);
+	init_scene(&scene, argv[1]);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);

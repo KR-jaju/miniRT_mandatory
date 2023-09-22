@@ -2,6 +2,23 @@
 #include "console.h"
 #include "miniRT.h"
 #include "mlx_api.h"
+#include "scene.h"
+
+int	parse_scene(t_scene *scene, const char *path);
+int	preprocess_scene(t_scene *scene);
+
+void	init_scene(t_scene *scene, const char *path)
+{
+	parse_scene(scene, path);
+	preprocess_scene(scene);
+}
+
+void	init_mlx(t_mlx *mlx)
+{
+	mlx->conn = mlx_init();
+	mlx->win = mlx_new_window(mlx->conn, \
+								IMAGE_WIDTH, IMAGE_HEIGHT, WINDOW_TITLE);
+}
 
 void	init_image(t_image *img, void *mlx_conn)
 {
@@ -16,10 +33,3 @@ void	init_image(t_image *img, void *mlx_conn)
 	ft_memset(img->data, 0, img->data_size);
 }
 
-// 차후 지역 static 변수에 가둬두는 방식 고려
-void	init_mlx(t_mlx *mlx)
-{
-	mlx->conn = mlx_init();
-	mlx->win = mlx_new_window(mlx->conn, \
-								IMAGE_WIDTH, IMAGE_HEIGHT, WINDOW_TITLE);
-}
