@@ -13,7 +13,7 @@ void	console_settings(void)
 	printf("Image Size: ");
 	printf("width=%d, height=%d\n", IMAGE_WIDTH, IMAGE_HEIGHT);
 	printf("Image Update Interval: %d%%\n", IMAGE_PUT_INTERVAL_PERCENT);
-	printf("Smooth Shading: %d (if false, Flat Shading)\n", SMOOTH_SHADING);
+	printf("Smooth Shading: %d (If false, Flat Shading)\n", SMOOTH_SHADING);
 	printf("Resolution: %d\n", RESOLUTION);
 	printf("Material: ");
 	printf("reflectivity=%.1f, ", REFLECTIVITY);

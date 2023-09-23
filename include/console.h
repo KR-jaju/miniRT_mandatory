@@ -5,7 +5,6 @@
 
 // ANSI styles
 # define ANSI_RESET		"\x1b[0m"
-# define ANSI_GRAY		"\033[37m"
 # define ANSI_BLACK		"\x1b[30m"
 # define ANSI_RED		"\x1b[31m"
 # define ANSI_GREEN		"\x1b[32m"
@@ -25,6 +24,9 @@
 # define MSG_RENDER_START	"Start rendering"
 # define MSG_RENDER_PROGRESS	"Rendering in progress..."
 # define MSG_RENDER_FINISHED	"Rendering finished!"
+# define MSG_CLEAN_UP	"Cleaning up..."
+# define MSG_DESTROY_IMG_AND_WINDOW	"Destroying image and window"
+# define MSG_DESTROY_SCENE	"Destroying scene"
 # define MSG_SHUTDOWN	"Shutting down program"
 
 // message for error case
