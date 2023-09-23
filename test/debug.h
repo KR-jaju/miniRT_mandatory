@@ -5,11 +5,7 @@
 # include "libmath.h"
 # include "scene.h"
 
-// dummy scene test
 int		dummy_scene(t_scene *scene);
-int		preprocess_scene(t_scene *scene);
-
-// print
 void	print_scene(t_scene *scene);
 void	print_vec3(t_vec3 v);
 void	print_vec4(t_vec4 v);
