@@ -43,8 +43,10 @@ int	main(int argc, char *argv[])
 	init_scene(&scene, argv[1]);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
-	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, &scene);
-	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, &scene);
+	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, \
+				&(t_program_data){&mlx, &scene, &img});
+	mlx_hook(mlx.win, EVENT_DESTROY, 0, shutdown_program, \
+				&(t_program_data){&mlx, &scene, &img});
 	mlx_loop_hook(mlx.conn, render_display, \
 				&(t_program_data){&mlx, &scene, &img});
 	console_start();

@@ -16,6 +16,6 @@ void	init_scene(t_scene *scene, const char *path);
 void	init_mlx(t_mlx *mlx);
 void	init_image(t_image *img, void *mlx_conn);
 int		render_display(t_program_data *data);
-int		shutdown_program(void *resource);
+int		shutdown_program(t_program_data	*data);
 
 #endif
