@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "render.h"
+#include "settings.h"
 
 /*
 삼각형의 세 점 a, b, c는 한 평면 안에 놓여있기 때문에,
@@ -33,7 +34,7 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 - n과 l이 평행할 시(n * l = 0), 즉 평면과 직선이 수직할시 false
 */
 bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
-									t_hit_record *record)
+									t_hit_record *record, bool is_plane_mesh)
 {
 	const float	dot_nl = vec3_dot(ray->dir, tri->face_normal);
 	float		t;
@@ -45,6 +46,8 @@ bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 																/ dot_nl;
 	if (t < 0)
 		return (false);
+	if (INFINITE_PLANE == 1 && is_plane_mesh)
+		return (true);
 	point = vec3_add(ray->origin, vec3_mul(ray->dir, t));
 	if (is_point_in_triangle(point, tri->vertices) == false)
 		return (false);
@@ -69,7 +72,8 @@ bool	ray_object_intersection(t_ray *ray, t_object *object, \
 	i = 0;
 	while (i < object->mesh->n_triangles)
 	{
-		if (ray_triangle_intersection(ray, &object->triangles[i], &hit) == true \
+		if (ray_triangle_intersection(ray, &object->triangles[i], &hit, \
+									(object->mesh->type == MESH_PLANE)) == true \
 			&& hit.t < closest_hit.t)
 			ft_memcpy(&closest_hit, &hit, sizeof(t_hit_record));
 		i++;

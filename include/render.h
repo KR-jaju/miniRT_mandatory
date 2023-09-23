@@ -47,7 +47,7 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
 // intersection
 bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
-									t_hit_record *record);
+									t_hit_record *record, bool is_plane_mesh);
 bool	ray_object_intersection(t_ray *ray, t_object *object, \
 								t_hit_record *record);
 

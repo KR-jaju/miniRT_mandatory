@@ -29,6 +29,7 @@ void	plane_fill_vertex_normals(t_vec3 *vertex_normals)
 
 void	plane_init(t_mesh *mesh)
 {
+	mesh->type = MESH_PLANE;
 	mesh->n_triangles = 2;
 	mesh->n_vertices = 4;
 	mesh->n_indices = mesh->n_triangles * 3;
