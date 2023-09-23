@@ -3,6 +3,8 @@
 #include "scene.h"
 #include <stdlib.h>
 
+// TODO: 파싱한 forward 벡터가 normalized 벡터 아닐시 예외 처리
+// TODO: 파싱값 Range 체크
 void	parse_c(t_scene *scene, bool declared[3], const char **str_ref)
 {
 	t_camera*const	camera = &scene->camera;
