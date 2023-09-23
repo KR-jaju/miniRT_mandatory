@@ -27,9 +27,8 @@ int	render_display(t_program_data *data)
 	static const int	interval = (IMAGE_WIDTH * IMAGE_HEIGHT) \
 									* IMAGE_PUT_INTERVAL_PERCENT / 100;
 	static int			progress = 0;
-	static bool			finished = false;
 
-	if (finished)
+	if (progress >= data->img->n_pixels)
 		return (0);
 	render_image(progress, data->scene, data->img);
 	progress++;
@@ -42,9 +41,6 @@ int	render_display(t_program_data *data)
 								(float)progress / data->img->n_pixels * 100);
 	}
 	if (progress == data->img->n_pixels)
-	{
-		finished = true;
 		console_finish();
-	}
 	return (0);
 }
