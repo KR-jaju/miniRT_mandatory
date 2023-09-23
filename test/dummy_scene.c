@@ -32,9 +32,8 @@ void	set_objects(t_scene *scene)
 	scene->objects[1].position = (t_vec3){2, 0, 5};
 	scene->objects[1].scale = (t_vec3){1, 2, 1};
 	scene->objects[2] = dummy_object(&scene->meshes[MESH_PLANE], red);
-	scene->objects[2].position = (t_vec3){0, -2, 0};
-	scene->objects[2].scale = (t_vec3){100, 100, 100};
-	// scene->objects[2].scale = (t_vec3){5, 5, 5};
+	scene->objects[2].position = (t_vec3){0, -1, 0};
+	scene->objects[2].scale = (t_vec3){3, 3, 3};
 }
 
 void	set_camera(t_scene *scene)
@@ -59,7 +58,6 @@ int	dummy_scene(t_scene *scene)
 	sphere_init(&scene->meshes[MESH_SPHERE], 10, 10);
 	cylinder_init(&scene->meshes[MESH_CYLINDER], 10);
 	set_objects(scene);
-	// set_objects_test_camera(scene);
 	set_camera(scene);
 	set_light(scene);
 	preprocess_scene(scene);
