@@ -1,5 +1,6 @@
-#include "libmath.h"
 #include <stdio.h>
+#include "libmath.h"
+#include "scene.h"
 
 void	print_vec3(t_vec3 v)
 {
@@ -34,4 +35,30 @@ void	print_mat4(t_mat4 m)
 int	radian_to_degree(float r)
 {
 	return (r / M_PI * 180);
+}
+
+void	print_scene(t_scene *scene)
+{
+	printf("\nobject[0]: ");
+	printf("\n\tposition=");
+	print_vec3(scene->objects[0].position);
+	printf("\trotation=");
+	print_vec3(scene->objects[0].rotation);
+	printf("\tscale=");
+	print_vec3(scene->objects[0].scale);
+	printf("\tcolor=");
+	print_vec3(scene->objects[0].material.color);
+	printf("\ncamera: ");
+	printf("\n\tposition=");
+	print_vec3(scene->camera.position);
+	printf("\tforward=");
+	print_vec3(scene->camera.forward);
+	printf("\tfov=%f", scene->camera.fov);
+	printf("\nlight: ");
+	printf("\n\tcolor=");
+	print_vec3(scene->light.color);
+	printf("\n\tposition=");
+	print_vec3(scene->light.position);
+	printf("\nambient_light: \n\t");
+	print_vec3(scene->ambient_light);
 }
