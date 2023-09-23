@@ -1,10 +1,7 @@
 #include "libft.h"
 #include "miniRT.h"
 #include "console.h"
-
-// dev
-int	dummy_scene(t_scene *scene);
-int	preprocess_scene(t_scene *scene);
+#include "debug.h"
 
 static bool	has_extension(const char *path, const char *ext)
 {
@@ -41,6 +38,7 @@ int	main(int argc, char *argv[])
 	// dummy_scene(&scene);
 	// preprocess_scene(&scene);
 	init_scene(&scene, argv[1]);
+	// print_scene(&scene);
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, \
