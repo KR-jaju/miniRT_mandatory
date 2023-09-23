@@ -17,5 +17,6 @@ void	ensure_empty(const char *str)
 // TODO: 왜 0.5를 다 더하지? 확인 필요
 t_vec3	rgb_to_vec3(t_vec3 color)
 {
-	return (vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256));
+	return (vec3_mul(color, (float)1 / 256));
+	// return (vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256));
 }
