@@ -46,9 +46,9 @@ bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 																/ dot_nl;
 	if (t < 0)
 		return (false);
+	point = vec3_add(ray->origin, vec3_mul(ray->dir, t));
 	if (is_plane_mesh == false || INFINITE_PLANE != 1)
 	{
-		point = vec3_add(ray->origin, vec3_mul(ray->dir, t));
 		if (is_point_in_triangle(point, tri->vertices) == false)
 			return (false);
 	}
