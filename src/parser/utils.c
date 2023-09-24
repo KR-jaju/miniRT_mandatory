@@ -20,3 +20,17 @@ t_vec3	rgb_to_vec3(t_vec3 color)
 	return (vec3_mul(color, (float)1 / 256));
 	// return (vec3_mul(vec3_add(color, (t_vec3){0.5, 0.5, 0.5}), 1.0f / 256));
 }
+
+bool	is_color(t_vec3 color)
+{
+	return (0 <= color.x && color.x <= 255
+		&& 0 <= color.y && color.y <= 255
+		&& 0 <= color.z && color.z <= 255);
+}
+
+bool	is_normalized(t_vec3 v)
+{
+	const float	deviation = vec3_length(v) - 1;
+
+	return (-EPSILON <= deviation && deviation <= EPSILON);
+}

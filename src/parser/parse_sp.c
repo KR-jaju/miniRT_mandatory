@@ -2,6 +2,8 @@
 #include "scene.h"
 #include <stdlib.h>
 
+bool	is_color(t_vec3 color);
+
 void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref)
 {
 	t_object	sphere;
@@ -18,6 +20,8 @@ void	parse_sp(t_scene *scene, t_list *obj_list, const char **str_ref)
 	sphere.scale = (t_vec3){diameter, diameter, diameter};
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	if (!is_color(color))
+		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 	sphere.material.color = rgb_to_vec3(color);
 	ensure_empty(*str_ref);
 	if (list_push(obj_list, &sphere) == -1)

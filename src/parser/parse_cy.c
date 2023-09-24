@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+bool	is_color(t_vec3 color);
+bool	is_normalized(t_vec3 v);
+
 // TODO: 라디안 단위인지 육십분법 단위인지 확인 필요 (육십분법이어야함)
 static
 t_vec3	rotation_from(t_vec3 axis)
@@ -11,6 +14,8 @@ t_vec3	rotation_from(t_vec3 axis)
 	float		yaw;
 	float		pitch;
 
+	if (!is_normalized(axis))
+		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 	yaw = acosf(axis.y) * 180 / M_PI;
 	if (axis.x == 0 && axis.z == 0)
 		pitch = 0;
@@ -40,6 +45,8 @@ void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
 	cylinder.scale = (t_vec3){diameter, height, diameter};
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	if (!is_color(color))
+		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 	cylinder.material.color = rgb_to_vec3(color);
 	ensure_empty(*str_ref);
 	if (list_push(obj_list, &cylinder) == -1)

@@ -2,6 +2,9 @@
 #include "scene.h"
 #include <stdlib.h>
 
+
+bool	is_color(t_vec3 color);
+
 void	parse_a(t_scene *scene, bool declared[3], const char **str_ref)
 {
 	float	intensity;
@@ -14,8 +17,12 @@ void	parse_a(t_scene *scene, bool declared[3], const char **str_ref)
 		declared[A] = 1;
 	skip_space(str_ref);
 	intensity = parse_float(str_ref);
+	if (!(0.0f <= intensity && intensity <= 1.0f))
+		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 	skip_space(str_ref);
 	color = parse_vec3(str_ref);
+	if (!is_color(color))
+		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
 	scene->ambient_light = rgb_to_vec3(vec3_mul(color, intensity));
 	ensure_empty(*str_ref);
 }
