@@ -14,7 +14,7 @@
 /* render option */
 # define SMOOTH_SHADING		1 // Shading mode (Flat or Smooth)
 # define RESOLUTION			1 // 폴리곤 개수 비율 (해상도)
-# define INFINITE_PLANE		1 // finite plane or infinite plane
+# define PLANE_SIDE_LENGTH	1 // length of one side of a plane
 
 /* material */
 # define REFLECTIVITY		0.3

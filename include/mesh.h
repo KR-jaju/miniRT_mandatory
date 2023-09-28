@@ -20,7 +20,6 @@ enum	e_mesh_type
 
 typedef struct s_mesh
 {
-	int			type;
 	t_vec3		*vertices;
 	t_vec3		*vertex_normals;
 	int			*indices;

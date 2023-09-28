@@ -1,12 +1,13 @@
 #include <stdlib.h>
 #include "mesh.h"
+#include "settings.h"
 
 void	plane_fill_vertices(t_vec3 *vertices)
 {
-	vertices[0] = (t_vec3){-1, 0, 1};
-	vertices[1] = (t_vec3){-1, 0, -1};
-	vertices[2] = (t_vec3){1, 0, -1};
-	vertices[3] = (t_vec3){1, 0, 1};
+	vertices[0] = (t_vec3){-PLANE_SIDE_LENGTH, 0, PLANE_SIDE_LENGTH};
+	vertices[1] = (t_vec3){-PLANE_SIDE_LENGTH, 0, -PLANE_SIDE_LENGTH};
+	vertices[2] = (t_vec3){PLANE_SIDE_LENGTH, 0, -PLANE_SIDE_LENGTH};
+	vertices[3] = (t_vec3){PLANE_SIDE_LENGTH, 0, PLANE_SIDE_LENGTH};
 }
 
 void	plane_fill_indices(int *indices)
@@ -29,7 +30,6 @@ void	plane_fill_vertex_normals(t_vec3 *vertex_normals)
 
 void	plane_init(t_mesh *mesh)
 {
-	mesh->type = MESH_PLANE;
 	mesh->n_triangles = 2;
 	mesh->n_vertices = 4;
 	mesh->n_indices = mesh->n_triangles * 3;
