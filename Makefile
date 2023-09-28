@@ -22,12 +22,6 @@ CPPFLAGS		+=	-I./${LIBFT_PATH}
 LDFLAGS			+=	-L./${LIBFT_PATH}
 LDLIBS			+=	-lft -lftprintf -lgnl
 
-# libstr
-LIBSTR_PATH		=	./lib/libstr
-CPPFLAGS		+=	-I./${LIBSTR_PATH}
-LDFLAGS			+=	-L./${LIBSTR_PATH}
-LDLIBS			+=	-lstr
-
 # libds
 LIBDS_PATH		=	./lib/libds
 CPPFLAGS		+=	-I./${LIBDS_PATH}
@@ -63,7 +57,6 @@ endif
 
 all:
 	make -C $(LIBFT_PATH) --silent
-	make -C $(LIBSTR_PATH) --silent
 	make -C $(LIBDS_PATH) --silent
 	make -C $(LIBMLX_PATH) --silent
 	make -C $(LIBMATH_PATH) --silent
@@ -77,7 +70,6 @@ $(NAME): $(OBJS)
 
 clean:
 	make -C $(LIBFT_PATH) clean --silent
-	make -C $(LIBSTR_PATH) clean --silent
 	make -C $(LIBDS_PATH) clean --silent
 	make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) clean --silent
@@ -85,7 +77,6 @@ clean:
 
 fclean:
 	make -C $(LIBFT_PATH) fclean --silent
-	make -C $(LIBSTR_PATH) fclean --silent
 	make -C $(LIBDS_PATH) fclean --silent
 	make -C $(LIBMLX_PATH) clean --silent
 	make -C $(LIBMATH_PATH) fclean --silent
