@@ -1,5 +1,5 @@
 #ifndef MINIRT_H
-#define MINIRT_H
+# define MINIRT_H
 
 # include "mlx_api.h"
 # include "scene.h"

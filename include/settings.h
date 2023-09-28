@@ -1,5 +1,5 @@
 #ifndef SETTINGS_H
-#define SETTINGS_H
+# define SETTINGS_H
 
 /* display */
 # define WINDOW_TITLE 				"miniRT"

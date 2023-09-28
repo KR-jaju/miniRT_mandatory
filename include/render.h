@@ -1,5 +1,5 @@
 #ifndef RENDER_H
-#define RENDER_H
+# define RENDER_H
 
 # include <stdbool.h>
 # include "libmath.h"

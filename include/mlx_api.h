@@ -1,5 +1,5 @@
 #ifndef MLX_API_H
-#define MLX_API_H
+# define MLX_API_H
 
 # include <stddef.h>
 # include <mlx.h>
@@ -38,6 +38,6 @@ typedef struct s_pixel
 
 int		keypress_hook(int keycode, void *param);
 void	put_pixel_to_image(t_pixel p, t_image *img);
-void 	create_image(void *mlx_conn, t_image *img, int width, int height);
+void	create_image(void *mlx_conn, t_image *img, int width, int height);
 
 #endif

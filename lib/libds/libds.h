@@ -1,5 +1,5 @@
 #ifndef LIBDS_H
-#define LIBDS_H
+# define LIBDS_H
 
 # include <stdint.h>
 # include <stddef.h>

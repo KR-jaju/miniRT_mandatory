@@ -1,5 +1,5 @@
 #ifndef LIBMATH_H
-#define LIBMATH_H
+# define LIBMATH_H
 
 # include <math.h>
 # include <stdbool.h>
