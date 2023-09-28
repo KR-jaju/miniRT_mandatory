@@ -1,7 +1,6 @@
 #include "libft.h"
 #include "miniRT.h"
 #include "console.h"
-#include "debug.h"
 
 static bool	has_extension(const char *path, const char *ext)
 {
@@ -35,9 +34,7 @@ int	main(int argc, char *argv[])
 		console_msg("Error\n"MSG_USAGE);
 		return (1);
 	}
-	// dummy_scene(&scene); // debug
 	init_scene(&scene, argv[1]);
-	print_scene(&scene); // debug
 	init_mlx(&mlx);
 	init_image(&img, mlx.conn);
 	mlx_hook(mlx.win, EVENT_KEY_PRESS, 0, keypress_hook, \
