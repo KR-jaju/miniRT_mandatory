@@ -28,6 +28,9 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 
 평면: (p-p0) * n = 0
 레이: l0 + l * t = p
+(l0-p0+lt).n = 0
+lt.n = (p0 - l0).n
+t = (p0-l0).n / l.n
 두 식을 연립하면 t = (p0 - l0) * n / (n * l)
 
 - n과 l의 방향이 같을 시(n * l > 0), 즉 레이가 평면의 뒷면과 교차하는 경우 false
@@ -40,7 +43,7 @@ bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 	float		t;
 	t_vec3		point;
 
-	if (dot_nl > 0 || (-EPSILON < dot_nl && dot_nl < 0))
+	if (-EPSILON < dot_nl)
 		return (false);
 	t = vec3_dot(vec3_sub(tri->vertices[0], ray->origin), tri->face_normal) \
 																/ dot_nl;
