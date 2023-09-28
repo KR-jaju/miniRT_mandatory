@@ -60,7 +60,7 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 	const float	values[16] = {
 		d / aspect_ratio, 0, 0, 0,
 		0, d, 0, 0,
-		0, 0, (near + far) / (near - far), -1,
+		0, 0, -(near + far) / (near - far), 1,
 		0, 0, 2 * near * far / (near - far), 0
 	};
 
