@@ -11,9 +11,9 @@ static t_vec3	point_at(float yaw, float y)
 	const float	cos_yaw = cos(yaw);
 
 	return ((t_vec3){
-		cos_yaw,
+		cos_yaw * 0.5f,
 		y,
-		sin_yaw
+		sin_yaw * 0.5f
 	});
 }
 

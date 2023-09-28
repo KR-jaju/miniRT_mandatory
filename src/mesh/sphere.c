@@ -15,11 +15,11 @@ static t_vec3	point_at(float yaw, float pitch)
 	const float	sin_pitch = sin(pitch);
 	const float	cos_pitch = cos(pitch);
 
-	return (vec3(
-			cos_pitch * cos_yaw,
-			sin_pitch,
-			cos_pitch * sin_yaw
-		));
+	return ((t_vec3){
+		cos_pitch * cos_yaw * 0.5f,
+		sin_pitch * 0.5f,
+		cos_pitch * sin_yaw * 0.5f
+	});
 }
 
 static void	sphere_fill_vertices(t_vec3 *vertices, int stacks, int sectors)
