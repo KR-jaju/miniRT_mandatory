@@ -15,7 +15,6 @@ static void	init_meshes(t_mesh *meshes)
 	[MESH_CYLINDER] = {10, -1},
 	};
 
-	// TODO: 해상도(RESOLUTION)값에 따른 섹터, 스택 개수 계산식 조율
 	plane_init(&meshes[MESH_PLANE]);
 	sphere_init(&meshes[MESH_SPHERE], \
 				RESOLUTION * parms[MESH_SPHERE][0], \

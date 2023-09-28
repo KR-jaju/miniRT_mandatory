@@ -2,7 +2,6 @@
 #include "scene.h"
 #include <stdlib.h>
 
-
 bool	is_color(t_vec3 color);
 
 void	parse_l(t_scene *scene, bool declared[3], const char **str_ref)
