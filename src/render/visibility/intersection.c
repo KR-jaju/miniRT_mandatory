@@ -43,8 +43,6 @@ bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 	float		t;
 	t_vec3		point;
 
-	// if (dot_nl > 0 || (-EPSILON < dot_nl && dot_nl < 0))
-	// 	return (false);
 	if (-EPSILON < dot_nl)
 		return (false);
 	t = vec3_dot(vec3_sub(tri->vertices[0], ray->origin), tri->face_normal) \
