@@ -12,5 +12,5 @@ t_vec3	vec3_interpolate(t_vec3 *vectors, float *ratio, int n_vectors)
 		v = vec3_add(v, vec3_mul(vectors[i], ratio[i]));
 		i++;
 	}
-	return (vec3_normalize(v));
+	return (v);
 }

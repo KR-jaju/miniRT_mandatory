@@ -4,10 +4,14 @@
 
 void	plane_fill_vertices(t_vec3 *vertices)
 {
-	vertices[0] = (t_vec3){-PLANE_SIDE_LENGTH, 0, PLANE_SIDE_LENGTH};
-	vertices[1] = (t_vec3){-PLANE_SIDE_LENGTH, 0, -PLANE_SIDE_LENGTH};
-	vertices[2] = (t_vec3){PLANE_SIDE_LENGTH, 0, -PLANE_SIDE_LENGTH};
-	vertices[3] = (t_vec3){PLANE_SIDE_LENGTH, 0, PLANE_SIDE_LENGTH};
+	vertices[0] = (t_vec3){(float)-PLANE_SIDE_LENGTH / 2, \
+							0, (float)PLANE_SIDE_LENGTH / 2};
+	vertices[1] = (t_vec3){(float)-PLANE_SIDE_LENGTH / 2, \
+							0, (float)-PLANE_SIDE_LENGTH / 2};
+	vertices[2] = (t_vec3){(float)PLANE_SIDE_LENGTH / 2, \
+							0, (float)-PLANE_SIDE_LENGTH / 2};
+	vertices[3] = (t_vec3){(float)PLANE_SIDE_LENGTH / 2, \
+							0, (float)PLANE_SIDE_LENGTH / 2};
 }
 
 void	plane_fill_indices(int *indices)
