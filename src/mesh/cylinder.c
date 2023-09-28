@@ -26,7 +26,6 @@ static void	cylinder_fill_vertex_normals(t_vec3 *vertex_normals, \
 
 void	cylinder_init(t_mesh *mesh, int sectors)
 {
-	mesh->type = MESH_CYLINDER;
 	mesh->n_triangles = sectors * 4;
 	mesh->n_vertices = (sectors * 4) + 2;
 	mesh->n_indices = mesh->n_triangles * 3;

@@ -98,7 +98,6 @@ static void	sphere_fill_indices(int *indices, int stacks, int sectors)
 
 void	sphere_init(t_mesh *mesh, int stacks, int sectors)
 {
-	mesh->type = MESH_SPHERE;
 	mesh->n_triangles = 2 * sectors * (stacks - 1);
 	mesh->n_vertices = sectors * (stacks - 1) + 2;
 	mesh->n_indices = mesh->n_triangles * 3;
