@@ -63,7 +63,7 @@ void	preprocess_vertex_normals(t_vec3 *mesh_vn_arr, t_vec3 *obj_vn_arr, \
 	while (i < n_vertices)
 	{
 		vn = mesh_vn_arr[i];
-		homo_vn = mat4_mulmv(*r_mat, (t_vec4){vn.x, vn.y, vn.z, 1});
+		homo_vn = mat4_mulmv(*r_mat, (t_vec4){vn.x, vn.y, vn.z, 0});
 		obj_vn_arr[i] = (t_vec3){homo_vn.x, homo_vn.y, homo_vn.z};
 		i++;
 	}
