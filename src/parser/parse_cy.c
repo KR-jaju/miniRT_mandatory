@@ -15,11 +15,11 @@ t_vec3	rotation_from(t_vec3 axis)
 
 	if (!is_normalized(axis))
 		handle_parse_error(ERROR_INVALID_LINE_FORMAT);
-	yaw = acosf(axis.y) * 180 / M_PI;
-	if (axis.x == 0 && axis.z == 0)
-		pitch = 0;
+	if (hypot == 0)
+		yaw = 0;
 	else
-		pitch = atan2f(axis.y, hypot) * 180 / M_PI;
+		yaw = atan2f(axis.z, axis.x) * 180 / M_PI;
+	pitch = acosf(axis.y) * 180 / M_PI;
 	return ((t_vec3){pitch, yaw, 0});
 }
 
