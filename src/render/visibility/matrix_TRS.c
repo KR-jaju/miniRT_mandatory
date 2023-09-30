@@ -38,8 +38,8 @@ t_mat4	rotate_matrix(t_vec3 r)
 		0, 0, 0, 1
 	};
 
-	return (mat4_mulmm(mat4_by_values(values_x), \
-				mat4_mulmm(mat4_by_values(values_y), \
+	return (mat4_mulmm(mat4_by_values(values_y), \
+				mat4_mulmm(mat4_by_values(values_x), \
 							mat4_by_values(values_z))));
 }
 
