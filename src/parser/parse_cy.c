@@ -2,6 +2,7 @@
 #include "scene.h"
 #include <stdlib.h>
 #include <math.h>
+#include <stdio.h>
 
 bool	is_color(t_vec3 color);
 bool	is_normalized(t_vec3 v);
@@ -18,7 +19,7 @@ t_vec3	rotation_from(t_vec3 axis)
 	if (hypot == 0)
 		yaw = 0;
 	else
-		yaw = atan2f(axis.z, axis.x) * 180 / M_PI;
+		yaw = atan2f(axis.x, axis.z) * 180 / M_PI;
 	pitch = acosf(axis.y) * 180 / M_PI;
 	return ((t_vec3){pitch, yaw, 0});
 }
@@ -36,7 +37,7 @@ void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
 	skip_space(str_ref);
 	cylinder.position = parse_vec3(str_ref);
 	skip_space(str_ref);
-	cylinder.rotation = rotation_from(parse_vec3(str_ref));
+	cylinder.rotation = rotation_from(vec3_normalize(parse_vec3(str_ref)));
 	skip_space(str_ref);
 	diameter = parse_float(str_ref);
 	skip_space(str_ref);
