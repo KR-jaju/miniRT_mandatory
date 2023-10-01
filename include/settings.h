@@ -8,7 +8,7 @@
 # define IMAGE_PUT_INTERVAL_PERCENT	5
 
 /* camera */
-# define NEAR	0.3 // 사실 아무 값이나 상관없음
+# define NEAR	0.1f // 사실 아무 값이나 상관없음
 # define FAR	1000 // 사실 아무 값이나 상관없음
 
 /* render option */

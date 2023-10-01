@@ -10,6 +10,7 @@
 화면 모서리의 네 픽셀에 대해서만 world space 기준 좌표를 미리 구하고,
 해당 4개의 좌표들을 선형 보간(linear interpolate)하여 현재 구하고 싶은 픽셀의 world space 기준 좌표를 구한다.
 */
+#include <stdio.h>
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
 	t_vec3				pixel_world_pos;
@@ -22,8 +23,9 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	ratio[2] = (1 - x_percentage) * y_percentage;
 	ratio[3] = x_percentage * y_percentage;
 	pixel_world_pos = vec3_interpolate(cam->corners_world_pos, ratio, 4);
-	//return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
-	return (vec3_normalize(pixel_world_pos));
+	//printf("%f, %f, %f\n", pixel_world_pos.x, pixel_world_pos.y, pixel_world_pos.z);
+	return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
+	// return (vec3_normalize(pixel_world_pos));
 }
 
 /*
