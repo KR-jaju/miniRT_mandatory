@@ -22,7 +22,8 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 	ratio[2] = (1 - x_percentage) * y_percentage;
 	ratio[3] = x_percentage * y_percentage;
 	pixel_world_pos = vec3_interpolate(cam->corners_world_pos, ratio, 4);
-	return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
+	//return (vec3_normalize(vec3_sub(pixel_world_pos, cam->position)));
+	return (vec3_normalize(pixel_world_pos));
 }
 
 /*
