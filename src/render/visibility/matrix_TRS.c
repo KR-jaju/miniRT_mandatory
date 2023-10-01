@@ -11,7 +11,7 @@ t_mat4	translate_matrix(t_vec3 t)
 	};
 	t_mat4		m;
 
-	ft_memcpy(&m, values, sizeof(m));
+	ft_memcpy(&m, values, sizeof(float) * 16);
 	return (m);
 }
 

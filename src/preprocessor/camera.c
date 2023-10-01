@@ -20,11 +20,11 @@ static t_vec3	screen_to_ndc(int screen_x, int screen_y, int width, int height)
 
 	ndc.x = ((screen_x + 0.5) / width) * 2 - 1;
 	ndc.y = 1 - ((screen_y + 0.5) / height) * 2;
-	ndc.z = 0;
+	ndc.z = -1;
 	return (ndc);
 }
 
-static t_vec3	screen_to_world_space(int screen_x, int screen_y, \
+t_vec3	screen_to_world_space(int screen_x, int screen_y, \
 									const t_mat4 *pv_inverse)
 {
 	t_vec3	ndc;
