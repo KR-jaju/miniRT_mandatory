@@ -15,7 +15,7 @@ t_mat4	translate_matrix(t_vec3 t)
 	return (m);
 }
 
-// 왼손 좌표계이므로 z, y, x 순서로 적용 (yaw-pitch-roll)
+// 유니티와 동일하게 z, x, y 순서로 적용 (roll-pitch-yaw)
 t_mat4	rotate_matrix(t_vec3 r)
 {
 	const float	radian = M_PI / 180;
