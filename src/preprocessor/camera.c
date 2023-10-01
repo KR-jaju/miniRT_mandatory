@@ -3,36 +3,47 @@
 
 t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position);
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
-#define W 0.1f
-//0.5998f
-static t_vec3	ndc_to_world_space(t_vec3 ndc, const t_mat4 *pv_inverse)
-{
-	t_vec4	v4;
 
-	v4 = mat4_mulmv(*pv_inverse, 
-		vec4_mul((t_vec4){ndc.x, ndc.y, ndc.z, 1.0f}, NEAR));
-	vec4_mul(v4, (1 / v4.w));
-	return ((t_vec3){v4.x, v4.y, v4.z});
-}
-
-// ndc.z는 -1~1 범위면 상관없음
-static t_vec3	screen_to_ndc(int screen_x, int screen_y, int width, int height)
+static t_vec3	screen_to_ndc_space(int screen_x, int screen_y, \
+										int width, int height)
 {
 	t_vec3	ndc;
 
 	ndc.x = ((screen_x + 0.5) / width) * 2 - 1;
 	ndc.y = 1 - ((screen_y + 0.5) / height) * 2;
-	ndc.z = -1.0;
+	ndc.z = -1; // -1~1 사이의 임의의 값
 	return (ndc);
+}
+
+// ndc.z값에 따라 NEAR~FAR값으로 매핑
+// w값 = -1~1에서 NEAR~FAR로 매핑되는 z값
+static t_vec4	ndc_to_clip_space(t_vec3 ndc)
+{
+	const float	w = (((ndc.z / 2) + 0.5) * (FAR - NEAR)) + NEAR;
+
+	return (vec4_mul((t_vec4){ndc.x, ndc.y, ndc.z, 1}, w));
+}
+
+static t_vec3	clip_to_world_space(t_vec4 clip, const t_mat4 *pv_inverse)
+{
+	t_vec4	v4;
+
+	v4 = mat4_mulmv(*pv_inverse, clip);
+	vec4_mul(v4, (1 / v4.w));
+	return ((t_vec3){v4.x, v4.y, v4.z});
 }
 
 static t_vec3	screen_to_world_space(int screen_x, int screen_y, \
 									const t_mat4 *pv_inverse)
 {
 	t_vec3	ndc;
+	t_vec4	clip;
+	t_vec3	world;
 
-	ndc = screen_to_ndc(screen_x, screen_y, IMAGE_WIDTH, IMAGE_HEIGHT);
-	return (ndc_to_world_space(ndc, pv_inverse));
+	ndc = screen_to_ndc_space(screen_x, screen_y, IMAGE_WIDTH, IMAGE_HEIGHT);
+	clip = ndc_to_clip_space(ndc);
+	world = clip_to_world_space(clip, pv_inverse);
+	return (world);
 }
 
 /*
@@ -45,7 +56,6 @@ world space상에서의 픽셀 좌표 구하기
 구해야하는 이미지 플레인 모서리 좌표
 (0, 0), (WIDTH, 0), (0, HEIGHT), (WIDTH, HEIGHT)
 */
-#include <stdio.h>
 int	preprocess_camera(t_camera *cam)
 {
 	const t_mat4	pv = mat4_mulmm(\
@@ -53,12 +63,6 @@ int	preprocess_camera(t_camera *cam)
 																NEAR, FAR), \
 			view_matrix(cam->right, cam->up, cam->forward, cam->position));
 	const t_mat4	pv_inverse = mat4_inverse(pv);
-
-	t_vec4 t = mat4_mulmv(pv_inverse, (t_vec4){1, 1, -1, 1});
-	t = vec4_mul(t, 1.0f / t.w);
-	printf("PV^-1 %f,%f,%f,%f\n", t.x, t.y, t.z, t.w);
-
-
 	const int		corners[4][2] = {{0, 0}, \
 									{IMAGE_WIDTH, 0}, \
 									{0, IMAGE_HEIGHT}, \
@@ -70,9 +74,6 @@ int	preprocess_camera(t_camera *cam)
 	{
 		cam->corners_world_pos[i] = \
 			screen_to_world_space(corners[i][0], corners[i][1], &pv_inverse);
-		// cam->corners_world_pos[i] = \
-		//  	vec3_sub(screen_to_world_space(corners[i][0], corners[i][1], &pv_inverse)
-		//  	,cam->position);
 		i++;
 	}
 	return (0);
