@@ -24,9 +24,10 @@ static void	barycentric_coordinates(t_vec3 p, t_vec3 *abc, float *coord)
 }
 
 /*
-smooth shading을 위해 보간된 노말을 반환한다.
-교차지점이 위치한 삼각형의 세 정점이 어떠한 비율로 교차지점에 반영되었는지
-Barycentric(무게중심) 좌표계를 통해 구하고 해당 비율로 보간된 새로운 노말을 구한다.
+Returns the interpolated normal for smooth shading.
+The ratio of the three vertices of the triangle to the
+intersection point is calculated through the Barycentric coordinate system,
+and a new normal interpolated at that ratio is obtained.
 */
 t_vec3	interpolate_normal(t_vec3 p, t_triangle *t)
 {

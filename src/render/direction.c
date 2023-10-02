@@ -1,7 +1,7 @@
 #include "libmath.h"
 
 /*
-입사벡터: 교차점 -> 빛
+Incident vector: intersection point -> light position
 */
 t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos)
 {
@@ -10,9 +10,9 @@ t_vec3	incident_direction(t_vec3 hit_pos, t_vec3 light_pos)
 }
 
 /*
-반사벡터: 입사각과 동일한 각도로 반사
+Reflection vector: Reflect at the same angle as the incident angle
 	R = -i + 2n(i * n)
-	i: 입사벡터, n: 교차점의 노말
+	i: incident vector, n: normal at intersection
 */
 t_vec3	reflection_direction(t_vec3 i, t_vec3 n)
 {
@@ -22,7 +22,7 @@ t_vec3	reflection_direction(t_vec3 i, t_vec3 n)
 }
 
 /*
-시선벡터: 교차점 -> 카메라
+View vector: intersection point -> camera position
 */
 t_vec3	view_direction(t_vec3 camera_pos, t_vec3 hit_pos)
 {

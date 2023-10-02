@@ -3,9 +3,8 @@
 #include "render.h"
 
 /*
-로컬 공간 -> 월드 공간 매핑
-
-T, R, S 세 개의 행렬을 compose하면 된다.
+Local Space -> World Space Mapping
+: Compose three matrices, T, R, and S.
 */
 t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 {
@@ -20,18 +19,18 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 }
 
 /*
-월드 공간 -> 뷰 공간 매핑
+World Space -> View Space Mapping
 
-뷰 공간은 카메라의 세 개의 방향벡터가 이루는 공간이므로,
-이미 알고있는 카메라 방향벡터를 그대로 행벡터로 삼으면 된다.
-세 개의 축이 직교하는 유클리드 공간끼리의 매핑이므로 간단하게 기저벡터의 전환으로 생각할 수 있다.
-(right - x축, up - y축, forward - z축)
+: The view space is the space formed by the camera's three direction vectors,
+You can use the camera direction vector that you already know as the row vector.
+Since the three axes are mapped between orthogonal Euclidean spaces, 
+we can simply think of it as a transition of the basis vector.
+(right - x-axis, up - y-axis, forward - z-axis)
 
-우리는 카메라 파라미터를 eye, look-at, up로 두고 있으므로
-이 파라미터들을 이용해 view space의 basis 벡터(right, up, forward)를 구하면 된다.
-
-뷰 공간으로 매핑하기 위해서는 먼저 중심을 카메라 기준으로 옮기고(이동변환), 그 다음 회전변환을 하면 된다.
-뷰 행렬 = (회전 변환 행렬) * (이동 변환 행렬)
+In order to map to the view space, 
+first, the center is moved to the camera (movement conversion), 
+and then rotation conversion is performed.
+View Matrix = R * T
 */
 t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 {
@@ -47,11 +46,9 @@ t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 }
 
 /*
-뷰 공간 -> 클립 공간 (NDC공간 아님, 정규화x)
-
-투영 행렬을 구하기 위해 near, far가 필요한 것은 맞는데,
-우리는 z버퍼를 사용하지 않으므로 아무값이나 설정해도 무방.
-(기본값 0.3, 1000으로 설정할 예정)
+View Space -> Clip Space Mapping
+: In order to give a sense of perspective, 
+it is mapped to a Proustam made by camera parameters. (FOV, near, far, ratio...)
 */
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 {

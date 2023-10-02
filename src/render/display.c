@@ -18,12 +18,12 @@ void	render_image(int progress, t_scene *scene, t_image *img)
 }
 
 /*
-1. 현재 처리해야하는 픽셀 컬러 계산
-2. 계산된 픽셀 컬러를 이미지에 반영
-3. 이미지를 윈도우에 put
+1. Calculating pixel colors that need to be processed at this time
+2. Reflect calculated pixel color to image
+3. Put the image into the window
 
-이미지를 윈도우에 put하는 작업은 상당한 시간이 소요되므로,
-put 작업의 간격(interval)을 두고 그만큼 진행이 되었을 때마다 put하도록 한다.
+Putting an image into a window takes a lot of time, 
+so put operation is done at intervals
 */
 int	render_display(t_program_data *data)
 {
