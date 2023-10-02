@@ -2,12 +2,6 @@
 #include "render.h"
 #include "settings.h"
 
-/*
-삼각형의 세 점 a, b, c는 한 평면 안에 놓여있기 때문에,
-cross_abap, cross_bcbp, cross_cacp는 단 두 가지의 방향만 갖게 됨
-(해당 평면을 기준으로 법선벡터 2종류)
-따라서 세 외적벡터의 방향이 같은지 확인할 때 두 번만 확인해도 무방
-*/
 static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 {
 	const t_vec3	cross_abap = vec3_cross(vec3_sub(tp[1], tp[0]), \
@@ -18,7 +12,8 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 											vec3_sub(p, tp[2]));
 
 	return (vec3_dot(cross_abap, cross_bcbp) >= 0 \
-			&& vec3_dot(cross_abap, cross_cacp) >= 0);
+			&& vec3_dot(cross_abap, cross_cacp) >= 0 \
+			&& vec3_dot(cross_bcbp, cross_cacp) >= 0);
 }
 
 /*
