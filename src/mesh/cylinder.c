@@ -24,6 +24,9 @@ static void	cylinder_fill_vertex_normals(t_vec3 *vertex_normals, \
 	vertex_normals[sectors * 4 + 1] = (t_vec3){0, -1, 0};
 }
 
+/*
+실린더는 다른 다면체와는 다르게 버텍스 버퍼가 두 배 필요하니 유의. (뚜껑과 옆면 따로 다루어야함)
+*/
 void	cylinder_init(t_mesh *mesh, int sectors)
 {
 	mesh->n_triangles = sectors * 4;

@@ -6,8 +6,8 @@ t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
 /*
 스크린 공간 -> NDC 공간 변환
-: x, y의 범위가 각각 [0, width), [0, height)인 2차원 평면 상의 좌표를
-x, y, z의 범위가 모두 [-1, 1]인 3차원 정육면체 공간으로 매핑한다.
+: 원점이 좌측 상단이고 x, y의 범위가 각각 [0, width), [0, height)인 2차원 평면 상의 좌표를
+원점이 좌측 하단이고 x, y, z의 범위가 [-1, 1]인 3차원 정육면체 공간으로 매핑한다.
 */
 static t_vec3	screen_to_ndc_space(t_vec3 screen, float depth, \
 										int width, int height)
@@ -65,9 +65,10 @@ static t_vec3	pixel_to_world_space(int pixel_x, int pixel_y, \
 
 /*
 레이 트레이싱에서 카메라의 파라미터들은 결국 카메라 레이 방향벡터를 구하는데 쓰인다.
-매 픽셀마다 PV의 역행렬을 구하는 건 비효율적이므로, 보다 효율적인 동작을 위해
-전처리 작업으로서 image plane의 모서리(corner)의 네 점의 world space 기준 좌표를 미리 구해두고
-후에 이를 보간하여 사용한다.
+카메라 레이 방향 벡터는 현재 색상을 구하려는 픽셀의 월드 공간 기준 좌표에서 카메라 좌표를 빼서 구하는데,
+월드 공간 기준 좌표를 구하기 위해매 픽셀마다 PV의 역행렬을 구하는 건 비효율적이므로
+보다 효율적인 실행을 위해 전처리 작업으로서 image plane의 모서리(corner)의
+네 점의 world space 기준 좌표를 미리 구해두고 후에 이를 보간하여 사용한다.
 */
 int	preprocess_camera(t_camera *cam)
 {

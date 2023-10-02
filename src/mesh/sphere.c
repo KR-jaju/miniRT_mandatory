@@ -3,10 +3,10 @@
 #include "mesh.h"
 
 /*
-yaw(y축)와 pitch(x축) 각도 값을 가지고 길이가 1인 벡터 반환.
-매개변수 yaw와 pitch는 라디안 단위로 들어옴.
-	yaw 범위: 0 ~ 2pi (0 ~ 360도)
-	pitch 범위: -pi ~ pi (-90 ~ 90도)
+yaw와 pitch를 받아 해당하는 좌표를 반환
+- yaw 범위: [0, 2pi]
+- pitch 범위: [-pi, pi]
+- 구의 중심으로부터 좌표까지의 길이 = 단위원의 반지름(0.5)
 */
 static t_vec3	point_at(float yaw, float pitch)
 {

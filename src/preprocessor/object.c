@@ -26,6 +26,10 @@ static t_material	default_material(t_vec3 color)
 	return (material);
 }
 
+/*
+오브젝트에 저장되어있는 변환 정보(이동, 회전, 스케일) 및 모델링 원형(메쉬)를 토대로
+정점, 정점 노말, 삼각형 배열을 미리 구해 채워넣는다.
+*/
 int	preprocess_object(t_object *obj)
 {
 	const t_mat4	r_mat = rotate_matrix(obj->rotation);
