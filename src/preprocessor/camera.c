@@ -14,8 +14,8 @@ static t_vec3	screen_to_ndc_space(t_vec3 screen, float depth, \
 {
 	t_vec3	ndc;
 
-	ndc.x = (screen.x / width) * 2 - 1;
-	ndc.y = 1 - (screen.y / height) * 2;
+	ndc.x = (screen.x / width) * 2 - 1.0f;
+	ndc.y = -(screen.y / height) * 2 + 1.0f;
 	ndc.z = depth;
 	return (ndc);
 }
