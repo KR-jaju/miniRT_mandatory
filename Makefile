@@ -93,4 +93,5 @@ test_parse:
 	make dev
 	./miniRT ./scenes/sample.rt
 
+-include $(DEPS)
 .PHONY: all clean fclean re
