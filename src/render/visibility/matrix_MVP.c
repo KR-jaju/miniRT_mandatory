@@ -56,7 +56,7 @@ t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far)
 {
 	const float	fov_radian = M_PI / 180 * fov;
-	const float	d = 1.0f / tanf(fov_radian * 0.5f); // n / r, n/r * aspect_ratio
+	const float	d = 1.0f / tanf(fov_radian * 0.5f);
 	const float	values[16] = {
 		d, 0, 0, 0,
 		0, d * aspect_ratio, 0, 0,

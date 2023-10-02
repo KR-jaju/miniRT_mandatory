@@ -13,7 +13,7 @@
 
 /* render option */
 # define SMOOTH_SHADING		1 // Shading mode (Flat or Smooth)
-# define RESOLUTION			1 // 폴리곤 개수 비율 (해상도)
+# define RESOLUTION			1.0f // 폴리곤 개수 비율 (해상도)
 # define PLANE_SIDE_LENGTH	1.0f // length of one side of a plane
 
 /* material */

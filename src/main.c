@@ -14,8 +14,8 @@ static bool	has_extension(const char *path, const char *ext)
 
 /*
 1. scene 파싱 작업 및 initialize
-2. scene의 정보를 사용해 image를 렌더링
-3. window에 image를 put
+2. scene의 정보를 사용해 픽셀 하나 단위로 image를 렌더링
+3. window에 지금까지 완성된 image를 put
 
 렌더링이 전부 완료되기 전까지 2,3의 과정을 반복한다.
 
