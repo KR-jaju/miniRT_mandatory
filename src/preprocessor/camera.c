@@ -4,24 +4,16 @@
 t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position);
 t_mat4	projection_matrix(float fov, float aspect_ratio, float near, float far);
 
-static t_vec3	screen_to_ndc_space(int screen_x, int screen_y, \
+// depth는 -1~1 사이의 임의의 값. 우리는 Near plane상의 좌표를 구하기로 하였으므로 -1
+static t_vec3	screen_to_ndc_space(t_vec3 screen, float depth, \
 										int width, int height)
 {
 	t_vec3	ndc;
 
-	ndc.x = ((screen_x + 0.5) / width) * 2 - 1;
-	ndc.y = 1 - ((screen_y + 0.5) / height) * 2;
-	ndc.z = -1; // -1~1 사이의 임의의 값
+	ndc.x = ((screen.x + 0.5) / width) * 2 - 1;
+	ndc.y = 1 - ((screen.y + 0.5) / height) * 2;
+	ndc.z = depth;
 	return (ndc);
-}
-
-// ndc.z값에 따라 NEAR~FAR값으로 매핑
-// w값 = -1~1에서 NEAR~FAR로 매핑되는 z값
-static t_vec4	ndc_to_clip_space(t_vec3 ndc)
-{
-	const float	w = (((ndc.z / 2) + 0.5) * (FAR - NEAR)) + NEAR;
-
-	return (vec4_mul((t_vec4){ndc.x, ndc.y, ndc.z, 1}, w));
 }
 
 static t_vec3	clip_to_world_space(t_vec4 clip, const t_mat4 *pv_inverse)
@@ -33,15 +25,19 @@ static t_vec3	clip_to_world_space(t_vec4 clip, const t_mat4 *pv_inverse)
 	return ((t_vec3){v4.x, v4.y, v4.z});
 }
 
+// near plane 기준으로 이행하기 위해, ndc.z = -1 && clip.w = NEAR
 static t_vec3	screen_to_world_space(int screen_x, int screen_y, \
-									const t_mat4 *pv_inverse)
+										const t_mat4 *pv_inverse)
 {
-	t_vec3	ndc;
-	t_vec4	clip;
-	t_vec3	world;
+	t_vec3		ndc;
+	t_vec4		clip;
+	t_vec3		world;
+	const float	ndc_z = -1;
+	const float	clip_w = NEAR;
 
-	ndc = screen_to_ndc_space(screen_x, screen_y, IMAGE_WIDTH, IMAGE_HEIGHT);
-	clip = ndc_to_clip_space(ndc);
+	ndc = screen_to_ndc_space((t_vec3){screen_x, screen_y, 0}, ndc_z, \
+								IMAGE_WIDTH, IMAGE_HEIGHT);
+	clip = vec4_mul((t_vec4){ndc.x, ndc.y, ndc.z, 1}, clip_w);
 	world = clip_to_world_space(clip, pv_inverse);
 	return (world);
 }
