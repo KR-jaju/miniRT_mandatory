@@ -19,7 +19,7 @@ void	console_settings(void)
 	printf("reflectivity=%.1f, ", REFLECTIVITY);
 	printf("k_diffuse=%.1f, \n\t", K_DIFFUSE);
 	printf("  k_specular=%.1f, ", K_SPECULAR);
-	printf("shininess=%d\n", SHININESS);
+	printf("shininess=%f\n", SHININESS);
 	if (K_DIFFUSE + K_SPECULAR > 1)
 		printf(ANSI_YELLOW \
 		"\t(Warning: k_diffuse + k_specular is bigger than 1)\n"\
