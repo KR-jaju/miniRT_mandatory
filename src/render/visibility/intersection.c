@@ -17,19 +17,19 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 }
 
 /*
-레이-폴리곤(삼각형) 교차 검사:
-	1. 삼각형의 평면과 레이가 교차하는지 확인한다
-	2. 만약 그렇다면, 그 교차지점이 삼각형 내부에 있는지 확인한다
+ray-triangle intersect check:
+1. Check if the plane of the triangle intersects with the ray
+2. If so, make sure that the intersection is inside the triangle
 
-평면: (p-p0) * n = 0
-레이: l0 + l * t = p
-(l0-p0+lt).n = 0
-lt.n = (p0 - l0).n
-t = (p0-l0).n / l.n
-두 식을 연립하면 t = (p0 - l0) * n / (n * l)
+plane: (p-p0) * n = 0
+ray: l0 + l * t = p
+-> t = (p0 - l0) * n / (n * l)
 
-- n과 l의 방향이 같을 시(n * l > 0), 즉 레이가 평면의 뒷면과 교차하는 경우 false
-- n과 l이 평행할 시(n * l = 0), 즉 평면과 직선이 수직할시 false
+False when n and l are in the same direction (n * l > 0), 
+i.e., when the ray intersects the back of the plane.
+
+False when n and l are parallel (n * l = 0), 
+that is, when the plane and the straight line are perpendicular
 */
 bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 									t_hit_record *record)
@@ -54,8 +54,8 @@ bool	ray_triangle_intersection(t_ray *ray, t_triangle *tri, \
 }
 
 /*
-레이-오브젝트 교차 검사:
-오브젝트의 모든 폴리곤을 돌며 가장 가까운 hit을 찾는다.
+ray-object intersect check:
+Trying intersect check ray and all triangles of object and find the closest hit.
 */
 bool	ray_object_intersection(t_ray *ray, t_object *object, \
 								t_hit_record *record)

@@ -13,15 +13,16 @@ static bool	has_extension(const char *path, const char *ext)
 }
 
 /*
-1. scene 파싱 작업 및 initialize
-2. scene의 정보를 사용해 픽셀 하나 단위로 image를 렌더링
-3. window에 지금까지 완성된 image를 put
+1. Parse scene and initialize
+2. Rendering images in pixel by pixel using the scene
+3. Put the completed image in the window so far
 
-렌더링이 전부 완료되기 전까지 2,3의 과정을 반복한다.
+Repeat steps 2 and 3 until the rendering is complete.
 
-ray tracing 방식을 사용하므로 단 하나의 이미지를 렌더링하는데도 시간이 오래 걸릴 수 있다.
-전부 다 렌더링되기 이전에도 window에 image를 지속적으로 put하여 현황을 확인하게끔 하고 싶으므로
-loop_hook에 render_to_window 함수를 등록하여 반복 실행한다.
+Using the ray tracing method, rendering a single image can take a long time.
+Even before everything is rendered, we want to put the image into the window 
+continuously to check the status,
+so register the render_to_window function in the loop_hook and run it repeatedly.
 */
 int	main(int argc, char *argv[])
 {

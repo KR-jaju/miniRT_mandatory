@@ -4,11 +4,13 @@
 #include "settings.h"
 
 /*
-카메라 방향벡터: 카메라 좌표->픽셀 좌표
+Camera orientation vector
+: camera position -> pixel position
 
-전처리 작업에서 미리 구해둔 image plane의 모서리(corner)의 네 점의 world space 기준 좌표를
-선형 보간(linear interpolate)하여 현재 구하고 싶은 픽셀의 world space 기준 좌표를 구하고,
-이에 카메라의 좌표를 빼서 카메라 방향벡터를 구한다.
+Linearly interpolate the world space coordinates of the four points
+at the corners of the image plane obtained in the preprocessing work
+to get the world space coordinates of the pixel we want to get,
+and subtract the coordinates of the camera to get the camera direction vector.
 */
 static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 {
@@ -26,18 +28,23 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 }
 
 /*
-교차점 색상 계산:
-최종 색상 = 환경광(ambient) + 난반사(diffuse) + 정반사(specular)
-	(오브젝트의 재질에 따라 난반사와 정반사 항의 비율을 조정, 둘을 합하면 1)
+Use phong lighting model.
 
-각 항별 파라미터
-- ambient: 배경색상 (지역조명 모델이므로 매우 간단)
-- diffuse: 빛의 입사벡터, 교차지점 노말벡터
-- specular: 빛의 반사벡터, 시선벡터
+color = Ambient + Diffuse + Specular  
+(Adjusting the ratio of diffuse and specular terms according to the material
+of the object)
+(coefficients of the Diffuse term + coefficients of the Specular = 1)
 
-교차지점의 노말을 어떻게 설정하냐에 따라 Flat shading과 Smooth shading으로 나뉘어진다.
-- 폴리곤의 법선벡터(face normal) 사용 -> Flat shading
-- 폴리곤을 이루는 세 점의 정점 노말을 보간(interpolate)하여 얻어낸 노말 사용 -> Smooth shading
+Parameters for each term
+- Ambient: Background color (very simple as it is a local lighting model)
+- diffuse: Incident vector of light, Normal vector at intersection
+- Specific: Reflection vector of light, View vector
+
+It is divided into Flat shading and Smooth shading
+depending on how the normal vector of the intersection is set.
+- Using Polygon's normal (face normal) -> Flat shading
+- Using normal obtained by interpolating three vertex normal
+	that make up the polygon -> Smooth shading
 */
 static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 {
@@ -64,10 +71,10 @@ static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 }
 
 /*
-1. 카메라 레이 생성
-2. 오브젝트와 충돌 체크, 가장 가까운 오브젝트 찾음
-3.1. 찾은 경우 - 해당 교차지점에 대해 shading하여 반환
-3.2. 못 찾은 경우 - 배경 색 반환
+1. Create Camera Ray
+2. Check intersection with objects in scene, find nearest object  
+3.1. If found: Return Shaded color of the intersection
+3.2. If not found: Return background color
 */
 t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 {
