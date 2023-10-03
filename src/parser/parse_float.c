@@ -34,8 +34,6 @@ float	parse_decimal_part(const char **str_ref)
 	float	decimal_part;
 	float	place;
 
-	if (**str_ref != '.')
-		return (0);
 	(*str_ref)++;
 	decimal_part = 0;
 	place = 0.1f;
@@ -48,12 +46,21 @@ float	parse_decimal_part(const char **str_ref)
 	return (decimal_part);
 }
 
-// DEBUG: '70.'과 같은 케이스 처럼 .으로 끝나는 경우 에러 처리 필요
 float	parse_float(const char **str_ref)
 {
 	const float	sign = parse_sign(str_ref);
 	const float	integer_part = parse_integer_part(str_ref);
-	const float	decimal_part = parse_decimal_part(str_ref);
+	float		decimal_part;
 
-	return (sign * (integer_part + decimal_part));
+	if (**str_ref == '.')
+	{
+		if (ft_isdigit(*(*str_ref + 1)))
+		{
+			decimal_part = parse_decimal_part(str_ref);
+			return (sign * (integer_part + decimal_part));
+		}
+		else
+			handle_parse_error(ERROR_INVALID_LINE_FORMAT);
+	}
+	return (sign * integer_part);
 }
