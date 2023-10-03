@@ -37,7 +37,7 @@ void	parse_cy(t_scene *scene, t_list *obj_list, const char **str_ref)
 	skip_space(str_ref);
 	cylinder.position = parse_vec3(str_ref);
 	skip_space(str_ref);
-	cylinder.rotation = rotation_from(vec3_normalize(parse_vec3(str_ref)));
+	cylinder.rotation = rotation_from(parse_vec3(str_ref));
 	skip_space(str_ref);
 	diameter = parse_float(str_ref);
 	skip_space(str_ref);
