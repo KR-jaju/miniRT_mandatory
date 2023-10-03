@@ -8,12 +8,12 @@
 # define IMAGE_PUT_INTERVAL_PERCENT	5
 
 /* camera */
-# define NEAR	0.1f // 사실 아무 값이나 상관없음
-# define FAR	1000.0f // 사실 아무 값이나 상관없음
+# define NEAR	0.1f // doesn't matter what the value is
+# define FAR	1000.0f // doesn't matter what the value is
 
 /* render option */
 # define SMOOTH_SHADING		1 // Shading mode (Flat or Smooth)
-# define RESOLUTION			1.0f // 폴리곤 개수 비율 (해상도)
+# define RESOLUTION			2.0f // Polyhedral resolution
 # define PLANE_SIDE_LENGTH	1.0f // length of one side of a plane
 
 /* material */

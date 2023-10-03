@@ -43,18 +43,6 @@ Coordinate system mapping process for graphics pipeline is
 'world -> view -> clip -> NDC -> screen'
 By reversing, the coordinates on the screen space are mapped
 to the world space standard.
-
-<Mapping coordinates on screen space to world space>
-1. Convert to NDC coordinates (mapped to [-1,1] range)
-2. Convert to clip space coordinates (reflect depth on all components)
-3. Convert to world space coordinates
-(apply inverse matrix of projection matrix (P) and camera matrix (V))
-
-At this time, since it is a mapping from a two-dimensional plane
-to a three-dimensional space, an arbitrary depth must be set.
-For convenience, ensure that the coordinates of the points obtained
-are located on the near plane.
-(ndc.z = -1, clip.w = NEAR, view.z = NEAR)
 */
 static t_vec3	pixel_to_world_space(int pixel_x, int pixel_y, \
 										const t_mat4 *pv_inverse)
@@ -72,15 +60,10 @@ static t_vec3	pixel_to_world_space(int pixel_x, int pixel_y, \
 }
 
 /*
-In ray tracing, the parameters of the camera are eventually used to obtain
-the camera ray direction vector.
-The camera ray direction vector is obtained by subtracting
-the camera coordinates from the world space coordinates of the pixel
-that want to obtain the current color, and it is inefficient to obtain the
-inverse matrix of PV for each pixel to obtain the world space coordinates,
-so for more efficient execution, the four world space coordinates
-of the corner of the image plane are obtained in advance
-and used later by interpolating them.
+It is inefficient to obtain the inverse matrix of PV for each pixel
+to obtain the world space coordinates, so for more efficient execution,
+the four world space coordinates of the corner of the image plane are obtained
+in advance and used later by interpolating them.
 */
 int	preprocess_camera(t_camera *cam)
 {
