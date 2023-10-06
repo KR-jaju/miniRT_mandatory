@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:15 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:16 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:27:38 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include "settings.h"
 
 /*
-Camera orientation vector
-: camera position -> pixel position
+Camera ray: camera position -> pixel position
 
 Linearly interpolate the world space coordinates of the four points
 at the corners of the image plane obtained in the preprocessing work
@@ -40,7 +39,7 @@ static t_vec3	camera_ray_direction(int x, int y, t_camera *cam, t_image *img)
 }
 
 /*
-Use phong lighting model.
+Use the phong lighting model.
 
 color = Ambient + Diffuse + Specular  
 (Adjusting the ratio of diffuse and specular terms according to the material
@@ -52,8 +51,8 @@ Parameters for each term
 - diffuse: Incident vector of light, Normal vector at intersection
 - Specific: Reflection vector of light, View vector
 
-It is divided into Flat shading and Smooth shading
-depending on how the normal vector of the intersection is set.
+Flat shading or Smooth shading
+: depending on setting of the normal vector of the intersection
 - Using Polygon's normal (face normal) -> Flat shading
 - Using normal obtained by interpolating three vertex normal
 	that make up the polygon -> Smooth shading
@@ -78,15 +77,15 @@ static t_vec3	shading(t_hit_record *hit, const t_scene *scene)
 						reflection_direction(incident, hit->normal), \
 						view_direction(scene->camera.position, hit->point));
 	return (vec3_add(ambient, \
-			vec3_add(vec3_mul(diffuse, (float)1 - material->reflectivity), \
+			vec3_add(vec3_mul(diffuse, (float)1.0f - material->reflectivity), \
 					vec3_mul(specular, (float)material->reflectivity))));
 }
 
 /*
 1. Create Camera Ray
-2. Check intersection with objects in scene, find nearest object  
-3.1. If found: Return Shaded color of the intersection
-3.2. If not found: Return background color
+2. Check intersection with objects in scene, find nearest intersected point  
+3.	If found: Return Shaded color of the intersection
+	If not found: Return background color
 */
 t_vec3	render_pixel(int x, int y, t_scene *scene, t_image *img)
 {

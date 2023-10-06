@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:13 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:14 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:21:07 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void	render_image(int progress, t_scene *scene, t_image *img)
 /*
 1. Calculating pixel colors that need to be processed at this time
 2. Reflect calculated pixel color to image
-3. Put the image into the window
-
-Putting an image into a window takes a lot of time, 
-so put operation is done at intervals
+3. Put the image into the window at intervals
 */
 int	render_display(t_program_data *data)
 {

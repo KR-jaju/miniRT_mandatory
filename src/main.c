@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:05 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:06 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:20:23 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,6 @@ static bool	has_extension(const char *path, const char *ext)
 3. Put the completed image in the window so far
 
 Repeat steps 2 and 3 until the rendering is complete.
-
-Using the ray tracing method, rendering a single image can take a long time.
-Even before everything is rendered, we want to put the image into the window 
-continuously to check the status,
-so register the render_to_window function in the loop_hook and run it repeatedly.
 */
 int	main(int argc, char *argv[])
 {

@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:05:15 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:05:16 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:38:09 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	cylinder_fill_vertex_normals(t_vec3 *vertex_normals, \
 }
 
 /*
-실린더는 다른 다면체와는 다르게 버텍스 버퍼가 두 배 필요하니 유의. (뚜껑과 옆면 따로 다루어야함)
+Note that cylinders need twice as many vertex buffers as other polyhedrons 
+(should be handled separately from the cap and the side)
 */
 void	cylinder_init(t_mesh *mesh, int sectors)
 {

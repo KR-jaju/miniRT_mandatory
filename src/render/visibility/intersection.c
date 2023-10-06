@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:18 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:19 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:30:28 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static bool	is_point_in_triangle(t_vec3 p, t_vec3 *tp)
 
 /*
 ray-triangle intersect check:
+
 1. Check if the plane of the triangle intersects with the ray
 2. If so, make sure that the intersection is inside the triangle
 

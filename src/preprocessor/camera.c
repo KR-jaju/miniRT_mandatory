@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:30 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:31 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:34:16 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ static t_vec3	clip_to_world_space(t_vec4 clip, const t_mat4 *pv_inverse)
 /*
 Coordinate system mapping process for graphics pipeline is
 'world -> view -> clip -> NDC -> screen'
-By reversing, the coordinates on the screen space are mapped
-to the world space standard.
+By reversing, the coordinates on the screen space are mapped to the world space.
+
+At this time, since it is a mapping from a two-dimensional plane
+to a three-dimensional space, an arbitrary depth must be set.
+For convenience, ensure that the coordinates of the points obtained
+are located on the near plane. (ndc.z = -1, clip.w = NEAR, view.z = NEAR)
 */
 static t_vec3	pixel_to_world_space(int pixel_x, int pixel_y, \
 										const t_mat4 *pv_inverse)

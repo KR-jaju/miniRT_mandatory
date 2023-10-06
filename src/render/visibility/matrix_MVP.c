@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:20 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:21 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:30:12 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 /*
 Local Space -> World Space Mapping
-: Compose three matrices, T, R, and S.
+: Compose three matrices, T, R, and S. (M = T * R * S)
 */
 t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 {
@@ -32,17 +32,9 @@ t_mat4	model_matrix(t_vec3 pos, t_vec3 rot, t_vec3 scale)
 
 /*
 World Space -> View Space Mapping
-
-: The view space is the space formed by the camera's three direction vectors,
-You can use the camera direction vector that you already know as the row vector.
-Since the three axes are mapped between orthogonal Euclidean spaces, 
-we can simply think of it as a transition of the basis vector.
-(right - x-axis, up - y-axis, forward - z-axis)
-
-In order to map to the view space, 
+: In order to map to the view space, 
 first, the center is moved to the camera (movement conversion), 
-and then rotation conversion is performed.
-View Matrix = R * T
+and then rotation conversion is performed. (V = R * T)
 */
 t_mat4	view_matrix(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 position)
 {

@@ -6,18 +6,18 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:05:13 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:05:14 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:36:51 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mesh.h"
 
 /*
-yaw와 y값을 받아 해당하는 좌표를 반환
-- yaw 범위: [0, 2pi]
-- |y| = 실린더 높이의 절반
-- Disk(횡단면)의 중심으로부터 좌표까지의 길이 = 단위원의 반지름(0.5)
-	(즉 x, z값만 따졌을 때 길이가 0.5)
+Receive yaw and y values and return the corresponding coordinates
+- Yaw range: [0, 2pi]
+- |y| = half the height of the cylinder
+- Length from the center of the disk = radius of the unit circle (0.5)
+	(i.e., the length is 0.5 when considering x and z values only)
 */
 static t_vec3	point_at(float yaw, float y)
 {

@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:05:18 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:05:19 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:37:09 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include "mesh.h"
 
 /*
-yaw와 pitch를 받아 해당하는 좌표를 반환
-- yaw 범위: [0, 2pi]
-- pitch 범위: [-pi, pi]
-- 구의 중심으로부터 좌표까지의 길이 = 단위원의 반지름(0.5)
+Receive yaw and pitch and return the corresponding coordinates
+- Yaw range: [0, 2pi]
+- pitch range: [-pi, pi]
+- Length from the center of the sphere = radius of the unit circle (0.5)
 */
 static t_vec3	point_at(float yaw, float pitch)
 {
