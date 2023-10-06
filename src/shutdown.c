@@ -6,7 +6,7 @@
 /*   By: yeonhkim <yeonhkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:04:03 by yeonhkim          #+#    #+#             */
-/*   Updated: 2023/10/06 14:04:04 by yeonhkim         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:18:03 by yeonhkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,22 @@
 
 static void	destroy_scene(t_scene *scene)
 {
-	t_object	*obj;
-	int			i;
+	int	i;
 
+	i = 0;
+	while (i < MESH_COUNT)
+	{
+		free(scene->meshes[i].vertices);
+		free(scene->meshes[i].vertex_normals);
+		free(scene->meshes[i].indices);
+		i++;
+	}
 	i = 0;
 	while (i < scene->n_objects)
 	{
-		obj = &scene->objects[i];
-		free(obj->vertices);
-		free(obj->vertex_normals);
-		free(obj->triangles);
+		free(scene->objects[i].vertices);
+		free(scene->objects[i].vertex_normals);
+		free(scene->objects[i].triangles);
 		i++;
 	}
 }
@@ -40,6 +46,6 @@ int	shutdown_program(t_program_data	*data)
 	mlx_destroy_window(data->mlx->conn, data->mlx->win);
 	console_msg(MSG_DESTROY_SCENE);
 	destroy_scene(data->scene);
-	console_msg(ANSI_MAGENTA"\n"MSG_SHUTDOWN);
+	console_msg(ANSI_MAGENTA"\n"MSG_SHUTDOWN""ANSI_RESET);
 	exit(0);
 }
